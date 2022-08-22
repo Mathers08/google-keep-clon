@@ -1,10 +1,24 @@
 body {
   margin: 0;
   background-color: rgb(32, 33, 36);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  color: #fff;
+  font-family: 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+svg {
+  width: 25px;
+  padding: 15px;
+  height: 25px;
+  fill: rgb(190, 190, 191);
+  cursor: pointer;
+
+  &:hover {
+    fill: #fff;
+    border-radius: 50%;
+    background-color: rgb(50, 50, 53);
+  }
+}
