@@ -9,11 +9,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-svg {
+img {
   width: 25px;
   padding: 15px;
   height: 25px;
-  fill: rgb(190, 190, 191);
   cursor: pointer;
 
   &:hover {
