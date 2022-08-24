@@ -1,11 +1,15 @@
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { archive, arrowLeft, arrowRight, checked, image, palette, pencil, pin } from "../../assets";
 import './Notes.scss';
 import NoteItem from "./NoteItem";
 import { handleClickOutside } from "../../utils/handleClickOutside";
 import { INote } from "../../types/note";
 
-const Notes = () => {
+interface NotesProps {
+  isNoteListColumn: boolean;
+}
+
+const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
   const formRef = useRef(null);
   const [notes, setNotes] = useState<INote[]>([]);
   const [toggleInput, setToggleInput] = useState(false);
@@ -50,10 +54,10 @@ const Notes = () => {
           </div>
           {toggleInput && <div className="input-block textarea-block">
             <textarea value={noteText}
-                   onChange={onNoteTextChange}
-                   autoFocus={true}
-                   placeholder="Заметка..."
-                   className="note-input"
+                      onChange={onNoteTextChange}
+                      autoFocus={true}
+                      placeholder="Заметка..."
+                      className="note-input"
             />
             <div className="textarea-block-bottom">
               <div className="textarea-block-icons">
@@ -76,9 +80,9 @@ const Notes = () => {
             <img src={pin} alt="" className="note__area-icon"/>
           </div>}
       </div>
-      <div className="note__list">
+      <div className={`${isNoteListColumn ? 'note__list' : 'note__columnList'}`}>
         {notes.map((note, index) => (
-          <NoteItem key={`${note} + ${index}`} {...note}/>
+          <NoteItem key={`${note} + ${index}`} {...note} isNoteListColumn={isNoteListColumn}/>
         ))}
       </div>
     </section>

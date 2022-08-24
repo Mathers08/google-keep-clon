@@ -4,14 +4,25 @@ import { Header, Navbar, Notes } from "./components";
 
 const App = () => {
   const [hideNavbar, setHideNavbar] = useState(false);
+  const [isNoteListColumn, setIsNoteListColumn] = useState(false);
+
   const onBurgerClick = () => setHideNavbar(!hideNavbar);
+  const onGridIconClick = () => setIsNoteListColumn(!isNoteListColumn);
 
   return (
     <div>
-      <Header onBurgerClick={onBurgerClick}/>
-      <main className='main'>
-        <Navbar hideNavbar={hideNavbar}/>
-        <Notes/>
+      <Header
+        onBurgerClick={onBurgerClick}
+        isNoteListColumn={isNoteListColumn}
+        onGridIconClick={onGridIconClick}
+      />
+      <main className="main">
+        <Navbar
+          hideNavbar={hideNavbar}
+        />
+        <Notes
+          isNoteListColumn={isNoteListColumn}
+        />
       </main>
     </div>
   );

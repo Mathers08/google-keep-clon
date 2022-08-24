@@ -5,10 +5,12 @@ import { burger, grid1, grid2, grid3, search, settings } from "../../assets";
 import { handleClickOutside } from "../../utils/handleClickOutside";
 
 interface HeaderProps {
+  isNoteListColumn: boolean;
   onBurgerClick: () => void;
+  onGridIconClick: () => void;
 }
 
-const Header: FC<HeaderProps> = ({ onBurgerClick }) => {
+const Header: FC<HeaderProps> = ({ isNoteListColumn, onBurgerClick, onGridIconClick }) => {
   const settingsRef = useRef(null);
   const [settingsPopup, setSettingsPopup] = useState(false);
   const toggleSettingsPopup = () => setSettingsPopup(!settingsPopup);
@@ -44,8 +46,10 @@ const Header: FC<HeaderProps> = ({ onBurgerClick }) => {
       </div>
       <div className="header__right">
         <div className="header__right-icons">
-          <img src={grid1} alt=""/>
-          <img src={grid2} alt=""/>
+          {isNoteListColumn
+            ? <img onClick={onGridIconClick} src={grid1} alt=""/>
+            : <img onClick={onGridIconClick} src={grid2} alt=""/>
+          }
           <img src={settings} alt="" ref={settingsRef} onClick={toggleSettingsPopup}/>
 
           {settingsPopup && <div className="settings__popup">
