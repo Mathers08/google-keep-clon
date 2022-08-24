@@ -1,0 +1,122 @@
+.note {
+  flex: 0 1 80%;
+  margin-top: 20px;
+
+  &__area {
+    width: 600px;
+    margin: 0 auto;
+    position: relative;
+
+    &-label {
+      border-bottom: none;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.6), 0 2px 6px 2px rgba(0, 0, 0, 0.302);
+
+      .note-input {
+        background-color: initial;
+        font-family: Roboto, Arial, sans-serif;
+        outline: none;
+        border: none;
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        resize: none;
+
+        &::placeholder {
+          color: rgb(201, 201, 211);
+          font-size: 16px;
+        }
+      }
+
+      .input-block {
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        opacity: .8;
+        cursor: text;
+        height: 59px;
+        border: 1px solid #5f6368;
+        border-radius: 8px;
+      }
+
+      .header-input {
+        border-bottom: none;
+        box-shadow: none;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .textarea-block {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        height: 100%;
+        border-top: none;
+        box-shadow: none;
+        border-radius: 0 0 8px 8px;
+
+        ::placeholder {
+          font-size: 14px;
+        }
+
+        &-bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          margin-left: -10px;
+          cursor: initial;
+        }
+
+        &-icons {
+          display: flex;
+          gap: 20px;
+
+          img {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            padding: 10px;
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        &-btn {
+          background-color: initial;
+          border: none;
+          color: #dadce0;
+          margin-right: 15px;
+          height: 36px;
+          padding: 8px 25px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+
+          &:hover {
+            background-color: rgba(154, 160, 166, 0.039);
+          }
+        }
+      }
+    }
+
+    &-icons {
+      position: absolute;
+      margin: 3px 0;
+      right: 5px;
+      top: 0;
+    }
+  }
+
+  &__list {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    &-item {
+      width: 240px;
+      height: 200px;
+      border: 1px solid #5f6368;
+      border-radius: 8px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.6), 0 2px 6px 2px rgba(0, 0, 0, 0.302);
+    }
+  }
+}

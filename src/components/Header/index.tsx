@@ -1,13 +1,32 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import logo from '../../assets/logo.png';
 import './Header.scss';
 import { burger, grid1, grid2, grid3, search, settings } from "../../assets";
+import { handleClickOutside } from "../../utils/handleClickOutside";
 
 interface HeaderProps {
   onBurgerClick: () => void;
 }
 
 const Header: FC<HeaderProps> = ({ onBurgerClick }) => {
+  const settingsRef = useRef(null);
+  const [settingsPopup, setSettingsPopup] = useState(false);
+  const toggleSettingsPopup = () => setSettingsPopup(!settingsPopup);
+  const settingItems = [
+    'Настройки',
+    'Отключить тёмную тему',
+    'Отправить отзыв',
+    'Справка',
+    'Скачать приложение',
+    'Быстрые клавиши'
+  ];
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => handleClickOutside(e, settingsRef, setSettingsPopup);
+    document.body.addEventListener('click', handler);
+    return () => document.body.removeEventListener('click', handler);
+  }, []);
+
   return (
     <header className="header">
       <div className="header__left">
@@ -24,10 +43,19 @@ const Header: FC<HeaderProps> = ({ onBurgerClick }) => {
         <input type="text" placeholder="Поиск" className="header__middle-input"/>
       </div>
       <div className="header__right">
-        <div className="header__right-buttons">
+        <div className="header__right-icons">
           <img src={grid1} alt=""/>
           <img src={grid2} alt=""/>
-          <img src={settings} alt=""/>
+          <img src={settings} alt="" ref={settingsRef} onClick={toggleSettingsPopup}/>
+
+          {settingsPopup && <div className="settings__popup">
+            <ul>
+              {settingItems && settingItems.map((obj, index) => (
+                <li key={`${obj}_${index}`}>{obj}</li>
+              ))}
+            </ul>
+          </div>}
+
           <img src={grid3} alt=""/>
         </div>
         <div className="header__right-account"></div>

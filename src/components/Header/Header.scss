@@ -11,24 +11,27 @@
     align-items: center;
 
     &-burger {
-      svg {
-        fill: rgb(190, 190, 191);
-      }
+
     }
 
     &-logo {
-      margin-left: 15px;
+      margin-left: 10px;
 
       img {
         width: 50px;
         height: 50px;
+
+        &:hover {
+          border-radius: 0;
+          background-color: initial;
+        }
       }
     }
 
     &-name {
+      cursor: pointer;
       font-family: "Product Sans", Arial, sans-serif;
       font-size: 22px;
-      margin-left: 10px;
       color: rgb(201, 201, 211);
     }
   }
@@ -37,15 +40,18 @@
     position: relative;
     display: flex;
     align-items: center;
+
     &-icon {
       position: absolute;
       cursor: initial;
+
       &:hover {
         background-color: initial;
         fill: rgb(190, 190, 191);
         border-radius: 0;
       }
     }
+
     &-input {
       width: 700px;
       height: 50px;
@@ -74,12 +80,41 @@
   }
 
   &__right {
-    &-buttons {
+    &-icons {
       display: flex;
     }
 
     &-account {
 
+    }
+  }
+}
+
+.settings__popup {
+  position: absolute;
+  right: 70px;
+  margin-top: 55px;
+  background: #202124;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 60%), 0 2px 6px 2px rgb(0 0 0 / 30%);
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 6px 0;
+
+  ul {
+    li {
+      cursor: pointer;
+      border: 1px solid transparent;
+      letter-spacing: .01428571em;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: .875rem;
+      font-weight: 400;
+      line-height: 1.25rem;
+      padding: 5px 10px 5px 17px;
+
+      &.active,
+      &:hover {
+        background: rgb(82, 83, 85);
+      }
     }
   }
 }

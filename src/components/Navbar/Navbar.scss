@@ -1,8 +1,8 @@
 .nav {
   margin-top: 10px;
-  max-width: 350px;
 
   &__list {
+    width: 350px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -42,11 +42,12 @@
       }
     }
   }
+  transition: 1s all linear;
 
   .hide_nav {
     max-width: 100px;
-    transition: 1s all linear;
-
+    transition: .4s all linear;
+    margin-right: 100px;
     .nav__list-item {
       display: inline-flex;
       margin-left: 20px;

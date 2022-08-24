@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import './Navbar.scss';
-import { pencil, reminders, notes, archive, trash } from '../../assets';
+import { pen, reminders, notes, archive, trash } from '../../assets';
 
 interface NavbarProps {
   hideNavbar: boolean;
@@ -22,7 +22,7 @@ const Navbar: FC<NavbarProps> = ({ hideNavbar }) => {
     },
     {
       id: 3,
-      imgUrl: pencil,
+      imgUrl: pen,
       name: 'Изменение ярлыков',
     },
     {

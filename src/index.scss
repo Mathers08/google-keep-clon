@@ -21,3 +21,13 @@ img {
     background-color: rgb(50, 50, 53);
   }
 }
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main {
+  display: flex;
+}
