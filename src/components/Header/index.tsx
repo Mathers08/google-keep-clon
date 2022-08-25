@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import './Header.scss';
 import { burger, grid1, grid2, grid3, logo, search, settings } from "../../assets";
-import { handleClickOutside } from "../../utils/handleClickOutside";
+import { handleClickOutside } from "../../utils";
 
 interface HeaderProps {
   isNoteListColumn: boolean;

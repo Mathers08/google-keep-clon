@@ -1,10 +1,12 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
-import { archive, arrowLeft, arrowRight, checked, image, palette, pencil, pin } from "../../assets";
+import { archive, checked, image, palette, pencil, pin } from "../../assets";
 import './Notes.scss';
 import { handleClickOutside } from "../../utils";
 import { INote } from "../../types";
 import NoteList from "./NoteList";
 import { useUndoableState } from '../../hooks';
+import ArrowLeft from "../../assets/notes/arrowLeft";
+import ArrowRight from "../../assets/notes/arrowRight";
 
 interface NotesProps {
   isNoteListColumn: boolean;
@@ -16,8 +18,13 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
   const [toggleInput, setToggleInput] = useState(false);
   const [headerText, setHeaderText] = useState('');
   const [noteText, setNoteText] = useState('');
+  const { state, setState, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(noteText);
 
   const onInputClick = () => setToggleInput(true);
+  const onCloseClick = () => {
+    setToggleInput(false);
+    console.log(toggleInput);
+  };
   const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => setHeaderText(e.target.value);
   const onNoteSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,19 +38,6 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
     setNoteText('');
     console.log(headerText, noteText);
   };
-
-  const {
-    state,
-    setState,
-    docStateIndex,
-    docStateLastIndex,
-    undoText,
-    redoText
-  } = useUndoableState(noteText);
-
-  // disabled images/buttons
-  const canUndo = docStateIndex > 0;
-  const canRedo = docStateIndex < docStateLastIndex;
 
   useEffect(() => {
     const handler = (e: MouseEvent) => handleClickOutside(e, formRef, setToggleInput);
@@ -70,7 +64,7 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
             <textarea
               value={state}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setState(e.target.value)}
-              autoFocus={true}
+              autoFocus
               placeholder="Заметка..."
               className="note-input"
             />
@@ -78,22 +72,22 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
               <div className="textarea-block-icons">
                 <img src={palette} alt=""/>
                 <img src={archive} alt=""/>
-                <img src={arrowLeft} onClick={() => undoText()} alt=""/>
-                <img src={arrowRight} onClick={() => redoText()} alt=""/>
+                <ArrowLeft undoText={undoText} canUndo={docStateIndex > 0}/>
+                <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
               </div>
-              <button className="textarea-block-btn">Закрыть</button>
             </div>
           </div>}
+          {!toggleInput ?
+            <div className="note__area-icons">
+              <img src={checked} alt=""/>
+              <img src={pencil} alt=""/>
+              <img src={image} alt=""/>
+            </div> :
+            <div className="note__area-icons ">
+              <img src={pin} alt=""/>
+            </div>}
         </form>
-        {!toggleInput ?
-          <div className="note__area-icons">
-            <img src={checked} alt="" className="note__area-icon"/>
-            <img src={pencil} alt="" className="note__area-icon"/>
-            <img src={image} alt="" className="note__area-icon"/>
-          </div> :
-          <div className="note__area-icons">
-            <img src={pin} alt="" className="note__area-icon"/>
-          </div>}
+        {toggleInput && <button onClick={onCloseClick} className="note__area-btn">Закрыть</button>}
       </div>
       <NoteList notes={notes} isNoteListColumn={isNoteListColumn}/>
     </section>

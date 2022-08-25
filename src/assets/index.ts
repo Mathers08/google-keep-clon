@@ -16,6 +16,6 @@ export {default as checked} from './notes/checked.svg';
 export {default as pencil} from './notes/pencil.svg';
 export {default as image} from './notes/image.svg';
 export {default as pin} from './notes/pin.svg';
-export {default as arrowLeft} from './notes/arrowLeft.svg';
-export {default as arrowRight} from './notes/arrowRight.svg';
+export {default as arrowLeft} from './notes/arrowLeft';
+export {default as arrowRight} from './notes/arrowRight';
 export {default as palette} from './notes/palette.svg';
