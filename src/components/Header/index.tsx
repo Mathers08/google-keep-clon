@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import logo from '../../assets/logo.png';
 import './Header.scss';
-import { burger, grid1, grid2, grid3, search, settings } from "../../assets";
+import { burger, grid1, grid2, grid3, logo, search, settings } from "../../assets";
 import { handleClickOutside } from "../../utils/handleClickOutside";
 
 interface HeaderProps {

@@ -1,0 +1,33 @@
+import { useMemo, useState } from "react";
+import isEqual from "lodash/isEqual";
+
+export const useUndoableState = (init: any) => {
+  const [states, setStates] = useState([init]);
+  const [docStateIndex, setDocStateIndex] = useState(0);
+  const state = useMemo(() => states[docStateIndex], [states, docStateIndex]);
+
+  const setState = (value: string) => {
+    if (isEqual(state, value)) {
+      return;
+    }
+    const copy = states.slice(0, docStateIndex + 1);
+    copy.push(value);
+    setStates(copy);
+    setDocStateIndex(copy.length - 1);
+  };
+  const undoText = (steps = 1) => {
+    setDocStateIndex(Math.max(0, Number(docStateIndex) - (Number(steps) || 1)));
+  };
+  const redoText = (steps = 1) => {
+    setDocStateIndex(Math.min(states.length - 1, Number(docStateIndex) + (Number(steps) || 1)));
+  };
+
+  return {
+    state,
+    setState,
+    docStateIndex,
+    docStateLastIndex: states.length - 1,
+    undoText,
+    redoText,
+  };
+};

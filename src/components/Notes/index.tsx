@@ -1,9 +1,10 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { archive, arrowLeft, arrowRight, checked, image, palette, pencil, pin } from "../../assets";
 import './Notes.scss';
-import NoteItem from "./NoteItem";
-import { handleClickOutside } from "../../utils/handleClickOutside";
-import { INote } from "../../types/note";
+import { handleClickOutside } from "../../utils";
+import { INote } from "../../types";
+import NoteList from "./NoteList";
+import { useUndoableState } from '../../hooks';
 
 interface NotesProps {
   isNoteListColumn: boolean;
@@ -18,7 +19,6 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
 
   const onInputClick = () => setToggleInput(true);
   const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => setHeaderText(e.target.value);
-  const onNoteTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => setNoteText(e.target.value);
   const onNoteSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newNote: INote = {
@@ -31,6 +31,19 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
     setNoteText('');
     console.log(headerText, noteText);
   };
+
+  const {
+    state,
+    setState,
+    docStateIndex,
+    docStateLastIndex,
+    undoText,
+    redoText
+  } = useUndoableState(noteText);
+
+  // disabled images/buttons
+  const canUndo = docStateIndex > 0;
+  const canRedo = docStateIndex < docStateLastIndex;
 
   useEffect(() => {
     const handler = (e: MouseEvent) => handleClickOutside(e, formRef, setToggleInput);
@@ -45,26 +58,28 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
       <div className="note__area">
         <form ref={formRef} onSubmit={onNoteSubmit} className="note__area-label" onClick={onInputClick}>
           <div className={`input-block ${toggleInput ? 'header-input' : ''}`}>
-            <input value={headerText}
-                   onChange={onHeaderTextChange}
-                   type="text"
-                   placeholder={toggleInput ? "Введите заголовок" : "Заметка..."}
-                   className="note-input"
+            <input
+              value={headerText}
+              onChange={onHeaderTextChange}
+              type="text"
+              placeholder={toggleInput ? "Введите заголовок" : "Заметка..."}
+              className="note-input"
             />
           </div>
           {toggleInput && <div className="input-block textarea-block">
-            <textarea value={noteText}
-                      onChange={onNoteTextChange}
-                      autoFocus={true}
-                      placeholder="Заметка..."
-                      className="note-input"
+            <textarea
+              value={state}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setState(e.target.value)}
+              autoFocus={true}
+              placeholder="Заметка..."
+              className="note-input"
             />
             <div className="textarea-block-bottom">
               <div className="textarea-block-icons">
                 <img src={palette} alt=""/>
                 <img src={archive} alt=""/>
-                <img src={arrowLeft} alt=""/>
-                <img src={arrowRight} alt=""/>
+                <img src={arrowLeft} onClick={() => undoText()} alt=""/>
+                <img src={arrowRight} onClick={() => redoText()} alt=""/>
               </div>
               <button className="textarea-block-btn">Закрыть</button>
             </div>
@@ -80,11 +95,7 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
             <img src={pin} alt="" className="note__area-icon"/>
           </div>}
       </div>
-      <div className={`${isNoteListColumn ? 'note__list' : 'note__columnList'}`}>
-        {notes.map((note, index) => (
-          <NoteItem key={`${note} + ${index}`} {...note} isNoteListColumn={isNoteListColumn}/>
-        ))}
-      </div>
+      <NoteList notes={notes} isNoteListColumn={isNoteListColumn}/>
     </section>
   );
 };

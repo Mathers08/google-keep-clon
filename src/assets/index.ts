@@ -4,6 +4,7 @@ export {default as grid1} from './header/grid1.svg';
 export {default as grid2} from './header/grid2.svg';
 export {default as grid3} from './header/grid3.svg';
 export {default as settings} from './header/settings.svg';
+export {default as logo} from './header/logo.png';
 
 export {default as notes} from './navbar/notes.svg';
 export {default as reminders} from './navbar/reminders.svg';
