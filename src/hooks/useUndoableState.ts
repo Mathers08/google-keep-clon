@@ -4,10 +4,10 @@ import isEqual from "lodash/isEqual";
 export const useUndoableState = (init: any) => {
   const [states, setStates] = useState([init]);
   const [docStateIndex, setDocStateIndex] = useState(0);
-  const state = useMemo(() => states[docStateIndex], [states, docStateIndex]);
+  const noteText = useMemo(() => states[docStateIndex], [states, docStateIndex]);
 
-  const setState = (value: string) => {
-    if (isEqual(state, value)) {
+  const setNoteText = (value: string) => {
+    if (isEqual(noteText, value)) {
       return;
     }
     const copy = states.slice(0, docStateIndex + 1);
@@ -23,8 +23,8 @@ export const useUndoableState = (init: any) => {
   };
 
   return {
-    state,
-    setState,
+    noteText,
+    setNoteText,
     docStateIndex,
     docStateLastIndex: states.length - 1,
     undoText,

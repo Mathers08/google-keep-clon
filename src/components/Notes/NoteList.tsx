@@ -8,11 +8,15 @@ interface NoteListProps {
   isNoteListColumn: boolean;
 }
 
-const NoteList: FC<NoteListProps> = ({notes, isNoteListColumn}) => {
+const NoteList: FC<NoteListProps> = ({ notes, isNoteListColumn }) => {
   return (
     <div className={`${isNoteListColumn ? 'note__list' : 'note__columnList'}`}>
       {notes.map((note, index) => (
-        <NoteItem key={`${note} + ${index}`} {...note} isNoteListColumn={isNoteListColumn}/>
+        <NoteItem
+          key={`${note} + ${index}`}
+          {...note}
+          isNoteListColumn={isNoteListColumn}
+        />
       ))}
     </div>
   );

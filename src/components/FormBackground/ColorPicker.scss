@@ -1,0 +1,64 @@
+.colors {
+  background-color: #17191d;
+  border-radius: 10px;
+  display: flex;
+  position: absolute;
+  left: 70px;
+  bottom: -40px;
+  gap: 5px;
+  padding: 8px 9px;
+  box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7);
+
+  :nth-child(2) {
+    .colors__block-item {
+      border: 2px solid #5f6368;
+      box-shadow: none;
+      &:hover {
+        border: 2px solid #fff;
+      }
+    }
+  }
+
+  &__block {
+    position: relative;
+
+    &-item {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #17191d;
+      box-shadow: inset -2px 4px rgb(0 0 0 / 25%);
+
+      &:hover {
+        border: 2px solid #fff;
+      }
+    }
+
+    &-icon {
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      position: absolute;
+      top: -5px;
+      left: 18px;
+    }
+
+    .active {
+      border: 2px solid rgb(161, 66, 244);
+    }
+  }
+
+  &-reset-icon {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    position: absolute;
+    top: 15px;
+    left: 17px;
+    &:hover {
+      background-color: initial;
+      border-radius: 0;
+    }
+  }
+}
