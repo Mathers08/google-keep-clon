@@ -1,44 +1,25 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin } from "../../assets";
 import { useUndoableState } from "../../hooks";
-import { INote } from "../../types";
+import { INote } from "../../redux/note/types";
 import { handleClickOutside } from "../../utils";
 import ColorPicker from "../ColorPicker";
+import { useDispatch, useSelector } from "react-redux";
+import { selectNote } from "../../redux/note/selectors";
+import { addNote, setFormColor, setIsNotePined, setTextareaVisible } from "../../redux/note/slice";
 
-interface NoteFormProps {
-  isPined: boolean;
-  setIsPined: (isPined: boolean) => void;
-  notes: INote[];
-  setNotes: (notes: INote[]) => void;
-  pinedNotes: INote[];
-  setPinedNotes: (pinedNotes: INote[]) => void;
-  formColor: string;
-  setFormColor: (color: string) => void;
-  toggleInput: boolean;
-  setToggleInput: (toggleInput: boolean) => void;
-}
-
-const NoteForm: FC<NoteFormProps> = ({
-                                       isPined,
-                                       setIsPined,
-                                       notes,
-                                       setNotes,
-                                       pinedNotes,
-                                       setPinedNotes,
-                                       formColor,
-                                       setFormColor,
-                                       toggleInput,
-                                       setToggleInput
-                                     }) => {
+const NoteForm: FC = () => {
   const formRef = useRef(null);
+  const dispatch = useDispatch();
+  const { formColor, isNotePined, isTextareaVisible } = useSelector(selectNote);
   const [isColorBlockVisible, setIsColorBlockVisible] = useState(false);
   const [headerText, setHeaderText] = useState('');
   const textarea = '';
   const { noteText, setNoteText, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(textarea);
 
-  const onPinClick = () => setIsPined(!isPined);
+  const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
   const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => setHeaderText(e.target.value);
-  const onInputClick = () => setToggleInput(true);
+  const onInputClick = () => dispatch(setTextareaVisible(true));
   const onColorBlockClick = () => setIsColorBlockVisible(!isColorBlockVisible);
   const onNoteSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,22 +28,19 @@ const NoteForm: FC<NoteFormProps> = ({
       header: headerText,
       note: noteText,
       color: formColor,
-      pined: isPined
+      pined: isNotePined
     };
-    isPined ? setPinedNotes([newNote, ...pinedNotes]) : setNotes([newNote, ...notes]);
     setHeaderText('');
     setNoteText('');
     setIsColorBlockVisible(false);
-    setFormColor('rgb(32, 33, 36)');
-    setIsPined(false);
-    setToggleInput(false);
+    dispatch(addNote(newNote));
   };
 
   useEffect(() => {
     const callbacks = () => {
-      setToggleInput(false);
+      dispatch(setTextareaVisible(false));
       setIsColorBlockVisible(false);
-      setFormColor('rgb(32, 33, 36)');
+      dispatch(setFormColor('rgb(32, 33, 36)'));
     };
     const handler = (e: MouseEvent) => handleClickOutside(e, formRef, callbacks);
     document.body.addEventListener('click', handler);
@@ -79,16 +57,16 @@ const NoteForm: FC<NoteFormProps> = ({
       className="note__area-label"
       onClick={onInputClick}
     >
-      <div className={`input-block ${toggleInput ? 'header-input' : ''}`}>
+      <div className={`input-block ${isTextareaVisible ? 'header-input' : ''}`}>
         <input
           value={headerText}
           onChange={onHeaderTextChange}
           type="text"
-          placeholder={toggleInput ? "Введите заголовок" : "Заметка..."}
+          placeholder={isTextareaVisible ? "Введите заголовок" : "Заметка..."}
           className="note-input"
         />
       </div>
-      {toggleInput &&
+      {isTextareaVisible &&
         <div className="input-block textarea-block">
           <textarea
             value={noteText}
@@ -106,9 +84,9 @@ const NoteForm: FC<NoteFormProps> = ({
             </div>
           </div>
         </div>}
-      {toggleInput ?
+      {isTextareaVisible ?
         <div className="note__area-icons ">
-          <Pin isPined={isPined} onPinClick={onPinClick}/>
+          <Pin isPined={isNotePined} onPinClick={onPinClick}/>
         </div> :
         <div className="note__area-icons">
           <img src={checked} alt=""/>
@@ -116,11 +94,7 @@ const NoteForm: FC<NoteFormProps> = ({
           <img src={image} alt=""/>
         </div>
       }
-      {isColorBlockVisible && toggleInput &&
-        <ColorPicker
-          setFormColor={setFormColor}
-        />
-      }
+      {isColorBlockVisible && isTextareaVisible && <ColorPicker/>}
     </form>
   );
 };

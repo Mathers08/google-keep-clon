@@ -1,16 +1,27 @@
 import React, { FC } from 'react';
 import NoteItem from "./NoteItem";
 import './Notes.scss';
-import { INote } from "../../types";
+import { useSelector } from "react-redux";
+import { selectFilter } from "../../redux/filter/selectors";
+import { selectNote } from "../../redux/note/selectors";
 
 interface NoteListProps {
-  notes: INote[];
-  pinedNotes: INote[];
   isNoteListColumn: boolean;
 }
 
-const NoteList: FC<NoteListProps> = ({ notes, pinedNotes, isNoteListColumn }) => {
+const NoteList: FC<NoteListProps> = ({ isNoteListColumn }) => {
+  const { notes, pinedNotes } = useSelector(selectNote);
+  const { searchValue } = useSelector(selectFilter);
   const noteItems = notes
+    .filter(note => note.header.toLowerCase().includes(searchValue.toLowerCase()))
+    .map((note, index) => (
+      <NoteItem
+        key={`${note} + ${index}`}
+        {...note}
+        isNoteListColumn={isNoteListColumn}
+      />
+    ));
+  const pinedNoteItems = pinedNotes
     .filter(note => note.header.toLowerCase().includes(searchValue.toLowerCase()))
     .map((note, index) => (
       <NoteItem
@@ -25,27 +36,11 @@ const NoteList: FC<NoteListProps> = ({ notes, pinedNotes, isNoteListColumn }) =>
       {pinedNotes.length > 0 &&
         <div className={`${isNoteListColumn ? 'note__columnBlock-item' : 'note__block-item'}`}>
           <div className="note__block-title">Закрепленные</div>
-          <div className="note__list">
-            {pinedNotes.map((note, index) => (
-              <NoteItem
-                key={`${note} + ${index}`}
-                {...note}
-                isNoteListColumn={isNoteListColumn}
-              />
-            ))}
-          </div>
+          <div className="note__list">{pinedNoteItems}</div>
         </div>}
       <div className={`${isNoteListColumn ? 'note__columnBlock-item' : 'note__block-item'}`}>
         {pinedNotes.length > 0 && notes.length > 0 && <div className="note__block-title">Другие заметки</div>}
-        <div className="note__list">
-          {notes.map((note, index) => (
-            <NoteItem
-              key={`${note} + ${index}`}
-              {...note}
-              isNoteListColumn={isNoteListColumn}
-            />
-          ))}
-        </div>
+        <div className="note__list">{noteItems}</div>
       </div>
     </div>
   );

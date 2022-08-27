@@ -1,12 +1,11 @@
 import React, { FC, useState } from 'react';
 import './ColorPicker.scss';
 import { checkedColor, drop } from "../../assets";
+import { setFormColor } from "../../redux/note/slice";
+import { useAppDispatch } from "../../hooks";
 
-interface ColorPickerProps {
-  setFormColor: (v: string) => void;
-}
-
-const ColorPicker: FC<ColorPickerProps> = ({ setFormColor }) => {
+const ColorPicker: FC = () => {
+  const dispatch = useAppDispatch();
   const [selectedId, setSelectedId] = useState(0);
   const onItemClick = (id: number) => setSelectedId(id);
   const colors = [
@@ -69,7 +68,7 @@ const ColorPicker: FC<ColorPickerProps> = ({ setFormColor }) => {
             key={obj.id}
             className={`colors__block-item ${obj.id === selectedId ? 'active' : ''}`}
             onClick={() => {
-              setFormColor(obj.color);
+              dispatch(setFormColor(obj.color));
               onItemClick(obj.id);
             }}
             style={{ backgroundColor: obj.color }}

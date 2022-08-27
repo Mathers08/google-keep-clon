@@ -1,40 +1,24 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import './Notes.scss';
-import { INote } from "../../types";
-import NoteList from "./NoteList"
+import NoteList from "./NoteList";
 import NoteForm from "./NoteForm";
+import { useSelector } from "react-redux";
+import { selectNote } from "../../redux/note/selectors";
 
 interface NotesProps {
   isNoteListColumn: boolean;
 }
 
 const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
-  const [isPined, setIsPined] = useState(false);
-  const [notes, setNotes] = useState<INote[]>([]);
-  const [pinedNotes, setPinedNotes] = useState<INote[]>([]);
-  const [toggleInput, setToggleInput] = useState(false);
-  const [formColor, setFormColor] = useState('rgb(32, 33, 36)');
+  const { isTextareaVisible } = useSelector(selectNote);
 
   return (
     <section className="note">
       <div className="note__area">
-        <NoteForm
-          isPined={isPined}
-          setIsPined={setIsPined}
-          notes={notes}
-          setNotes={setNotes}
-          pinedNotes={pinedNotes}
-          setPinedNotes={setPinedNotes}
-          formColor={formColor}
-          setFormColor={setFormColor}
-          toggleInput={toggleInput}
-          setToggleInput={setToggleInput}
-        />
-        {toggleInput && <button className="note__area-btn">Закрыть</button>}
+        <NoteForm/>
+        {isTextareaVisible && <button className="note__area-btn">Закрыть</button>}
       </div>
       <NoteList
-        notes={notes}
-        pinedNotes={pinedNotes}
         isNoteListColumn={isNoteListColumn}
       />
     </section>

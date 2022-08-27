@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import './Notes.scss';
-import { INote } from "../../types";
+import { INote } from "../../redux/note/types";
 import Modal from "../ModalBlock";
 import NoteForm from "./NoteForm";
 
@@ -8,7 +8,7 @@ type NoteItemProps = INote & {
   isNoteListColumn: boolean;
 }
 
-const NoteItem: FC<NoteItemProps> = ({ header, note, color, pined, isNoteListColumn }) => {
+const NoteItem: FC<NoteItemProps> = ({ header, note, color, isNoteListColumn }) => {
   const customStyles = {
     width: isNoteListColumn ? '600px' : '240px',
     backgroundColor: color
@@ -21,18 +21,7 @@ const NoteItem: FC<NoteItemProps> = ({ header, note, color, pined, isNoteListCol
       <h3 className="item-header">{header}</h3>
       <p className="item-text">{note}</p>
       <Modal active={modalActive} setActive={setModalActive}>
-        <NoteForm
-          isPined={pined}
-          setIsPined={() => {}}
-          notes={[]}
-          setNotes={() => {}}
-          pinedNotes={[]}
-          setPinedNotes={() => {}}
-          formColor={color}
-          setFormColor={() => {}}
-          toggleInput={true}
-          setToggleInput={() => {}}
-        />
+        <NoteForm/>
       </Modal>
     </div>
   );
