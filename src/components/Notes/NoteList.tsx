@@ -10,6 +10,16 @@ interface NoteListProps {
 }
 
 const NoteList: FC<NoteListProps> = ({ notes, pinedNotes, isNoteListColumn }) => {
+  const noteItems = notes
+    .filter(note => note.header.toLowerCase().includes(searchValue.toLowerCase()))
+    .map((note, index) => (
+      <NoteItem
+        key={`${note} + ${index}`}
+        {...note}
+        isNoteListColumn={isNoteListColumn}
+      />
+    ));
+
   return (
     <div className="note__block">
       {pinedNotes.length > 0 &&

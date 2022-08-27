@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import './Header.scss';
-import { burger, grid1, grid2, grid3, logo, search, settings } from "../../assets";
+import { burger, grid1, grid2, grid3, logo, settings } from "../../assets";
 import { handleClickOutside } from "../../utils";
+import Search from "../Search";
 
 interface HeaderProps {
   isNoteListColumn: boolean;
@@ -39,10 +40,7 @@ const Header: FC<HeaderProps> = ({ isNoteListColumn, onBurgerClick, onGridIconCl
         </div>
         <div className="header__left-name">Keep</div>
       </div>
-      <div className="header__middle">
-        <img className="header__middle-icon" src={search} alt=""/>
-        <input type="text" placeholder="Поиск" className="header__middle-input"/>
-      </div>
+      <Search/>
       <div className="header__right">
         <div className="header__right-icons">
           {isNoteListColumn

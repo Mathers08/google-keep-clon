@@ -55,6 +55,7 @@ const NoteForm: FC<NoteFormProps> = ({
     setIsColorBlockVisible(false);
     setFormColor('rgb(32, 33, 36)');
     setIsPined(false);
+    setToggleInput(false);
   };
 
   useEffect(() => {

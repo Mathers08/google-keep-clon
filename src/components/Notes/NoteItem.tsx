@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import './Notes.scss';
 import { INote } from "../../types";
-import Modal from "../Modal";
+import Modal from "../ModalBlock";
 import NoteForm from "./NoteForm";
 
 type NoteItemProps = INote & {
