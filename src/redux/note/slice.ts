@@ -13,12 +13,6 @@ export const slice = createSlice({
   name: 'note',
   initialState,
   reducers: {
-    setNotes: (state, action: PayloadAction<INote[]>) => {
-      state.notes = action.payload;
-    },
-    setPinedNotes: (state, action: PayloadAction<INote[]>) => {
-      state.pinedNotes = action.payload;
-    },
     setFormColor: (state, action: PayloadAction<string>) => {
       state.formColor = action.payload;
     },
@@ -32,14 +26,11 @@ export const slice = createSlice({
       state.isNotePined
         ? state.pinedNotes.unshift(action.payload)
         : state.notes.unshift(action.payload);
-      setFormColor('rgb(32, 33, 36)');
-      setIsNotePined(false);
-      setTextareaVisible(false);
     }
   }
 });
 
 export const {
-  setNotes, setPinedNotes, setFormColor, setIsNotePined, setTextareaVisible, addNote
+  setFormColor, setIsNotePined, setTextareaVisible, addNote
 } = slice.actions;
 export default slice.reducer;

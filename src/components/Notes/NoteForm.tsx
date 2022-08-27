@@ -1,26 +1,27 @@
-import React, { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useEffect, useRef } from 'react';
 import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin } from "../../assets";
-import { useUndoableState } from "../../hooks";
+import { useAppDispatch, useUndoableState } from "../../hooks";
 import { INote } from "../../redux/note/types";
 import { handleClickOutside } from "../../utils";
 import ColorPicker from "../ColorPicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectNote } from "../../redux/note/selectors";
 import { addNote, setFormColor, setIsNotePined, setTextareaVisible } from "../../redux/note/slice";
+import { selectForm } from "../../redux/form/selectors";
+import { setHeaderText, setIsColorBlockVisible } from "../../redux/form/slice";
 
 const NoteForm: FC = () => {
-  const formRef = useRef(null);
-  const dispatch = useDispatch();
-  const { formColor, isNotePined, isTextareaVisible } = useSelector(selectNote);
-  const [isColorBlockVisible, setIsColorBlockVisible] = useState(false);
-  const [headerText, setHeaderText] = useState('');
   const textarea = '';
+  const formRef = useRef(null);
+  const dispatch = useAppDispatch();
+  const { headerText, isColorBlockVisible } = useSelector(selectForm);
+  const { formColor, isNotePined, isTextareaVisible } = useSelector(selectNote);
   const { noteText, setNoteText, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(textarea);
 
   const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
-  const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => setHeaderText(e.target.value);
+  const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setHeaderText(e.target.value));
   const onInputClick = () => dispatch(setTextareaVisible(true));
-  const onColorBlockClick = () => setIsColorBlockVisible(!isColorBlockVisible);
+  const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
   const onNoteSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newNote: INote = {
@@ -30,16 +31,20 @@ const NoteForm: FC = () => {
       color: formColor,
       pined: isNotePined
     };
-    setHeaderText('');
-    setNoteText('');
-    setIsColorBlockVisible(false);
     dispatch(addNote(newNote));
+    setNoteText('');
+    dispatch(setHeaderText(''));
+    dispatch(setIsColorBlockVisible(false));
+    dispatch(setFormColor('rgb(32, 33, 36)'));
+    dispatch(setIsNotePined(false));
+    dispatch(setTextareaVisible(false));
   };
+  console.log(isTextareaVisible);
 
   useEffect(() => {
     const callbacks = () => {
       dispatch(setTextareaVisible(false));
-      setIsColorBlockVisible(false);
+      dispatch(setIsColorBlockVisible(false));
       dispatch(setFormColor('rgb(32, 33, 36)'));
     };
     const handler = (e: MouseEvent) => handleClickOutside(e, formRef, callbacks);

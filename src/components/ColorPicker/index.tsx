@@ -63,9 +63,8 @@ const ColorPicker: FC = () => {
     <div className="colors">
       <img className="colors-reset-icon" src={drop} alt=""/>
       {colors.map((obj) => (
-        <div className="colors__block">
+        <div key={obj.id} className="colors__block">
           <div
-            key={obj.id}
             className={`colors__block-item ${obj.id === selectedId ? 'active' : ''}`}
             onClick={() => {
               dispatch(setFormColor(obj.color));

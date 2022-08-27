@@ -3,10 +3,10 @@ import './Search.scss';
 import { close, search } from "../../assets";
 import { debounce } from "lodash";
 import { setSearchValue } from "../../redux/filter/slice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks";
 
 const Search = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
 
