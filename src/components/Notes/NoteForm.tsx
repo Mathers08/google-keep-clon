@@ -2,8 +2,8 @@ import React, { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from '
 import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin } from "../../assets";
 import { useUndoableState } from "../../hooks";
 import { INote } from "../../types";
-import ColorPicker from "../FormBackground/ColorPicker";
 import { handleClickOutside } from "../../utils";
+import ColorPicker from "../ColorPicker";
 
 interface NoteFormProps {
   isPined: boolean;

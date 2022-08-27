@@ -46,8 +46,8 @@ const Header: FC<HeaderProps> = ({ isNoteListColumn, onBurgerClick, onGridIconCl
       <div className="header__right">
         <div className="header__right-icons">
           {isNoteListColumn
-            ? <img onClick={onGridIconClick} src={grid1} alt=""/>
-            : <img onClick={onGridIconClick} src={grid2} alt=""/>
+            ? <img onClick={onGridIconClick} src={grid2} alt=""/>
+            : <img onClick={onGridIconClick} src={grid1} alt=""/>
           }
           <img src={settings} alt="" ref={settingsRef} onClick={toggleSettingsPopup}/>
 
