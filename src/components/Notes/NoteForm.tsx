@@ -39,7 +39,6 @@ const NoteForm: FC = () => {
     dispatch(setIsNotePined(false));
     dispatch(setTextareaVisible(false));
   };
-  console.log(isTextareaVisible);
 
   useEffect(() => {
     const callbacks = () => {

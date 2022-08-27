@@ -6,7 +6,8 @@ const initialState: NoteState = {
   pinedNotes: [],
   formColor: 'rgb(32, 33, 36)',
   isNotePined: false,
-  isTextareaVisible: false
+  isTextareaVisible: false,
+  isNoteListColumn: false
 };
 
 export const slice = createSlice({
@@ -22,6 +23,9 @@ export const slice = createSlice({
     setTextareaVisible: (state, action: PayloadAction<boolean>) => {
       state.isTextareaVisible = action.payload;
     },
+    setIsNoteListColumn: (state, action: PayloadAction<boolean>) => {
+      state.isNoteListColumn = action.payload;
+    },
     addNote: (state, action: PayloadAction<INote>) => {
       state.isNotePined
         ? state.pinedNotes.unshift(action.payload)
@@ -31,6 +35,6 @@ export const slice = createSlice({
 });
 
 export const {
-  setFormColor, setIsNotePined, setTextareaVisible, addNote
+  setFormColor, setIsNotePined, setTextareaVisible, setIsNoteListColumn, addNote
 } = slice.actions;
 export default slice.reducer;

@@ -1,23 +1,19 @@
-import { NavbarState } from "./types";
+import { HeaderState } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: NavbarState = {
-  selectedId: 1,
-  isNavbarHidden: false
+const initialState: HeaderState = {
+  isSettingsPopupVisible: false
 };
 
 export const slice = createSlice({
-  name: 'navbar',
+  name: 'header',
   initialState,
   reducers: {
-    setSelectedId: (state, action: PayloadAction<number>) => {
-      state.selectedId = action.payload;
-    },
-    setIsNavbarHidden: (state, action: PayloadAction<boolean>) => {
-      state.isNavbarHidden = action.payload;
+    setIsSettingsPopupVisible: (state, action: PayloadAction<boolean>) => {
+      state.isSettingsPopupVisible = action.payload;
     }
   }
 });
 
-export const { setSelectedId, setIsNavbarHidden } = slice.actions;
+export const { setIsSettingsPopupVisible } = slice.actions;
 export default slice.reducer;

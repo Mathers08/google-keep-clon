@@ -1,23 +1,23 @@
-import { FormState } from "./types";
+import { NavbarState } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: FormState = {
-  headerText: '',
-  isColorBlockVisible: false
+const initialState: NavbarState = {
+  selectedId: 1,
+  isNavbarHidden: false
 };
 
 export const slice = createSlice({
-  name: 'form',
+  name: 'navbar',
   initialState,
   reducers: {
-    setHeaderText: (state, action: PayloadAction<string>) => {
-      state.headerText = action.payload;
+    setSelectedId: (state, action: PayloadAction<number>) => {
+      state.selectedId = action.payload;
     },
-    setIsColorBlockVisible: (state, action: PayloadAction<boolean>) => {
-      state.isColorBlockVisible = action.payload;
+    setIsNavbarHidden: (state, action: PayloadAction<boolean>) => {
+      state.isNavbarHidden = action.payload;
     }
   }
 });
 
-export const { setHeaderText, setIsColorBlockVisible } = slice.actions;
+export const { setSelectedId, setIsNavbarHidden } = slice.actions;
 export default slice.reducer;

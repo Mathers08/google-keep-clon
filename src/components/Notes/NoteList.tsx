@@ -5,12 +5,8 @@ import { useSelector } from "react-redux";
 import { selectFilter } from "../../redux/filter/selectors";
 import { selectNote } from "../../redux/note/selectors";
 
-interface NoteListProps {
-  isNoteListColumn: boolean;
-}
-
-const NoteList: FC<NoteListProps> = ({ isNoteListColumn }) => {
-  const { notes, pinedNotes } = useSelector(selectNote);
+const NoteList: FC = () => {
+  const { notes, pinedNotes, isNoteListColumn } = useSelector(selectNote);
   const { searchValue } = useSelector(selectFilter);
   const noteItems = notes
     .filter(note => note.header.toLowerCase().includes(searchValue.toLowerCase()))

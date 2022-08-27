@@ -1,6 +1,5 @@
 
 
-export interface NavbarState {
-  selectedId: number;
-  isNavbarHidden: boolean;
+export interface HeaderState {
+  isSettingsPopupVisible: boolean;
 }

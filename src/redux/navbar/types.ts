@@ -1,6 +1,6 @@
 
 
-export interface FormState {
-  headerText: string;
-  isColorBlockVisible: boolean;
+export interface NavbarState {
+  selectedId: number;
+  isNavbarHidden: boolean;
 }

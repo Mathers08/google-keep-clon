@@ -5,11 +5,7 @@ import NoteForm from "./NoteForm";
 import { useSelector } from "react-redux";
 import { selectNote } from "../../redux/note/selectors";
 
-interface NotesProps {
-  isNoteListColumn: boolean;
-}
-
-const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
+const Notes: FC = () => {
   const { isTextareaVisible } = useSelector(selectNote);
 
   return (
@@ -18,9 +14,7 @@ const Notes: FC<NotesProps> = ({ isNoteListColumn }) => {
         <NoteForm/>
         {isTextareaVisible && <button className="note__area-btn">Закрыть</button>}
       </div>
-      <NoteList
-        isNoteListColumn={isNoteListColumn}
-      />
+      <NoteList/>
     </section>
   );
 };

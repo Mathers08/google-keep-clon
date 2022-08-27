@@ -12,4 +12,5 @@ export interface NoteState {
   formColor: string;
   isNotePined: boolean;
   isTextareaVisible: boolean;
+  isNoteListColumn: boolean;
 }

@@ -1,14 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import './Navbar.scss';
-import { pen, reminders, notes, archive, trash } from '../../assets';
+import { archive, notes, pen, reminders, trash } from '../../assets';
+import { useSelector } from "react-redux";
+import { selectNavbar } from "../../redux/navbar/selectors";
+import { setSelectedId } from "../../redux/navbar/slice";
+import { useAppDispatch } from "../../hooks";
 
-interface NavbarProps {
-  hideNavbar: boolean;
-}
-
-const Navbar: FC<NavbarProps> = ({ hideNavbar }) => {
-  const [selectedId, setSelectedId] = useState(1);
-  const onItemClick = (id: number) => setSelectedId(id);
+const Navbar: FC = () => {
   const items = [
     {
       id: 1,
@@ -36,10 +34,14 @@ const Navbar: FC<NavbarProps> = ({ hideNavbar }) => {
       name: 'Корзина',
     },
   ];
+  const dispatch = useAppDispatch();
+  const { selectedId, isNavbarHidden } = useSelector(selectNavbar);
+
+  const onItemClick = (id: number) => dispatch(setSelectedId(id));
 
   return (
     <nav className="nav">
-      <ul className={`nav__list ${hideNavbar ? 'hide_nav' : ''}`}>
+      <ul className={`nav__list ${isNavbarHidden ? 'hide_nav' : ''}`}>
         {items.map((item, index) => (
           <li key={item.name}
               className={`nav__list-item ${item.id === selectedId ? 'active' : ''}`}

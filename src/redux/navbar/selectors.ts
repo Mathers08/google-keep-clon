@@ -1,3 +1,3 @@
 import { RootState } from "../store";
 
-export const selectForm = (state: RootState) => state.form;
+export const selectNavbar = (state: RootState) => state.navbar;

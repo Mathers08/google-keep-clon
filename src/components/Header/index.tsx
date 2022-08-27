@@ -1,19 +1,18 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import './Header.scss';
 import { burger, grid1, grid2, grid3, logo, settings } from "../../assets";
 import { handleClickOutside } from "../../utils";
 import Search from "../Search";
+import { useSelector } from "react-redux";
+import { selectNote } from "../../redux/note/selectors";
+import { useAppDispatch } from "../../hooks";
+import { setIsNoteListColumn } from "../../redux/note/slice";
+import { selectNavbar } from "../../redux/navbar/selectors";
+import { setIsNavbarHidden } from "../../redux/navbar/slice";
+import { selectHeader } from "../../redux/header/selectors";
+import { setIsSettingsPopupVisible } from "../../redux/header/slice";
 
-interface HeaderProps {
-  isNoteListColumn: boolean;
-  onBurgerClick: () => void;
-  onGridIconClick: () => void;
-}
-
-const Header: FC<HeaderProps> = ({ isNoteListColumn, onBurgerClick, onGridIconClick }) => {
-  const settingsRef = useRef(null);
-  const [settingsPopup, setSettingsPopup] = useState(false);
-  const toggleSettingsPopup = () => setSettingsPopup(!settingsPopup);
+const Header: FC = () => {
   const settingItems = [
     'Настройки',
     'Отключить тёмную тему',
@@ -22,9 +21,18 @@ const Header: FC<HeaderProps> = ({ isNoteListColumn, onBurgerClick, onGridIconCl
     'Скачать приложение',
     'Быстрые клавиши'
   ];
+  const dispatch = useAppDispatch();
+  const settingsRef = useRef(null);
+  const { isNoteListColumn } = useSelector(selectNote);
+  const { isNavbarHidden } = useSelector(selectNavbar);
+  const { isSettingsPopupVisible } = useSelector(selectHeader);
+
+  const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
+  const onGridIconClick = () => dispatch(setIsNoteListColumn(!isNoteListColumn));
+  const toggleSettingsPopup = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
 
   useEffect(() => {
-    const handler = (e: MouseEvent) => handleClickOutside(e, settingsRef, setSettingsPopup);
+    const handler = (e: MouseEvent) => handleClickOutside(e, settingsRef, setIsSettingsPopupVisible);
     document.body.addEventListener('click', handler);
     return () => document.body.removeEventListener('click', handler);
   }, []);
@@ -49,7 +57,7 @@ const Header: FC<HeaderProps> = ({ isNoteListColumn, onBurgerClick, onGridIconCl
           }
           <img src={settings} alt="" ref={settingsRef} onClick={toggleSettingsPopup}/>
 
-          {settingsPopup && <div className="settings__popup">
+          {isSettingsPopupVisible && <div className="settings__popup">
             <ul>
               {settingItems && settingItems.map((obj, index) => (
                 <li key={`${obj}_${index}`}>{obj}</li>
