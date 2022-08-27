@@ -6,17 +6,31 @@ import ColorPicker from "../FormBackground/ColorPicker";
 import { handleClickOutside } from "../../utils";
 
 interface NoteFormProps {
+  isPined: boolean;
+  setIsPined: (isPined: boolean) => void;
   notes: INote[];
-  formColor: string;
-  toggleInput: boolean;
   setNotes: (notes: INote[]) => void;
+  pinedNotes: INote[];
+  setPinedNotes: (pinedNotes: INote[]) => void;
+  formColor: string;
   setFormColor: (color: string) => void;
+  toggleInput: boolean;
   setToggleInput: (toggleInput: boolean) => void;
 }
 
-const NoteForm: FC<NoteFormProps> = ({ notes, formColor, toggleInput, setNotes, setFormColor, setToggleInput }) => {
+const NoteForm: FC<NoteFormProps> = ({
+                                       isPined,
+                                       setIsPined,
+                                       notes,
+                                       setNotes,
+                                       pinedNotes,
+                                       setPinedNotes,
+                                       formColor,
+                                       setFormColor,
+                                       toggleInput,
+                                       setToggleInput
+                                     }) => {
   const formRef = useRef(null);
-  const [isPined, setIsPined] = useState(false);
   const [isColorBlockVisible, setIsColorBlockVisible] = useState(false);
   const [headerText, setHeaderText] = useState('');
   const textarea = '';
@@ -32,13 +46,15 @@ const NoteForm: FC<NoteFormProps> = ({ notes, formColor, toggleInput, setNotes, 
       id: Math.random(),
       header: headerText,
       note: noteText,
-      color: formColor
+      color: formColor,
+      pined: isPined
     };
-    setNotes([newNote, ...notes]);
+    isPined ? setPinedNotes([newNote, ...pinedNotes]) : setNotes([newNote, ...notes]);
     setHeaderText('');
     setNoteText('');
     setIsColorBlockVisible(false);
     setFormColor('rgb(32, 33, 36)');
+    setIsPined(false);
   };
 
   useEffect(() => {

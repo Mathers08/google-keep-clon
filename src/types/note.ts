@@ -3,4 +3,5 @@ export interface INote {
   header: string;
   note: string;
   color: string;
+  pined: boolean;
 }

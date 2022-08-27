@@ -1,6 +1,6 @@
 .note {
   flex: 0 1 80%;
-  margin-top: 20px;
+  margin: 20px 0 50px 0;
 
   &__area {
     width: 600px;
@@ -11,7 +11,7 @@
       border-bottom: none;
       border-radius: 8px;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.6), 0 2px 6px 2px rgba(0, 0, 0, 0.302);
-      transition: .2s ease-in background-color ;
+      transition: .2s ease-in background-color;
 
       .note-input {
         background-color: initial;
@@ -21,9 +21,11 @@
         color: #fff;
         width: 100%;
         height: 100%;
-        resize: none;
+        letter-spacing: .15px;
+        resize: vertical;
 
         &::placeholder {
+          font-weight: 700;
           color: rgb(201, 201, 211);
           font-size: 16px;
         }
@@ -50,10 +52,16 @@
         display: flex;
         flex-direction: column;
         align-items: start;
+        padding-right: 10px;
         height: 100%;
         border-top: none;
         box-shadow: none;
         border-radius: 0 0 8px 8px;
+
+        textarea {
+          min-height: 30px;
+          max-height: 200px;
+        }
 
         ::placeholder {
           font-size: 14px;
@@ -124,35 +132,59 @@
     }
   }
 
-  &__list {
+  &__block {
     margin-top: 50px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+    flex-direction: column;
+    gap: 50px;
 
     &-item {
-      height: 160px;
-      border: 1px solid #5f6368;
-      border-radius: 8px;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.6), 0 2px 6px 2px rgba(0, 0, 0, 0.302);
-      .item-header {
+      margin-left: 60px;
+    }
+
+    &-title {
+      margin: 0 0 15px 10px;
+      color: #9aa0a6;
+      letter-spacing: .8px;
+      font-size: .6875rem;
+      font-weight: 600;
+      line-height: 1rem;
+      text-transform: uppercase;
+    }
+
+    .note__columnBlock-item {
+      width: 600px;
+      margin: 0 auto;
+
+      .note__list {
         margin: 0;
-        padding: 16px 16px 0 16px;
-        font-size: 16px;
-      }
-      .item-text {
-        margin: 0;
-        padding: 4px 16px 12px 16px;
-        font-size: 14px;
       }
     }
   }
+}
 
-  &__columnList {
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+.note__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  &-item {
+    height: 160px;
+    border: 1px solid #5f6368;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.6), 0 2px 6px 2px rgba(0, 0, 0, 0.302);
+
+    .item-header {
+      margin: 0;
+      padding: 16px 16px 0 16px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .item-text {
+      margin: 0;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
   }
 }

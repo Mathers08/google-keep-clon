@@ -1,9 +1,7 @@
 <?xml version="1.0" ?>
-<svg fill="rgb(190, 190, 191)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <g>
-        <path d="M0 0h24v24H0z" fill="none"/>
-        <path
-                d="M19 11V5H5v6h14zm0 2H5v6h14v-6zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"
-                fillRule="nonzero"/>
-    </g>
+<svg width="24px" height="24px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"
+     aria-labelledby="listAltIconTitle" stroke="rgb(190, 190, 191)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     fill="none">
+    <rect width="14" height="6" x="5" y="5"/>
+    <rect width="14" height="6" x="5" y="15"/>
 </svg>
