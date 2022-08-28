@@ -1,3 +1,5 @@
+import { celebration, eat, music, no_image, notes, places, products, recipes, travels, video } from "../../assets";
+
 export interface INote {
   id: number;
   header: string;
@@ -18,7 +20,20 @@ export enum ColorsEnum {
   PURPLE = "rgb(66, 39, 94)",
   PINK = "rgb(91, 34, 69)",
   BROWN = "rgb(68, 47, 25)",
-  GREY = "rgb(68, 47, 25)"
+  GREY = "rgb(60, 63, 67)"
+}
+
+export enum ImagesEnum {
+  DEFAULT = no_image,
+  PRODUCTS = products,
+  EAT = eat,
+  TRAVELS = travels,
+  VIDEO = video,
+  RECIPES = recipes,
+  CELEBRATION = celebration,
+  PLACES = places,
+  NOTES = notes,
+  MUSIC = music,
 }
 
 export interface NoteState {
@@ -27,6 +42,7 @@ export interface NoteState {
   notes: INote[];
   pinedNotes: INote[];
   formColor: ColorsEnum;
+  formImage: ImagesEnum;
   isNotePined: boolean;
   isTextareaVisible: boolean;
   isNoteListColumn: boolean;

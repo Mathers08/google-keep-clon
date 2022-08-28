@@ -1,13 +1,8 @@
 .colors {
-  background-color: #17191d;
-  border-radius: 10px;
   display: flex;
-  position: absolute;
-  left: 70px;
-  bottom: -40px;
-  gap: 5px;
+  gap: 6px;
   padding: 8px 9px;
-  box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7);
+  // box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7);
 
   :nth-child(2) {
     .colors__block-item {

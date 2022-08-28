@@ -1,0 +1,48 @@
+.images {
+  display: flex;
+  gap: 4px;
+  padding: 8px 9px;
+
+  &__block {
+    position: relative;
+
+    &-item {
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #17191d;
+
+      &:hover {
+        border: 2px solid #fff;
+      }
+    }
+
+    &-icon {
+      width: 22px;
+      height: 22px;
+      padding: 0;
+      position: absolute;
+      top: -7px;
+      left: 24px;
+    }
+
+    .active {
+      border: 2px solid rgb(161, 66, 244);
+    }
+  }
+
+  &-reset-icon {
+
+    padding: 0;
+    img {
+      width: 22px;
+      height: 22px;
+    }
+    &:hover {
+      background-color: initial;
+      border-radius: 0;
+    }
+  }
+}

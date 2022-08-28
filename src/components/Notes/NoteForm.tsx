@@ -14,6 +14,7 @@ import {
   setIsTextareaVisible
 } from "../../redux/note/slice";
 import { useOnClickOutside } from "usehooks-ts";
+import ImagePicker from "../ImagePicker";
 
 const NoteForm: FC = () => {
   const textarea = '';
@@ -26,7 +27,7 @@ const NoteForm: FC = () => {
   const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setHeaderText(e.target.value));
   const onInputClick = () => dispatch(setIsTextareaVisible(true));
   const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
-
+  const onCloseClick = () => dispatch(setIsTextareaVisible(false));
 
   const handleClickOutside = () => {
     const newNote: INote = {
@@ -77,6 +78,7 @@ const NoteForm: FC = () => {
               <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
               <img onClick={onColorBlockClick} src={palette} alt=""/>
             </div>
+            {isTextareaVisible && <button className="note__area-btn" onClick={onCloseClick}>Закрыть</button>}
           </div>
         </div>}
       {isTextareaVisible ?
@@ -89,7 +91,12 @@ const NoteForm: FC = () => {
           <img src={image} alt=""/>
         </div>
       }
-      {isColorBlockVisible && isTextareaVisible && <ColorPicker/>}
+      {isColorBlockVisible && isTextareaVisible &&
+        <div className='pickers'>
+          <ColorPicker/>
+          <ImagePicker/>
+        </div>
+      }
     </form>
   );
 };

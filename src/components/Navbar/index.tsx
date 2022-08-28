@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './Navbar.scss';
-import { archive, notes, pen, reminders, trash } from '../../assets';
+import { archive, notifications, pen, reminders, trash } from '../../assets';
 import { useSelector } from "react-redux";
 import { selectNavbar } from "../../redux/navbar/selectors";
 import { setSelectedId } from "../../redux/navbar/slice";
@@ -10,7 +10,7 @@ const Navbar: FC = () => {
   const items = [
     {
       id: 1,
-      imgUrl: notes,
+      imgUrl: notifications,
       name: 'Заметки',
     },
     {

@@ -1,4 +1,4 @@
-import { ColorsEnum, INote, NoteState } from "./types";
+import { ColorsEnum, ImagesEnum, INote, NoteState } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: NoteState = {
@@ -7,6 +7,7 @@ const initialState: NoteState = {
   notes: [],
   pinedNotes: [],
   formColor: ColorsEnum.DEFAULT,
+  formImage: ImagesEnum.DEFAULT,
   isNotePined: false,
   isTextareaVisible: false,
   isNoteListColumn: false
@@ -24,6 +25,9 @@ export const slice = createSlice({
     },
     setFormColor: (state, action: PayloadAction<ColorsEnum>) => {
       state.formColor = action.payload;
+    },
+    setFormImage: (state, action: PayloadAction<ImagesEnum>) => {
+      state.formImage = action.payload;
     },
     setIsNotePined: (state, action: PayloadAction<boolean>) => {
       state.isNotePined = action.payload;
@@ -53,6 +57,7 @@ export const {
   setHeaderText,
   setIsColorBlockVisible,
   setFormColor,
+  setFormImage,
   setIsNotePined,
   setIsTextareaVisible,
   setIsNoteListColumn,

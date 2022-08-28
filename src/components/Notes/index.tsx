@@ -3,21 +3,15 @@ import './Notes.scss';
 import NoteList from "./NoteList";
 import NoteForm from "./NoteForm";
 import { useSelector } from "react-redux";
-import { selectNote } from "../../redux/note/selectors";
-import { useAppDispatch } from "../../hooks";
-import { setIsTextareaVisible } from "../../redux/note/slice";
+import { selectHeader } from "../../redux/header/selectors";
 
 const Notes: FC = () => {
-  const dispatch = useAppDispatch();
-  const { isTextareaVisible } = useSelector(selectNote);
-
-  const onCloseClick = () => dispatch(setIsTextareaVisible(false));
+  const { searchValue } = useSelector(selectHeader);
 
   return (
     <section className="note">
       <div className="note__area">
-        <NoteForm/>
-        {isTextareaVisible && <button className="note__area-btn" onClick={onCloseClick}>Закрыть</button>}
+        {!searchValue && <NoteForm/>}
       </div>
       <NoteList/>
     </section>
