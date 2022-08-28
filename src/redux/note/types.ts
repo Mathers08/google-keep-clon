@@ -7,6 +7,8 @@ export interface INote {
 }
 
 export interface NoteState {
+  headerText: string;
+  isColorBlockVisible: boolean;
   notes: INote[];
   pinedNotes: INote[];
   formColor: string;

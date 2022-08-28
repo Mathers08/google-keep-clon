@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import NoteItem from "./NoteItem";
 import './Notes.scss';
 import { useSelector } from "react-redux";
-import { selectFilter } from "../../redux/filter/selectors";
+import { selectHeader } from "../../redux/header/selectors";
 import { selectNote } from "../../redux/note/selectors";
 
 const NoteList: FC = () => {
   const { notes, pinedNotes, isNoteListColumn } = useSelector(selectNote);
-  const { searchValue } = useSelector(selectFilter);
+  const { searchValue } = useSelector(selectHeader);
   const noteItems = notes
     .filter(note => note.header.toLowerCase().includes(searchValue.toLowerCase()))
     .map((note, index) => (

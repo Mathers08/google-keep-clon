@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useRef, useState } from 'react';
 import './Search.scss';
 import { close, search } from "../../assets";
 import { debounce } from "lodash";
-import { setSearchValue } from "../../redux/filter/slice";
+import { setSearchValue } from "../../redux/header/slice";
 import { useAppDispatch } from "../../hooks";
 
 const Search = () => {

@@ -1,7 +1,6 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useRef } from 'react';
 import './Header.scss';
 import { burger, grid1, grid2, grid3, logo, settings } from "../../assets";
-import { handleClickOutside } from "../../utils";
 import Search from "../Search";
 import { useSelector } from "react-redux";
 import { selectNote } from "../../redux/note/selectors";
@@ -9,8 +8,9 @@ import { useAppDispatch } from "../../hooks";
 import { setIsNoteListColumn } from "../../redux/note/slice";
 import { selectNavbar } from "../../redux/navbar/selectors";
 import { setIsNavbarHidden } from "../../redux/navbar/slice";
-import { selectHeader } from "../../redux/header/selectors";
+import { useOnClickOutside } from "usehooks-ts";
 import { setIsSettingsPopupVisible } from "../../redux/header/slice";
+import { selectHeader } from "../../redux/header/selectors";
 
 const Header: FC = () => {
   const settingItems = [
@@ -23,19 +23,15 @@ const Header: FC = () => {
   ];
   const dispatch = useAppDispatch();
   const settingsRef = useRef(null);
+  const { isSettingsPopupVisible } = useSelector(selectHeader);
   const { isNoteListColumn } = useSelector(selectNote);
   const { isNavbarHidden } = useSelector(selectNavbar);
-  const { isSettingsPopupVisible } = useSelector(selectHeader);
 
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
   const onGridIconClick = () => dispatch(setIsNoteListColumn(!isNoteListColumn));
   const toggleSettingsPopup = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => handleClickOutside(e, settingsRef, setIsSettingsPopupVisible);
-    document.body.addEventListener('click', handler);
-    return () => document.body.removeEventListener('click', handler);
-  }, []);
+  const handleClickOutside = () => dispatch(setIsSettingsPopupVisible(false));
+  useOnClickOutside(settingsRef, handleClickOutside);
 
   return (
     <header className="header">
