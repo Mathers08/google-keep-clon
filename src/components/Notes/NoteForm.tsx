@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectNote } from "../../redux/note/selectors";
 import {
   addNote,
+  resetForm,
   setHeaderText,
   setIsColorBlockVisible,
   setIsNotePined,
@@ -26,6 +27,7 @@ const NoteForm: FC = () => {
   const onInputClick = () => dispatch(setIsTextareaVisible(true));
   const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
 
+
   const handleClickOutside = () => {
     const newNote: INote = {
       id: Math.random(),
@@ -36,6 +38,7 @@ const NoteForm: FC = () => {
     };
     if (headerText && noteText) {
       dispatch(addNote(newNote));
+      dispatch(resetForm());
     }
     setNoteText('');
   };
@@ -45,6 +48,7 @@ const NoteForm: FC = () => {
     <form
       ref={formRef}
       style={{ backgroundColor: formColor }}
+      onSubmit={e => e.preventDefault()}
       className="note__area-label"
       onClick={onInputClick}
     >

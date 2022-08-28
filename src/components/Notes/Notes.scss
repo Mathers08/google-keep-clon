@@ -1,6 +1,6 @@
 .note {
   flex: 0 1 80%;
-  margin: 20px 0 50px 0;
+  margin: 20px 0;
 
   &__area {
     width: 600px;
@@ -15,6 +15,8 @@
 
       .note-input {
         background-color: initial;
+        font-size: 18px;
+        font-weight: 800;
         font-family: Roboto, Arial, sans-serif;
         outline: none;
         border: none;
@@ -61,6 +63,8 @@
         textarea {
           min-height: 30px;
           max-height: 200px;
+          font-size: 14px;
+          font-weight: 400;
         }
 
         ::placeholder {
@@ -133,7 +137,7 @@
   }
 
   &__block {
-    margin-top: 50px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 50px;

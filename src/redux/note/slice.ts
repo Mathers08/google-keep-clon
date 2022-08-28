@@ -1,4 +1,4 @@
-import { INote, NoteState } from "./types";
+import { ColorsEnum, INote, NoteState } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: NoteState = {
@@ -6,7 +6,7 @@ const initialState: NoteState = {
   isColorBlockVisible: false,
   notes: [],
   pinedNotes: [],
-  formColor: 'rgb(32, 33, 36)',
+  formColor: ColorsEnum.DEFAULT,
   isNotePined: false,
   isTextareaVisible: false,
   isNoteListColumn: false
@@ -22,7 +22,7 @@ export const slice = createSlice({
     setIsColorBlockVisible: (state, action: PayloadAction<boolean>) => {
       state.isColorBlockVisible = action.payload;
     },
-    setFormColor: (state, action: PayloadAction<string>) => {
+    setFormColor: (state, action: PayloadAction<ColorsEnum>) => {
       state.formColor = action.payload;
     },
     setIsNotePined: (state, action: PayloadAction<boolean>) => {
@@ -38,10 +38,12 @@ export const slice = createSlice({
       state.isNotePined
         ? state.pinedNotes.unshift(action.payload)
         : state.notes.unshift(action.payload);
+    },
+    resetForm: (state) => {
       state.headerText = '';
       state.isColorBlockVisible = false;
       state.isNotePined = false;
-      state.formColor = 'rgb(32, 33, 36)';
+      state.formColor = ColorsEnum.DEFAULT;
       state.isTextareaVisible = false;
     }
   }
@@ -54,6 +56,7 @@ export const {
   setIsNotePined,
   setIsTextareaVisible,
   setIsNoteListColumn,
-  addNote
+  addNote,
+  resetForm
 } = slice.actions;
 export default slice.reducer;

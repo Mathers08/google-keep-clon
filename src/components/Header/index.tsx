@@ -11,16 +11,41 @@ import { setIsNavbarHidden } from "../../redux/navbar/slice";
 import { useOnClickOutside } from "usehooks-ts";
 import { setIsSettingsPopupVisible } from "../../redux/header/slice";
 import { selectHeader } from "../../redux/header/selectors";
+import { SettingsEnum } from "../../redux/header/types";
+
+type SettingsItem = {
+  id: number;
+  item: SettingsEnum
+}
+
+export const settingsItems: SettingsItem[] = [
+  {
+    id: 0,
+    item: SettingsEnum.SETTINGS
+  },
+  {
+    id: 1,
+    item: SettingsEnum.DISABLE_DARK_THEME
+  },
+  {
+    id: 2,
+    item: SettingsEnum.POST_REVIEW
+  },
+  {
+    id: 3,
+    item: SettingsEnum.REFERENCE
+  },
+  {
+    id: 4,
+    item: SettingsEnum.DOWNLOAD_APP
+  },
+  {
+    id: 5,
+    item: SettingsEnum.SHORTCUTS
+  }
+];
 
 const Header: FC = () => {
-  const settingItems = [
-    'Настройки',
-    'Отключить тёмную тему',
-    'Отправить отзыв',
-    'Справка',
-    'Скачать приложение',
-    'Быстрые клавиши'
-  ];
   const dispatch = useAppDispatch();
   const settingsRef = useRef(null);
   const { isSettingsPopupVisible } = useSelector(selectHeader);
@@ -55,8 +80,8 @@ const Header: FC = () => {
 
           {isSettingsPopupVisible && <div className="settings__popup">
             <ul>
-              {settingItems && settingItems.map((obj, index) => (
-                <li key={`${obj}_${index}`}>{obj}</li>
+              {settingsItems && settingsItems.map((obj, index) => (
+                <li key={`${obj.id}_${index}`}>{obj.item}</li>
               ))}
             </ul>
           </div>}

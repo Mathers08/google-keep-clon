@@ -4,7 +4,8 @@ import isEqual from "lodash/isEqual";
 export const useUndoableState = (init: any) => {
   const [states, setStates] = useState([init]);
   const [docStateIndex, setDocStateIndex] = useState(0);
-  const noteText = useMemo(() => states[docStateIndex], [states, docStateIndex]);
+  let noteText = useMemo(() => states[docStateIndex], [states, docStateIndex]);
+  noteText.innerHTML = noteText.replace("\n", "<br/>");
 
   const setNoteText = (value: string) => {
     if (isEqual(noteText, value)) {

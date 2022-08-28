@@ -3,6 +3,9 @@ import './Notes.scss';
 import { INote } from "../../redux/note/types";
 import Modal from "../ModalBlock";
 import NoteForm from "./NoteForm";
+import { useSelector } from "react-redux";
+import { selectHeader } from "../../redux/header/selectors";
+import { Highlighted } from "../../utils";
 
 type NoteItemProps = INote & {
   isNoteListColumn: boolean;
@@ -15,11 +18,16 @@ const NoteItem: FC<NoteItemProps> = ({ header, note, color, isNoteListColumn }) 
   };
   const [modalActive, setModalActive] = useState(false);
   const onItemClick = () => setModalActive(true);
+  const { searchValue } = useSelector(selectHeader);
 
   return (
     <div className="note__list-item" style={customStyles} onClick={onItemClick}>
-      <h3 className="item-header">{header}</h3>
-      <p className="item-text">{note}</p>
+      <h3 className="item-header">
+        <Highlighted text={header} highlight={searchValue}/>
+      </h3>
+      <p className="item-text">
+        <Highlighted text={note} highlight={searchValue}/>
+      </p>
       <Modal active={modalActive} setActive={setModalActive}>
         <NoteForm/>
       </Modal>
