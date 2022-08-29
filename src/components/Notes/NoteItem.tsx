@@ -6,6 +6,7 @@ import NoteForm from "./NoteForm";
 import { useSelector } from "react-redux";
 import { selectHeader } from "../../redux/header/selectors";
 import { Highlighted } from "../../utils";
+import { transparent } from "../../assets";
 
 type NoteItemProps = INote & {
   isNoteListColumn: boolean;
@@ -14,8 +15,9 @@ type NoteItemProps = INote & {
 const NoteItem: FC<NoteItemProps> = ({ header, note, color, image, isNoteListColumn }) => {
   const customStyles = {
     width: isNoteListColumn ? '600px' : '240px',
-    backgroundColor: color,
-    backgroundImage: image.toString(),
+    border: image !== transparent ? `2px solid ${color}` : '',
+    backgroundColor: image !== transparent ? '' : color,
+    background: `url(${image})`
   };
   const [modalActive, setModalActive] = useState(false);
   const onItemClick = () => setModalActive(true);

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, useRef } from 'react';
-import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin } from "../../assets";
+import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin, transparent } from "../../assets";
 import { useAppDispatch, useUndoableState } from "../../hooks";
 import { INote } from "../../redux/note/types";
 import ColorPicker from "../ColorPicker";
@@ -63,14 +63,13 @@ const NoteForm: FC = () => {
   return (
     <form
       ref={formRef}
-      style={{
-        backgroundColor: formColor,
-      }}
+      style={{ backgroundColor: formColor }}
       onSubmit={e => e.preventDefault()}
       className="note__form"
       onClick={onInputClick}
     >
-      <div className="note__form-label">
+      <div className={`note__form-label ${formImage !== transparent ? 'form-img' : ''}`}
+           style={{ background: `url(${formImage})` }}>
         <div className='title-input'>
           <input
             value={headerText}

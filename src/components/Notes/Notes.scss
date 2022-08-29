@@ -18,6 +18,12 @@
         background-size: cover;*/
 
       &-label {
+        .form-img {
+          background-position-x: right;
+          background-position-y: bottom;
+          background-size: cover;
+        }
+
         .title-input {
           display: flex;
           padding-left: 20px;
