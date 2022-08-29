@@ -3,6 +3,17 @@
   gap: 4px;
   padding: 8px 9px;
 
+  :nth-child(2) {
+    .images__block-item {
+      border: 2px solid #5f6368;
+      background-color: transparent;
+      box-shadow: none;
+      &:hover {
+        border: 2px solid #fff;
+      }
+    }
+  }
+
   &__block {
     position: relative;
 
@@ -34,12 +45,13 @@
   }
 
   &-reset-icon {
-
+    width: 22px;
+    height: 22px;
     padding: 0;
-    img {
-      width: 22px;
-      height: 22px;
-    }
+    position: absolute;
+    z-index: 1;
+    bottom: 24px;
+    left: 20px;
     &:hover {
       background-color: initial;
       border-radius: 0;

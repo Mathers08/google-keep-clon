@@ -11,10 +11,11 @@ type NoteItemProps = INote & {
   isNoteListColumn: boolean;
 }
 
-const NoteItem: FC<NoteItemProps> = ({ header, note, color, isNoteListColumn }) => {
+const NoteItem: FC<NoteItemProps> = ({ header, note, color, image, isNoteListColumn }) => {
   const customStyles = {
     width: isNoteListColumn ? '600px' : '240px',
-    backgroundColor: color
+    backgroundColor: color,
+    backgroundImage: image.toString(),
   };
   const [modalActive, setModalActive] = useState(false);
   const onItemClick = () => setModalActive(true);

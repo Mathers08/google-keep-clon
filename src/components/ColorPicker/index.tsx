@@ -72,12 +72,12 @@ const ColorPicker: FC = () => {
       {colorItems.map((obj) => (
         <div key={obj.id} className="colors__block">
           <div
+            style={{ backgroundColor: obj.color }}
             className={`colors__block-item ${obj.id === selectedId ? 'active' : ''}`}
             onClick={() => {
               dispatch(setFormColor(obj.color));
               onItemClick(obj.id);
             }}
-            style={{ backgroundColor: obj.color }}
           />
           {obj.id === selectedId && <img className="colors__block-icon" src={checkedColor} alt=""/>}
         </div>

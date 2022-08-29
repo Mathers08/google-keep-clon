@@ -1,4 +1,4 @@
-import { ColorsEnum, ImagesEnum, INote, NoteState } from "./types";
+import { ColorsEnum, ImagesEnum, INote, MiniImagesEnum, NoteState } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: NoteState = {
@@ -48,6 +48,7 @@ export const slice = createSlice({
       state.isColorBlockVisible = false;
       state.isNotePined = false;
       state.formColor = ColorsEnum.DEFAULT;
+      state.formImage = ImagesEnum.DEFAULT;
       state.isTextareaVisible = false;
     }
   }

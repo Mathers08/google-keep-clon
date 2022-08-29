@@ -20,7 +20,14 @@ const NoteForm: FC = () => {
   const textarea = '';
   const formRef = useRef(null);
   const dispatch = useAppDispatch();
-  const { headerText, isColorBlockVisible, formColor, isNotePined, isTextareaVisible } = useSelector(selectNote);
+  const {
+    headerText,
+    isColorBlockVisible,
+    formColor,
+    formImage,
+    isNotePined,
+    isTextareaVisible
+  } = useSelector(selectNote);
   const { noteText, setNoteText, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(textarea);
 
   const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
@@ -35,6 +42,7 @@ const NoteForm: FC = () => {
       header: headerText,
       note: noteText,
       color: formColor,
+      image: formImage.toString(),
       pined: isNotePined
     };
     if (headerText && noteText) {
@@ -45,54 +53,67 @@ const NoteForm: FC = () => {
   };
   useOnClickOutside(formRef, handleClickOutside);
 
+  const customStyles = {
+    background: `url(${formImage})`,
+    backgroundPositionX: 'right',
+    backgroundPositionY: 'bottom',
+    backgroundSize: 'cover'
+  };
+
   return (
     <form
       ref={formRef}
-      style={{ backgroundColor: formColor }}
+      style={{
+        backgroundColor: formColor,
+      }}
       onSubmit={e => e.preventDefault()}
-      className="note__area-label"
+      className="note__form"
       onClick={onInputClick}
     >
-      <div className={`input-block ${isTextareaVisible ? 'header-input' : ''}`}>
-        <input
-          value={headerText}
-          onChange={onHeaderTextChange}
-          type="text"
-          placeholder={isTextareaVisible ? "Введите заголовок" : "Заметка..."}
-          className="note-input"
-        />
-      </div>
-      {isTextareaVisible &&
-        <div className="input-block textarea-block">
-          <textarea
-            value={noteText}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setNoteText(e.target.value)}
-            autoFocus
-            placeholder="Заметка..."
+      <div className="note__form-label">
+        <div className='title-input'>
+          <input
+            value={headerText}
+            onChange={onHeaderTextChange}
+            type="text"
+            placeholder={isTextareaVisible ? "Введите заголовок" : "Заметка..."}
             className="note-input"
           />
-          <div className="textarea-block-bottom">
-            <div className="textarea-block-icons">
-              <img src={archive} alt=""/>
-              <ArrowLeft undoText={undoText} canUndo={docStateIndex > 0}/>
-              <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
-              <img onClick={onColorBlockClick} src={palette} alt=""/>
+          {isTextareaVisible ?
+            <div className="note-icons ">
+              <Pin isPined={isNotePined} onPinClick={onPinClick}/>
+            </div> :
+            <div className="note-icons">
+              <img src={checked} alt=""/>
+              <img src={pencil} alt=""/>
+              <img src={image} alt=""/>
             </div>
-            {isTextareaVisible && <button className="note__area-btn" onClick={onCloseClick}>Закрыть</button>}
-          </div>
-        </div>}
-      {isTextareaVisible ?
-        <div className="note__area-icons ">
-          <Pin isPined={isNotePined} onPinClick={onPinClick}/>
-        </div> :
-        <div className="note__area-icons">
-          <img src={checked} alt=""/>
-          <img src={pencil} alt=""/>
-          <img src={image} alt=""/>
+          }
         </div>
-      }
+        {isTextareaVisible &&
+          <div className="text-input">
+            <textarea
+              value={noteText}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setNoteText(e.target.value)}
+              autoFocus
+              placeholder="Заметка..."
+              className="note-input"
+            />
+          </div>}
+      </div>
+
+      {isTextareaVisible &&
+        <div className="note__form-tools">
+          <div className="tools-icons">
+            <img src={archive} alt=""/>
+            <ArrowLeft undoText={undoText} canUndo={docStateIndex > 0}/>
+            <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
+            <img onClick={onColorBlockClick} src={palette} alt=""/>
+          </div>
+          {isTextareaVisible && <button className="note__form-btn" onClick={onCloseClick}>Закрыть</button>}
+        </div>}
       {isColorBlockVisible && isTextareaVisible &&
-        <div className='pickers'>
+        <div className="pickers">
           <ColorPicker/>
           <ImagePicker/>
         </div>

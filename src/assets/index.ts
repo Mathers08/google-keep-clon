@@ -24,6 +24,7 @@ export { default as palette } from './notes/palette.svg';
 export { default as drop } from './notes/drop.svg';
 export { default as no_image } from './notes/no_image.svg';
 
+export { default as transparent } from './form/mini/transparent.svg';
 export { default as products } from './form/mini/products.svg';
 export { default as eat } from './form/mini/eat.svg';
 export { default as music } from './form/mini/music.svg';
@@ -33,4 +34,14 @@ export { default as celebration } from './form/mini/celebration.svg';
 export { default as recipes } from './form/mini/recipes.svg';
 export { default as video } from './form/mini/video.svg';
 export { default as travels } from './form/mini/travels.svg';
+
+export { default as productsB } from './form/full/productsB.svg';
+export { default as eatB } from './form/full/eatB.svg';
+export { default as musicB } from './form/full/musicB.svg';
+export { default as notesB } from './form/full/notesB.svg';
+export { default as placesB } from './form/full/placesB.svg';
+export { default as celebrationB } from './form/full/celebrationB.svg';
+export { default as recipesB } from './form/full/recipesB.svg';
+export { default as videoB } from './form/full/videoB.svg';
+export { default as travelsB } from './form/full/travelsB.svg';
 

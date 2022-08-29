@@ -1,10 +1,23 @@
-import { celebration, eat, music, no_image, notes, places, products, recipes, travels, video } from "../../assets";
+import {
+  celebration, celebrationB,
+  eat, eatB,
+  music, musicB,
+  notes, notesB,
+  places, placesB,
+  products,
+  productsB,
+  recipes, recipesB,
+  transparent,
+  travels, travelsB,
+  video, videoB
+} from "../../assets";
 
 export interface INote {
   id: number;
   header: string;
   note: string;
   color: string;
+  image: string;
   pined: boolean;
 }
 
@@ -23,8 +36,8 @@ export enum ColorsEnum {
   GREY = "rgb(60, 63, 67)"
 }
 
-export enum ImagesEnum {
-  DEFAULT = no_image,
+export enum MiniImagesEnum {
+  DEFAULT = transparent,
   PRODUCTS = products,
   EAT = eat,
   TRAVELS = travels,
@@ -34,6 +47,19 @@ export enum ImagesEnum {
   PLACES = places,
   NOTES = notes,
   MUSIC = music,
+}
+
+export enum ImagesEnum {
+  DEFAULT = transparent,
+  PRODUCTS = productsB,
+  EAT = eatB,
+  TRAVELS = travelsB,
+  VIDEO = videoB,
+  RECIPES = recipesB,
+  CELEBRATION = celebrationB,
+  PLACES = placesB,
+  NOTES = notesB,
+  MUSIC = musicB,
 }
 
 export interface NoteState {
