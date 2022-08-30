@@ -16,8 +16,8 @@ const NoteItem: FC<NoteItemProps> = ({ header, note, color, image, isNoteListCol
   const customStyles = {
     width: isNoteListColumn ? '600px' : '240px',
     border: image !== transparent ? `2px solid ${color}` : '',
-    backgroundColor: image !== transparent ? '' : color,
-    background: `url(${image})`
+    background: image !== transparent ? `url(${image}) right bottom / cover` : 'transparent',
+    backgroundColor: image !== transparent ? '' : color
   };
   const [modalActive, setModalActive] = useState(false);
   const onItemClick = () => setModalActive(true);

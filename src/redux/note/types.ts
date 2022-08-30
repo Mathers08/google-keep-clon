@@ -1,15 +1,23 @@
 import {
-  celebration, celebrationB,
-  eat, eatB,
-  music, musicB,
-  notes, notesB,
-  places, placesB,
+  celebration,
+  celebrationB,
+  eat,
+  eatB,
+  music,
+  musicB,
+  notes,
+  notesB,
+  places,
+  placesB,
   products,
   productsB,
-  recipes, recipesB,
+  recipes,
+  recipesB,
   transparent,
-  travels, travelsB,
-  video, videoB
+  travels,
+  travelsB,
+  video,
+  videoB
 } from "../../assets";
 
 export interface INote {

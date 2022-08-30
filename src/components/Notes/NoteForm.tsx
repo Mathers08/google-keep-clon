@@ -32,9 +32,9 @@ const NoteForm: FC = () => {
 
   const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
   const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setHeaderText(e.target.value));
-  const onInputClick = () => dispatch(setIsTextareaVisible(true));
   const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
-  const onCloseClick = () => dispatch(setIsTextareaVisible(false));
+  const onInputClick = () => dispatch(setIsTextareaVisible(true));
+  //const onCloseClick = () => dispatch(setIsTextareaVisible(false));
 
   const handleClickOutside = () => {
     const newNote: INote = {
@@ -51,13 +51,11 @@ const NoteForm: FC = () => {
     }
     setNoteText('');
   };
+
   useOnClickOutside(formRef, handleClickOutside);
 
   const customStyles = {
-    background: `url(${formImage})`,
-    backgroundPositionX: 'right',
-    backgroundPositionY: 'bottom',
-    backgroundSize: 'cover'
+    background: `url(${formImage}) right bottom / cover`,
   };
 
   return (
@@ -68,8 +66,7 @@ const NoteForm: FC = () => {
       className="note__form"
       onClick={onInputClick}
     >
-      <div className={`note__form-label ${formImage !== transparent ? 'form-img' : ''}`}
-           style={{ background: `url(${formImage})` }}>
+      <div className={`note__form-label`} style={formImage !== transparent ? customStyles : undefined}>
         <div className='title-input'>
           <input
             value={headerText}
@@ -109,8 +106,7 @@ const NoteForm: FC = () => {
             <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
             <img onClick={onColorBlockClick} src={palette} alt=""/>
           </div>
-          {isTextareaVisible && <button className="note__form-btn" onClick={onCloseClick}>Закрыть</button>}
-        </div>}
+          </div>}
       {isColorBlockVisible && isTextareaVisible &&
         <div className="pickers">
           <ColorPicker/>

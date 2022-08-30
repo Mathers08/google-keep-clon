@@ -2,7 +2,6 @@
     <defs>
         <style>
             .cls-1{fill:#292445;}.cls-2{fill:#362947;}.cls-3{fill:url(#linear-gradient);}.cls-4{fill:#141212;}.cls-5{fill:#5f3c7d;}.cls-6{fill:#19402d;}.cls-7{fill:#1f4f39;}.cls-8{fill:#13633d;}.cls-9{fill:#233;}
-            {background-position-x:right;background-position-y:bottom;background-size:cover;}
         </style>
         <linearGradient id="linear-gradient" x1="425.2" y1="698.11" x2="425.2" y2="841.06"
                         gradientUnits="userSpaceOnUse">
