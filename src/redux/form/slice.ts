@@ -1,7 +1,8 @@
-import { ColorsEnum, ImagesEnum, INote, MiniImagesEnum, NoteState } from "./types";
+import { ColorsEnum, ImagesEnum, INote, FormState } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: NoteState = {
+const initialState: FormState = {
+  id: Math.random(),
   headerText: '',
   isColorBlockVisible: false,
   notes: [],
@@ -14,7 +15,7 @@ const initialState: NoteState = {
 };
 
 export const slice = createSlice({
-  name: 'note',
+  name: 'form',
   initialState,
   reducers: {
     setHeaderText: (state, action: PayloadAction<string>) => {
@@ -26,6 +27,13 @@ export const slice = createSlice({
     setFormColor: (state, action: PayloadAction<ColorsEnum>) => {
       state.formColor = action.payload;
     },
+    updateNoteColor: ((state, action) => {
+      state.notes.map(note => {
+        if (note.id === action.payload.id) {
+          note.color = action.payload.color;
+        }
+      })
+    }),
     setFormImage: (state, action: PayloadAction<ImagesEnum>) => {
       state.formImage = action.payload;
     },
@@ -49,7 +57,6 @@ export const slice = createSlice({
       state.isNotePined = false;
       state.formColor = ColorsEnum.DEFAULT;
       state.formImage = ImagesEnum.DEFAULT;
-      state.isTextareaVisible = false;
     }
   }
 });
@@ -58,6 +65,7 @@ export const {
   setHeaderText,
   setIsColorBlockVisible,
   setFormColor,
+  updateNoteColor,
   setFormImage,
   setIsNotePined,
   setIsTextareaVisible,

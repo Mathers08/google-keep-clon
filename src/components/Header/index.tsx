@@ -3,9 +3,9 @@ import './Header.scss';
 import { burger, grid1, grid2, grid3, logo, settings } from "../../assets";
 import Search from "../Search";
 import { useSelector } from "react-redux";
-import { selectNote } from "../../redux/note/selectors";
+import { selectForm } from "../../redux/form/selectors";
 import { useAppDispatch } from "../../hooks";
-import { setIsNoteListColumn } from "../../redux/note/slice";
+import { setIsNoteListColumn } from "../../redux/form/slice";
 import { selectNavbar } from "../../redux/navbar/selectors";
 import { setIsNavbarHidden } from "../../redux/navbar/slice";
 import { useOnClickOutside } from "usehooks-ts";
@@ -49,7 +49,7 @@ const Header: FC = () => {
   const dispatch = useAppDispatch();
   const settingsRef = useRef(null);
   const { isSettingsPopupVisible } = useSelector(selectHeader);
-  const { isNoteListColumn } = useSelector(selectNote);
+  const { isNoteListColumn } = useSelector(selectForm);
   const { isNavbarHidden } = useSelector(selectNavbar);
 
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));

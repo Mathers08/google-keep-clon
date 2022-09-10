@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import note from './note/slice';
+import form from './form/slice';
 import navbar from './navbar/slice';
 import header from './header/slice';
+import notes from './notes/slice';
 
 export const store = configureStore({
   reducer: {
-    note,
+    form,
     navbar,
-    header
+    header,
+    notes
   }
 });
 

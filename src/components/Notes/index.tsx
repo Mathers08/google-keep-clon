@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import './Notes.scss';
-import NoteList from "./NoteList";
-import NoteForm from "./NoteForm";
+import NoteList from "./NoteList/NoteList";
+import NoteForm from "./NoteForm/NoteForm";
 import { useSelector } from "react-redux";
 import { selectHeader } from "../../redux/header/selectors";
 

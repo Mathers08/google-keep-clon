@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react';
 import './ImagePicker.scss';
 import { checkedColor, no_image } from "../../assets";
 import { useAppDispatch } from "../../hooks";
-import { ImagesEnum, MiniImagesEnum } from "../../redux/note/types";
-import { setFormImage } from "../../redux/note/slice";
+import { ImagesEnum, MiniImagesEnum } from "../../redux/form/types";
+import { setFormImage } from "../../redux/form/slice";
 
 type ImageItem = {
   id: number;

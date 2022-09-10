@@ -27,6 +27,7 @@ export interface INote {
   color: string;
   image: string;
   pined: boolean;
+  isEditing: boolean;
 }
 
 export enum ColorsEnum {
@@ -70,7 +71,8 @@ export enum ImagesEnum {
   MUSIC = musicB,
 }
 
-export interface NoteState {
+export interface FormState {
+  id: number;
   headerText: string;
   isColorBlockVisible: boolean;
   notes: INote[];

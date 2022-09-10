@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import '../../components/Notes/Notes.scss';
+import '../../components/Notes/NoteForm/NoteForm.scss';
 
 interface ArrowRightProps {
   canRedo: boolean;

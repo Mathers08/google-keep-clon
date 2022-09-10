@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import './ColorPicker.scss';
 import { checkedColor, drop } from "../../assets";
-import { setFormColor } from "../../redux/note/slice";
+import { setFormColor } from "../../redux/form/slice";
 import { useAppDispatch } from "../../hooks";
-import { ColorsEnum } from "../../redux/note/types";
+import { ColorsEnum } from "../../redux/form/types";
 
 type ColorItem = {
   id: number;

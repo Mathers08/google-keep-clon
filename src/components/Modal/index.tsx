@@ -7,7 +7,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const ModalBlock: FC<ModalProps> = ({ active, setActive, children }) => {
+const Modal: FC<ModalProps> = ({ active, setActive, children }) => {
   return (
     <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
       <div className={active ? 'modal__content active' : 'modal__content'} onClick={e => e.stopPropagation()}>
@@ -17,4 +17,4 @@ const ModalBlock: FC<ModalProps> = ({ active, setActive, children }) => {
   );
 };
 
-export default ModalBlock;
+export default Modal;

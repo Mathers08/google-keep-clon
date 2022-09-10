@@ -1,0 +1,136 @@
+.note__form {
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.6), 0 2px 6px 2px rgba(0, 0, 0, 0.302);
+  transition: .2s ease-in background-color;
+  border: 1px solid #5f6368;
+
+  &-label {
+    .title-input {
+      display: flex;
+      padding-left: 20px;
+      height: 55px;
+
+      .note-input {
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      input::placeholder {
+        font-size: 18px;
+        font-weight: 800;
+      }
+    }
+
+    .text-input {
+      display: flex;
+      flex-direction: column;
+      padding: 10px 10px 0 20px;
+      align-items: start;
+      box-shadow: none;
+      border-radius: 0 0 8px 8px;
+
+      .note-input {
+        min-height: 40px;
+        max-height: 200px;
+        resize: vertical;
+      }
+
+      &-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-left: -10px;
+        cursor: initial;
+      }
+
+      &-icons {
+        display: flex;
+        gap: 20px;
+
+        img, svg {
+          margin-top: 10px;
+          margin-bottom: 5px;
+          padding: 10px;
+          width: 20px;
+          height: 20px;
+        }
+
+      }
+    }
+
+    .note-input {
+      background-color: transparent;
+      font-family: Roboto, Arial, sans-serif;
+      outline: none;
+      border: none;
+      opacity: .8;
+      color: #fff;
+      width: 100%;
+      height: 100%;
+      letter-spacing: .15px;
+
+      &::placeholder {
+        font-weight: 700;
+        color: rgb(201, 201, 211);
+        font-size: 14px;
+      }
+    }
+
+    .note-icons {
+      display: flex;
+    }
+  }
+
+  &-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px 0 5px;
+
+    .tools-icons {
+      display: flex;
+      gap: 20px;
+
+      .disabled-arrows {
+        cursor: no-drop;
+        border-radius: 0;
+        background-color: initial;
+        opacity: .25;
+      }
+    }
+  }
+
+  &-btn {
+    background-color: transparent;
+    border: none;
+    color: #dadce0;
+    padding: 8px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      background-color: rgba(154, 160, 166, 0.039);
+    }
+  }
+}
+
+.hidden-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.pickers {
+  background-color: #17191d;
+  border-radius: 10px;
+  flex-direction: column;
+  position: absolute;
+  left: 70px;
+  top: 155px;
+  box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7);
+}
+

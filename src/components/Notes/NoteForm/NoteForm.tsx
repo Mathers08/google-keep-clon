@@ -1,20 +1,24 @@
 import React, { ChangeEvent, FC, useRef } from 'react';
-import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin, transparent } from "../../assets";
-import { useAppDispatch, useUndoableState } from "../../hooks";
-import { INote } from "../../redux/note/types";
-import ColorPicker from "../ColorPicker";
+import './NoteForm.scss';
+import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin, transparent } from "../../../assets";
+import { useAppDispatch, useUndoableState } from "../../../hooks";
+import { INote } from "../../../redux/form/types";
+import ColorPicker from "../../ColorPicker";
 import { useSelector } from "react-redux";
-import { selectNote } from "../../redux/note/selectors";
+import { selectForm } from "../../../redux/form/selectors";
 import {
-  addNote,
   resetForm,
   setHeaderText,
   setIsColorBlockVisible,
   setIsNotePined,
   setIsTextareaVisible
-} from "../../redux/note/slice";
+} from "../../../redux/form/slice";
+import {
+  addNote
+} from "../../../redux/notes/slice";
 import { useOnClickOutside } from "usehooks-ts";
-import ImagePicker from "../ImagePicker";
+import ImagePicker from "../../ImagePicker";
+import { selectNotes } from "../../../redux/notes/selectors";
 
 const NoteForm: FC = () => {
   const textarea = '';
@@ -27,14 +31,18 @@ const NoteForm: FC = () => {
     formImage,
     isNotePined,
     isTextareaVisible
-  } = useSelector(selectNote);
+  } = useSelector(selectForm);
+  const { notes } = useSelector(selectNotes);
   const { noteText, setNoteText, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(textarea);
 
   const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
   const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setHeaderText(e.target.value));
   const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
   const onInputClick = () => dispatch(setIsTextareaVisible(true));
-  //const onCloseClick = () => dispatch(setIsTextareaVisible(false));
+  const onResetClick = () => {
+    setNoteText('');
+    dispatch(resetForm());
+  };
 
   const handleClickOutside = () => {
     const newNote: INote = {
@@ -43,10 +51,12 @@ const NoteForm: FC = () => {
       note: noteText,
       color: formColor,
       image: formImage.toString(),
-      pined: isNotePined
+      pined: isNotePined,
+      isEditing: false
     };
     if (headerText && noteText) {
       dispatch(addNote(newNote));
+      dispatch(setIsTextareaVisible(false));
       dispatch(resetForm());
     }
     setNoteText('');
@@ -67,7 +77,7 @@ const NoteForm: FC = () => {
       onClick={onInputClick}
     >
       <div className={`note__form-label`} style={formImage !== transparent ? customStyles : undefined}>
-        <div className='title-input'>
+        <div className="title-input">
           <input
             value={headerText}
             onChange={onHeaderTextChange}
@@ -76,7 +86,7 @@ const NoteForm: FC = () => {
             className="note-input"
           />
           {isTextareaVisible ?
-            <div className="note-icons ">
+            <div className="note-icons">
               <Pin isPined={isNotePined} onPinClick={onPinClick}/>
             </div> :
             <div className="note-icons">
@@ -106,7 +116,8 @@ const NoteForm: FC = () => {
             <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
             <img onClick={onColorBlockClick} src={palette} alt=""/>
           </div>
-          </div>}
+          <button className="note__form-btn" onClick={onResetClick}>Сбросить</button>
+        </div>}
       {isColorBlockVisible && isTextareaVisible &&
         <div className="pickers">
           <ColorPicker/>
