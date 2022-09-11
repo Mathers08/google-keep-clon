@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import './ImagePicker.scss';
+import './Pickers.scss';
 import { checkedColor, no_image } from "../../assets";
 import { useAppDispatch } from "../../hooks";
 import { ImagesEnum, MiniImagesEnum } from "../../redux/form/types";
@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { selectForm } from "../../redux/form/selectors";
 
 type ImagePickerProps = Pick<INote, 'id'>;
-
 type ImageItem = {
   id: number;
   miniImage: MiniImagesEnum;
@@ -86,16 +85,18 @@ const ImagePicker: FC<ImagePickerProps> = ({ id }) => {
   };
 
   return (
-    <div className="images">
-      <img className="images-reset-icon" src={no_image} alt=""/>
+    <div className="images wrapper">
+      <img className="images-reset-icon wrapper-reset-icon" src={no_image} alt=""/>
       {imageItems.map((obj) => (
-        <div key={obj.id} className="images__block">
+        <div key={obj.id} className="images__block wrapper__block">
           <img
             src={(obj.miniImage).toString()} alt=""
-            className={`images__block-item ${obj.id === selectedId ? 'active' : ''}`}
+            className={`images__block-item wrapper__block-item ${obj.id === selectedId ? 'active' : ''}`}
             onClick={() => onImageBlockClick(obj)}
           />
-          {obj.id === selectedId && <img className="images__block-icon" src={checkedColor} alt=""/>}
+          {obj.id === selectedId &&
+            <img className="images__block-icon wrapper__block-icon" src={checkedColor} alt=""/>
+          }
         </div>
       ))}
     </div>

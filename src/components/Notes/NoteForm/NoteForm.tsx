@@ -3,7 +3,6 @@ import './NoteForm.scss';
 import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin, transparent } from "../../../assets";
 import { useAppDispatch, useUndoableState } from "../../../hooks";
 import { INote } from "../../../redux/notes/types";
-import ColorPicker from "../../ColorPicker";
 import { useSelector } from "react-redux";
 import { selectForm } from "../../../redux/form/selectors";
 import {
@@ -13,10 +12,9 @@ import {
   setIsNotePined,
   setIsTextareaVisible
 } from "../../../redux/form/slice";
-import { addNote, toggleNoteColorBlock } from "../../../redux/notes/slice";
+import { addNote } from "../../../redux/notes/slice";
 import { useOnClickOutside } from "usehooks-ts";
-import ImagePicker from "../../ImagePicker";
-import { selectNotes } from "../../../redux/notes/selectors";
+import Pickers from "../../Pickers";
 
 const NoteForm: FC = () => {
   const textarea = '';
@@ -32,8 +30,8 @@ const NoteForm: FC = () => {
   } = useSelector(selectForm);
   const { noteText, setNoteText, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(textarea);
 
-  const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
   const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setHeaderText(e.target.value));
+  const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
   const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
   const onInputClick = () => dispatch(setIsTextareaVisible(true));
   const onResetClick = () => {
@@ -116,12 +114,7 @@ const NoteForm: FC = () => {
           </div>
           <button className="note__form-btn" onClick={onResetClick}>Сбросить</button>
         </div>}
-      {isColorBlockVisible && isTextareaVisible &&
-        <div className="pickers">
-          <ColorPicker id={Math.random()}/>
-          <ImagePicker id={Math.random()}/>
-        </div>
-      }
+      {isColorBlockVisible && isTextareaVisible && <Pickers id={0}/>}
     </form>
   );
 };

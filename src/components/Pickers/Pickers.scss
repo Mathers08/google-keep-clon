@@ -1,0 +1,137 @@
+@import "../../App";
+
+.pickers {
+  background-color: $lightBlack;
+  border-radius: 10px;
+  flex-direction: column;
+  position: absolute;
+  left: 70px;
+  top: 155px;
+  z-index: 1;
+  box-shadow: $boxShadow;
+}
+
+.wrapper {
+  display: flex;
+  padding: 8px 9px;
+
+  :nth-child(2) {
+    .wrapper__block-item {
+      border: $primaryBorder;
+      box-shadow: none;
+
+      &:hover {
+        border: $whiteBorder;
+      }
+    }
+  }
+
+  &__block {
+    position: relative;
+
+    &-item {
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid $lightBlack;
+
+      &:hover {
+        border: $whiteBorder;
+      }
+    }
+
+    &-icon {
+      padding: 0;
+      position: absolute;
+    }
+
+    .active {
+      border: $secondaryBorder;
+    }
+  }
+
+  &-reset-icon {
+    padding: 0;
+    position: absolute;
+
+    &:hover {
+      background-color: initial;
+      border-radius: 0;
+    }
+  }
+}
+
+.colors {
+  gap: 6px;
+
+  &__block {
+    position: relative;
+
+    &-item {
+      width: 30px;
+      height: 30px;
+      box-shadow: inset -2px 4px rgb(0 0 0 / 25%);
+    }
+
+    &-icon {
+      width: 20px;
+      height: 20px;
+      top: -5px;
+      left: 18px;
+    }
+
+  }
+
+  &-reset-icon {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    position: absolute;
+    top: 15px;
+    left: 17px;
+    &:hover {
+      background-color: initial;
+      border-radius: 0;
+    }
+  }
+}
+
+.images {
+  gap: 4px;
+
+  :nth-child(2) {
+    .images__block-item {
+      background-color: transparent;
+    }
+  }
+
+  &__block {
+    position: relative;
+
+    &-item {
+      padding: 0;
+      width: 40px;
+      height: 40px;
+    }
+
+    &-icon {
+      width: 22px;
+      height: 22px;
+      top: -7px;
+      left: 24px;
+    }
+  }
+
+  &-reset-icon {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 24px;
+    left: 20px;
+    &:hover {
+      background-color: initial;
+      border-radius: 0;
+    }
+  }
+}

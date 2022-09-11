@@ -6,9 +6,8 @@ import { selectHeader } from "../../../redux/header/selectors";
 import { Highlighted } from "../../../utils";
 import { archive, palette, Pin, transparent } from "../../../assets";
 import { useAppDispatch } from "../../../hooks";
-import ColorPicker from "../../ColorPicker";
-import ImagePicker from "../../ImagePicker";
 import { toggleNoteColorBlock, togglePinned } from "../../../redux/notes/slice";
+import Pickers from "../../Pickers";
 
 type NoteItemProps = INote & {
   isNoteListRow: boolean;
@@ -34,10 +33,6 @@ const NoteItem: FC<NoteItemProps> = ({
     },
     tools: {
       width: isNoteListRow ? '595px' : '281px',
-    },
-    pickers: {
-      top: isColorBlockVisible ? '170px' : '155px',
-      left: isColorBlockVisible ? '-95px' : '70px',
     }
   };
   const dispatch = useAppDispatch();
@@ -67,12 +62,7 @@ const NoteItem: FC<NoteItemProps> = ({
           <img src={palette} alt="" onClick={onColorBlockClick}/>
         </div>
       </div>
-      {isColorBlockVisible &&
-        <div className="pickers" style={customStyles.pickers}>
-          <ColorPicker id={id}/>
-          <ImagePicker id={id}/>
-        </div>
-      }
+      {isColorBlockVisible && <Pickers id={id}/>}
     </div>
   );
 };

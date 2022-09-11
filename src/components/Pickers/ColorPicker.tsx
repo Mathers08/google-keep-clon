@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import './ColorPicker.scss';
+import './Pickers.scss';
 import { checkedColor, drop } from "../../assets";
 import { setFormColor } from "../../redux/form/slice";
 import { useAppDispatch } from "../../hooks";
@@ -82,16 +82,18 @@ const ColorPicker: FC<ColorPickerProps> = ({ id }) => {
   };
 
   return (
-    <div className="colors">
-      <img className="colors-reset-icon" src={drop} alt=""/>
+    <div className="colors wrapper">
+      <img className="colors-reset-icon wrapper-reset-icon" src={drop} alt=""/>
       {colorItems.map((obj) => (
-        <div key={obj.id} className="colors__block">
+        <div key={obj.id} className="colors__block wrapper__block">
           <div
             style={{ backgroundColor: obj.color }}
-            className={`colors__block-item ${obj.id === selectedId ? 'active' : ''}`}
+            className={`colors__block-item wrapper__block-item ${obj.id === selectedId ? 'active' : ''}`}
             onClick={() => onColorBlockClick(obj)}
           />
-          {obj.id === selectedId && <img className="colors__block-icon" src={checkedColor} alt=""/>}
+          {obj.id === selectedId &&
+            <img className="colors__block-icon wrapper__block-icon" src={checkedColor} alt=""/>
+          }
         </div>
       ))}
     </div>

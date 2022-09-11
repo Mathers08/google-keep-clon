@@ -51,9 +51,8 @@ const Header: FC = () => {
 
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
   const onGridIconClick = () => dispatch(setIsNoteListRow(!isNoteListRow));
-  const toggleSettingsPopup = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
-  const handleClickOutside = () => dispatch(setIsSettingsPopupVisible(false));
-  useOnClickOutside(settingsRef, handleClickOutside);
+  const onSettingsPopupClick = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
+  useOnClickOutside(settingsRef, () => dispatch(setIsSettingsPopupVisible(false)));
 
   return (
     <header className="header">
@@ -73,7 +72,7 @@ const Header: FC = () => {
             ? <img onClick={onGridIconClick} src={grid2} alt=""/>
             : <img onClick={onGridIconClick} src={grid1} alt=""/>
           }
-          <img src={settings} alt="" ref={settingsRef} onClick={toggleSettingsPopup}/>
+          <img src={settings} alt="" ref={settingsRef} onClick={onSettingsPopupClick}/>
 
           {isSettingsPopupVisible && <div className="settings__popup">
             <ul>
