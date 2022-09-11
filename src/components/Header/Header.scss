@@ -1,7 +1,9 @@
+@import "../../App.scss";
+
 .header {
   height: 72px;
   padding: 0 20px;
-  border-bottom: 2px solid rgb(82, 83, 85);
+  border-bottom: 2px solid $lightGrey;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,7 +34,7 @@
       cursor: pointer;
       font-family: "Product Sans", Arial, sans-serif;
       font-size: 22px;
-      color: rgb(201, 201, 211);
+      color: gainsboro;
     }
   }
 
@@ -52,7 +54,7 @@
   right: 70px;
   margin-top: 55px;
   background: #202124;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 60%), 0 2px 6px 2px rgb(0 0 0 / 30%);
+  box-shadow: $boxShadow;
   border-radius: 4px;
   overflow: hidden;
   padding: 6px 0;
@@ -60,7 +62,7 @@
   ul {
     li {
       cursor: pointer;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
       letter-spacing: .01428571em;
       font-family: Roboto, Arial, sans-serif;
       font-size: .875rem;
@@ -70,7 +72,7 @@
 
       &.active,
       &:hover {
-        background: rgb(82, 83, 85);
+        background: $lightGrey;
       }
     }
   }

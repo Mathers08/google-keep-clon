@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.scss';
+import './App.scss';
 import { Header, Navbar, Notes } from "./components";
 
 const App = () => {

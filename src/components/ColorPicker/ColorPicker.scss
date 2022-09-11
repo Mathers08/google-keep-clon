@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .colors {
   display: flex;
   gap: 6px;
@@ -5,10 +7,10 @@
 
   :nth-child(2) {
     .colors__block-item {
-      border: 2px solid #5f6368;
+      border: $primaryBorder;
       box-shadow: none;
       &:hover {
-        border: 2px solid #fff;
+        border: $whiteBorder;
       }
     }
   }
@@ -21,11 +23,11 @@
       height: 30px;
       border-radius: 50%;
       cursor: pointer;
-      border: 2px solid #17191d;
+      border: 2px solid $lightBlack;
       box-shadow: inset -2px 4px rgb(0 0 0 / 25%);
 
       &:hover {
-        border: 2px solid #fff;
+        border: $whiteBorder;
       }
     }
 
@@ -39,7 +41,7 @@
     }
 
     .active {
-      border: 2px solid rgb(161, 66, 244);
+      border: $secondaryBorder;
     }
   }
 

@@ -1,3 +1,5 @@
+@import "../../App";
+
 .nav {
   margin-top: 10px;
 
@@ -30,7 +32,7 @@
       }
 
       .item-text {
-        color: rgb(201, 201, 211);
+        color: gainsboro;
       }
     }
 
@@ -38,7 +40,7 @@
       background-color: rgb(65, 51, 28);
 
       .item-text {
-        color: #fff;
+        color: $white;
       }
     }
   }
