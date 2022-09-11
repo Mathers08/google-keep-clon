@@ -3,13 +3,11 @@ import './Header.scss';
 import { burger, grid1, grid2, grid3, logo, settings } from "../../assets";
 import Search from "../Search";
 import { useSelector } from "react-redux";
-import { selectForm } from "../../redux/form/selectors";
 import { useAppDispatch } from "../../hooks";
-import { setIsNoteListColumn } from "../../redux/form/slice";
 import { selectNavbar } from "../../redux/navbar/selectors";
 import { setIsNavbarHidden } from "../../redux/navbar/slice";
 import { useOnClickOutside } from "usehooks-ts";
-import { setIsSettingsPopupVisible } from "../../redux/header/slice";
+import { setIsNoteListRow, setIsSettingsPopupVisible } from "../../redux/header/slice";
 import { selectHeader } from "../../redux/header/selectors";
 import { SettingsEnum } from "../../redux/header/types";
 
@@ -48,12 +46,11 @@ export const settingsItems: SettingsItem[] = [
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const settingsRef = useRef(null);
-  const { isSettingsPopupVisible } = useSelector(selectHeader);
-  const { isNoteListColumn } = useSelector(selectForm);
+  const { isSettingsPopupVisible, isNoteListRow } = useSelector(selectHeader);
   const { isNavbarHidden } = useSelector(selectNavbar);
 
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
-  const onGridIconClick = () => dispatch(setIsNoteListColumn(!isNoteListColumn));
+  const onGridIconClick = () => dispatch(setIsNoteListRow(!isNoteListRow));
   const toggleSettingsPopup = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
   const handleClickOutside = () => dispatch(setIsSettingsPopupVisible(false));
   useOnClickOutside(settingsRef, handleClickOutside);
@@ -72,7 +69,7 @@ const Header: FC = () => {
       <Search/>
       <div className="header__right">
         <div className="header__right-icons">
-          {isNoteListColumn
+          {isNoteListRow
             ? <img onClick={onGridIconClick} src={grid2} alt=""/>
             : <img onClick={onGridIconClick} src={grid1} alt=""/>
           }

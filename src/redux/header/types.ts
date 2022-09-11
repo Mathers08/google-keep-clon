@@ -10,4 +10,5 @@ export enum SettingsEnum {
 export interface HeaderState {
   isSettingsPopupVisible: boolean;
   searchValue: string;
+  isNoteListRow: boolean;
 }

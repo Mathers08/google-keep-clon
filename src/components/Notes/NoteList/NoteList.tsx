@@ -1,71 +1,68 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import NoteItem from "./NoteItem";
 import './NoteList.scss';
-import {useSelector} from "react-redux";
-import {selectHeader} from "../../../redux/header/selectors";
-import {selectForm} from "../../../redux/form/selectors";
-import {declination} from "../../../utils";
-import {selectNotes} from "../../../redux/notes/selectors";
+import { useSelector } from "react-redux";
+import { selectHeader } from "../../../redux/header/selectors";
+import { declination } from "../../../utils";
+import { selectNotes } from "../../../redux/notes/selectors";
 
 const NoteList: FC = () => {
-    const {pinedNotes, isNoteListColumn} = useSelector(selectForm);
-    const {notes} = useSelector(selectNotes);
-    const {searchValue} = useSelector(selectHeader);
+  const { notes } = useSelector(selectNotes);
+  const { searchValue, isNoteListRow } = useSelector(selectHeader);
 
-    const filteredNotes =
-        notes.filter(note => (
-            note.header.toLowerCase().includes(searchValue.toLowerCase()) ||
-            note.note.toLowerCase().includes(searchValue.toLowerCase())
-        ));
-
-    const pinnedNotes = filteredNotes.filter(n => n.pined)
-    const unpinnedNotes = filteredNotes.filter(n => !n.pined)
-
-    const pinnedNoteItems = pinnedNotes.map(note => (
-        <NoteItem
-            key={note.id}
-            {...note}
-            isNoteListColumn={isNoteListColumn}
-        />
+  const filteredNotes =
+    notes.filter(note => (
+      note.header.toLowerCase().includes(searchValue.toLowerCase()) ||
+      note.note.toLowerCase().includes(searchValue.toLowerCase())
     ));
 
-    const unpinnedNoteItems = unpinnedNotes.map(note => (
-        <NoteItem
-            key={note.id}
-            {...note}
-            isNoteListColumn={isNoteListColumn}
-        />
-    ));
+  const pinnedNotes = filteredNotes.filter(n => n.isPinned);
+  const unpinnedNotes = filteredNotes.filter(n => !n.isPinned);
 
-    const customStyles = {
-        margin: isNoteListColumn ? '0 auto' : '0 0 0 60px',
-        color: '#cecece',
-        fontWeight: 800,
-        lineHeight: '1rem'
-    }
-    const totalLength = pinnedNotes.length + unpinnedNotes.length;
-    const declFind = declination(totalLength, ['Найдена', 'Найдены', 'Найдено']);
-    const declNote = declination(totalLength, ['заметка', 'заметки', 'заметок']);
-    const foundNotesCountInfo = totalLength === 0
-        ? <h2 style={customStyles}>Заметки не найдены</h2>
-        : <h2 style={customStyles}>{declFind} {totalLength} {declNote}</h2>
+  const pinnedNoteItems = pinnedNotes.map(note => (
+    <NoteItem
+      key={note.id}
+      {...note}
+      isNoteListRow={isNoteListRow}
+    />
+  ));
+  const unpinnedNoteItems = unpinnedNotes.map(note => (
+    <NoteItem
+      key={note.id}
+      {...note}
+      isNoteListRow={isNoteListRow}
+    />
+  ));
 
-    return (
-        <div className="note__block">
-            {searchValue && foundNotesCountInfo}
-            {pinnedNoteItems.length > 0 &&
-                <div className={`${isNoteListColumn ? 'note__columnBlock-item' : 'note__block-item'}`}>
-                    <div className="note__block-title">Закрепленные</div>
-                    <div className="note__list">{pinnedNoteItems}</div>
-                </div>}
-            <div className={`${isNoteListColumn ? 'note__columnBlock-item' : 'note__block-item'}`}>
-                {pinnedNoteItems.length > 0 && unpinnedNoteItems.length > 0 &&
-                    <div className="note__block-title">Другие заметки</div>
-                }
-                <div className="note__list">{unpinnedNoteItems}</div>
-            </div>
-        </div>
-    );
+  const customStyles = {
+    margin: isNoteListRow ? '0 auto' : '0 0 0 60px',
+    color: '#cecece',
+    fontWeight: 800,
+    lineHeight: '1rem'
+  };
+  const totalLength = pinnedNotes.length + unpinnedNotes.length;
+  const declFind = declination(totalLength, ['Найдена', 'Найдены', 'Найдено']);
+  const declNote = declination(totalLength, ['заметка', 'заметки', 'заметок']);
+  const foundNotesCountInfo = totalLength === 0
+    ? <h2 style={customStyles}>Заметки не найдены</h2>
+    : <h2 style={customStyles}>{declFind} {totalLength} {declNote}</h2>;
+
+  return (
+    <div className="note__block">
+      {searchValue && foundNotesCountInfo}
+      {pinnedNoteItems.length > 0 &&
+        <div className={`${isNoteListRow ? 'note__columnBlock-item' : 'note__block-item'}`}>
+          <div className="note__block-title">Закрепленные</div>
+          <div className="note__list">{pinnedNoteItems}</div>
+        </div>}
+      <div className={`${isNoteListRow ? 'note__columnBlock-item' : 'note__block-item'}`}>
+        {pinnedNoteItems.length > 0 && unpinnedNoteItems.length > 0 &&
+          <div className="note__block-title">Другие заметки</div>
+        }
+        <div className="note__list">{unpinnedNoteItems}</div>
+      </div>
+    </div>
+  );
 };
 
 export default NoteList;

@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, useRef } from 'react';
 import './NoteForm.scss';
 import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin, transparent } from "../../../assets";
 import { useAppDispatch, useUndoableState } from "../../../hooks";
-import { INote } from "../../../redux/form/types";
+import { INote } from "../../../redux/notes/types";
 import ColorPicker from "../../ColorPicker";
 import { useSelector } from "react-redux";
 import { selectForm } from "../../../redux/form/selectors";
@@ -13,9 +13,7 @@ import {
   setIsNotePined,
   setIsTextareaVisible
 } from "../../../redux/form/slice";
-import {
-  addNote
-} from "../../../redux/notes/slice";
+import { addNote, toggleNoteColorBlock } from "../../../redux/notes/slice";
 import { useOnClickOutside } from "usehooks-ts";
 import ImagePicker from "../../ImagePicker";
 import { selectNotes } from "../../../redux/notes/selectors";
@@ -32,7 +30,6 @@ const NoteForm: FC = () => {
     isNotePined,
     isTextareaVisible
   } = useSelector(selectForm);
-  const { notes } = useSelector(selectNotes);
   const { noteText, setNoteText, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(textarea);
 
   const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
@@ -51,15 +48,16 @@ const NoteForm: FC = () => {
       note: noteText,
       color: formColor,
       image: formImage.toString(),
-      pined: isNotePined,
-      isEditing: false
+      isPinned: isNotePined,
+      isEditing: false,
+      isColorBlockVisible: false
     };
     if (headerText && noteText) {
       dispatch(addNote(newNote));
-      dispatch(setIsTextareaVisible(false));
       dispatch(resetForm());
+      setNoteText('');
     }
-    setNoteText('');
+    dispatch(setIsColorBlockVisible(false));
   };
 
   useOnClickOutside(formRef, handleClickOutside);
@@ -120,8 +118,8 @@ const NoteForm: FC = () => {
         </div>}
       {isColorBlockVisible && isTextareaVisible &&
         <div className="pickers">
-          <ColorPicker/>
-          <ImagePicker/>
+          <ColorPicker id={Math.random()}/>
+          <ImagePicker id={Math.random()}/>
         </div>
       }
     </form>

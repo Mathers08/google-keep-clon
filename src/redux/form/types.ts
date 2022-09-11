@@ -20,16 +20,6 @@ import {
   videoB
 } from "../../assets";
 
-export interface INote {
-  id: number;
-  header: string;
-  note: string;
-  color: string;
-  image: string;
-  pined: boolean;
-  isEditing: boolean;
-}
-
 export enum ColorsEnum {
   DEFAULT = "transparent",
   RED = "rgb(92, 43, 41)",
@@ -75,11 +65,8 @@ export interface FormState {
   id: number;
   headerText: string;
   isColorBlockVisible: boolean;
-  notes: INote[];
-  pinedNotes: INote[];
   formColor: ColorsEnum;
   formImage: ImagesEnum;
   isNotePined: boolean;
   isTextareaVisible: boolean;
-  isNoteListColumn: boolean;
 }

@@ -4,7 +4,12 @@ import { checkedColor, drop } from "../../assets";
 import { setFormColor } from "../../redux/form/slice";
 import { useAppDispatch } from "../../hooks";
 import { ColorsEnum } from "../../redux/form/types";
+import { setNoteColor } from "../../redux/notes/slice";
+import { useSelector } from "react-redux";
+import { selectForm } from "../../redux/form/selectors";
+import { INote } from "../../redux/notes/types";
 
+type ColorPickerProps = Pick<INote, 'id'>;
 type ColorItem = {
   id: number;
   color: ColorsEnum
@@ -61,10 +66,20 @@ export const colorItems: ColorItem[] = [
   },
 ];
 
-const ColorPicker: FC = () => {
+const ColorPicker: FC<ColorPickerProps> = ({ id }) => {
   const dispatch = useAppDispatch();
   const [selectedId, setSelectedId] = useState(0);
+  const { isColorBlockVisible } = useSelector(selectForm);
+
   const onItemClick = (id: number) => setSelectedId(id);
+  const onColorBlockClick = (obj: ColorItem) => {
+    if (isColorBlockVisible) {
+      dispatch(setFormColor(obj.color));
+    } else {
+      dispatch(setNoteColor({ id, color: obj.color }));
+    }
+    onItemClick(obj.id);
+  };
 
   return (
     <div className="colors">
@@ -74,10 +89,7 @@ const ColorPicker: FC = () => {
           <div
             style={{ backgroundColor: obj.color }}
             className={`colors__block-item ${obj.id === selectedId ? 'active' : ''}`}
-            onClick={() => {
-              dispatch(setFormColor(obj.color));
-              onItemClick(obj.id);
-            }}
+            onClick={() => onColorBlockClick(obj)}
           />
           {obj.id === selectedId && <img className="colors__block-icon" src={checkedColor} alt=""/>}
         </div>

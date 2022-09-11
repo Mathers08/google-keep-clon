@@ -4,6 +4,12 @@ import { checkedColor, no_image } from "../../assets";
 import { useAppDispatch } from "../../hooks";
 import { ImagesEnum, MiniImagesEnum } from "../../redux/form/types";
 import { setFormImage } from "../../redux/form/slice";
+import { INote } from "../../redux/notes/types";
+import { setNoteImage } from "../../redux/notes/slice";
+import { useSelector } from "react-redux";
+import { selectForm } from "../../redux/form/selectors";
+
+type ImagePickerProps = Pick<INote, 'id'>;
 
 type ImageItem = {
   id: number;
@@ -64,10 +70,20 @@ export const imageItems: ImageItem[] = [
   }
 ];
 
-const ImagePicker: FC = () => {
+const ImagePicker: FC<ImagePickerProps> = ({ id }) => {
   const dispatch = useAppDispatch();
   const [selectedId, setSelectedId] = useState(0);
+  const { isColorBlockVisible } = useSelector(selectForm);
+
   const onItemClick = (id: number) => setSelectedId(id);
+  const onImageBlockClick = (obj: ImageItem) => {
+    if (isColorBlockVisible) {
+      dispatch(setFormImage(obj.image));
+    } else {
+      dispatch(setNoteImage({ id, image: obj.image }));
+    }
+    onItemClick(obj.id);
+  };
 
   return (
     <div className="images">
@@ -77,10 +93,7 @@ const ImagePicker: FC = () => {
           <img
             src={(obj.miniImage).toString()} alt=""
             className={`images__block-item ${obj.id === selectedId ? 'active' : ''}`}
-            onClick={() => {
-              dispatch(setFormImage(obj.image));
-              onItemClick(obj.id);
-            }}
+            onClick={() => onImageBlockClick(obj)}
           />
           {obj.id === selectedId && <img className="images__block-icon" src={checkedColor} alt=""/>}
         </div>

@@ -15,10 +15,7 @@ const Search = () => {
     dispatch(setSearchValue(''));
     inputRef.current?.focus();
   };
-
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchValue(e.target.value));
-  };
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setSearchValue(e.target.value));
 
   return (
     <div className="search">
