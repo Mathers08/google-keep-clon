@@ -7194,6 +7194,11 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-alert-confirm@^3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/react-alert-confirm/-/react-alert-confirm-3.3.7.tgz#7f795361fa300462cffebb4eb98c5caeb204f55c"
+  integrity sha512-FFPkID+u4tekQ1fIqR+YGG07JECMVgJ54SPzbkEmKOtgunUeQoQH/YyCv8kWyu14JEFpkdkM082BBOMB4BMb4g==
+
 react-app-polyfill@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/react-app-polyfill/-/react-app-polyfill-3.0.0.tgz"

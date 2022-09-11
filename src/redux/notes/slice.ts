@@ -37,6 +37,9 @@ export const slice = createSlice({
         note.image = action.payload.image.toString();
       }
     },
+    deleteNote: (state, action: PayloadAction<number>) => {
+      state.notes = state.notes.filter(n => n.id !== action.payload)
+    },
   }
 });
 
@@ -45,6 +48,7 @@ export const {
   togglePinned,
   toggleNoteColorBlock,
   setNoteColor,
-  setNoteImage
+  setNoteImage,
+  deleteNote
 } = slice.actions;
 export default slice.reducer;

@@ -23,6 +23,7 @@ export { default as ArrowRight } from './notes/arrowRight';
 export { default as palette } from './notes/palette.svg';
 export { default as drop } from './notes/drop.svg';
 export { default as no_image } from './notes/no_image.svg';
+export { default as note_trash } from './notes/note_trash.svg';
 
 export { default as transparent } from './form/mini/transparent.svg';
 export { default as products } from './form/mini/products.svg';
