@@ -7,13 +7,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: .5s all ease-in;
 
   &__left {
     display: flex;
     align-items: center;
 
-    &-burger {
-
+    &-text {
+      color: #cecece;
+      font-weight: 700;
+      line-height: 1rem;
+      margin-left: 20px;
+      font-size: 24px;
     }
 
     &-logo {
@@ -39,6 +44,7 @@
   }
 
   &__right {
+
     &-icons {
       display: flex;
     }
@@ -47,6 +53,11 @@
 
     }
   }
+}
+
+.selected-notes-header {
+  background-color: rgb(38 56 84);
+  transition: .5s all ease-in;
 }
 
 .settings__popup {

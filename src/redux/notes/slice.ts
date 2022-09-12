@@ -13,10 +13,21 @@ export const slice = createSlice({
     addNote: (state, action: PayloadAction<INote>) => {
       state.notes.unshift(action.payload);
     },
-    togglePinned: (state, action: PayloadAction<number>) => {
-      const note = state.notes.find(n => n.id === action.payload);
-      if (note) {
-        note.isPinned = !note.isPinned;
+    togglePinned: (state, action: PayloadAction<number | INote[]>) => {
+      if (typeof action.payload === 'number') {
+        const note = state.notes.find(n => n.id === action.payload);
+        if (note) {
+          note.isPinned = !note.isPinned;
+        }
+      } else {
+        const selectedNotes = action.payload;
+        for (let i = 0; i < selectedNotes.length; i++) {
+          const note = state.notes.find(n => n.id === selectedNotes[i].id);
+          if (note) {
+            note.isPinned = !note.isPinned;
+          }
+        }
+        console.log(selectedNotes);
       }
     },
     toggleNoteColorBlock: (state, action: PayloadAction<number>) => {
@@ -25,10 +36,10 @@ export const slice = createSlice({
         note.isColorBlockVisible = !note.isColorBlockVisible;
       }
     },
-    toggleChoose: (state, action: PayloadAction<number>) => {
+    toggleSelected: (state, action: PayloadAction<number>) => {
       const note = state.notes.find(n => n.id === action.payload);
       if (note) {
-        note.isChosen = !note.isChosen;
+        note.isSelected = !note.isSelected;
       }
     },
     setNoteColor: (state, action: PayloadAction<{ id: number, color: ColorsEnum }>) => {
@@ -43,8 +54,15 @@ export const slice = createSlice({
         note.image = action.payload.image.toString();
       }
     },
-    deleteNote: (state, action: PayloadAction<number>) => {
-      state.notes = state.notes.filter(n => n.id !== action.payload)
+    deleteNote: (state, action: PayloadAction<number | INote[]>) => {
+      if (typeof action.payload === 'number') {
+        state.notes = state.notes.filter(n => n.id !== action.payload);
+      } else {
+        const selectedNotes = action.payload;
+        for (let i = 0; i < selectedNotes.length; i++) {
+          state.notes = state.notes.filter(n => n.id !== selectedNotes[i].id);
+        }
+      }
     },
   }
 });
@@ -53,7 +71,7 @@ export const {
   addNote,
   togglePinned,
   toggleNoteColorBlock,
-  toggleChoose,
+  toggleSelected,
   setNoteColor,
   setNoteImage,
   deleteNote

@@ -31,6 +31,12 @@ img, svg {
   }
 }
 
+svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 ul, li {
   list-style: none;
   padding: 0;

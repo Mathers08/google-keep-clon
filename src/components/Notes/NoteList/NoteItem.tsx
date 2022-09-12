@@ -4,11 +4,12 @@ import { INote } from "../../../redux/notes/types";
 import { useSelector } from "react-redux";
 import { selectHeader } from "../../../redux/header/selectors";
 import { Highlighted } from "../../../utils";
-import { archive, chosen, note_trash, palette, Pin, transparent } from "../../../assets";
+import { archive, note_trash, palette, Pin, select, transparent } from "../../../assets";
 import { useAppDispatch } from "../../../hooks";
-import { deleteNote, toggleChoose, toggleNoteColorBlock, togglePinned } from "../../../redux/notes/slice";
+import { deleteNote, toggleNoteColorBlock, togglePinned, toggleSelected } from "../../../redux/notes/slice";
 import Pickers from "../../Pickers";
 import alertConfirm, { Button } from "react-alert-confirm";
+import CustomAlert from "../../../utils/alerts";
 
 type NoteItemProps = INote & {
   isNoteListRow: boolean;
@@ -21,23 +22,23 @@ const NoteItem: FC<NoteItemProps> = ({
                                        color,
                                        image,
                                        isPinned,
-                                       isChosen,
+                                       isSelected,
                                        isColorBlockVisible,
                                        isNoteListRow
                                      }) => {
   const customStyles = {
     item: {
       width: isNoteListRow ? '600px' : '240px',
-      border: isChosen ? '2px solid #fff' : '' || image !== transparent ? `2px solid ${color}` : '',
+      border: isSelected ? '2px solid #fff' : '' || image !== transparent ? `2px solid ${color}` : '',
       background: image !== transparent ? `url(${image}) right bottom / cover` : 'transparent',
       backgroundColor: image !== transparent ? '' : color
     },
     tools: {
       width: isNoteListRow ? '595px' : '281px',
-      opacity: isChosen ? '1' : ''
+      opacity: isSelected ? '1' : ''
     },
     chosen: {
-      border: isChosen ? '2px solid #fff' : ''
+      border: isSelected ? '2px solid #fff' : ''
     }
   };
   const dispatch = useAppDispatch();
@@ -47,30 +48,8 @@ const NoteItem: FC<NoteItemProps> = ({
 
   const onPinClick = () => dispatch(togglePinned(id));
   const onColorBlockClick = () => dispatch(toggleNoteColorBlock(id));
-  const onChooseClick = () => dispatch(toggleChoose(id));
+  const onSelectClick = () => dispatch(toggleSelected(id));
   const onDeleteClick = () => dispatch(deleteNote(id));
-  const handleClickCustomAlert = async () => {
-    await alertConfirm({
-      maskClosable: true,
-      title: "Вы уверены, что хотите удалить замету?",
-      style: { borderRadius: '9px' },
-      footer(dispatch) {
-        return (
-          <>
-            <Button onClick={() => dispatch("cancel")}>
-              Отмена
-            </Button>
-            <Button onClick={() => {
-              onDeleteClick();
-              dispatch("cancel");
-            }} styleType="danger">
-              Удалить
-            </Button>
-          </>
-        );
-      },
-    });
-  };
 
   return (
     <div className="note__list-item" style={customStyles.item}>
@@ -84,8 +63,8 @@ const NoteItem: FC<NoteItemProps> = ({
         <NoteForm/>
       </Modal>*/}
       <div className="note__item-tools" style={customStyles.tools}>
-        <div className="tools__icons-chosen">
-          <img src={chosen} alt="" onClick={onChooseClick}/>
+        <div className="tools__icons-select">
+          <img src={select} alt="" onClick={onSelectClick}/>
         </div>
         <div className="tools__icons-pin">
           <Pin isPined={isPinned} onPinClick={onPinClick}/>
@@ -93,7 +72,7 @@ const NoteItem: FC<NoteItemProps> = ({
         <div className="tools__icons-less">
           <img src={archive} alt=""/>
           <img src={palette} alt="" onClick={onColorBlockClick}/>
-          <img src={note_trash} alt="" onClick={handleClickCustomAlert}/>
+          <img src={note_trash} alt="" onClick={() => CustomAlert(onDeleteClick)}/>
         </div>
       </div>
       {isColorBlockVisible && <Pickers id={id}/>}

@@ -5,7 +5,7 @@ export interface INote {
   color: string;
   image: string;
   isPinned: boolean;
-  isChosen: boolean;
+  isSelected: boolean;
   isColorBlockVisible: boolean;
 }
 
