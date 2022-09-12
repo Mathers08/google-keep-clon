@@ -25,6 +25,12 @@ export const slice = createSlice({
         note.isColorBlockVisible = !note.isColorBlockVisible;
       }
     },
+    toggleChoose: (state, action: PayloadAction<number>) => {
+      const note = state.notes.find(n => n.id === action.payload);
+      if (note) {
+        note.isChosen = !note.isChosen;
+      }
+    },
     setNoteColor: (state, action: PayloadAction<{ id: number, color: ColorsEnum }>) => {
       const note = state.notes.find(n => n.id === action.payload.id);
       if (note) {
@@ -47,6 +53,7 @@ export const {
   addNote,
   togglePinned,
   toggleNoteColorBlock,
+  toggleChoose,
   setNoteColor,
   setNoteImage,
   deleteNote

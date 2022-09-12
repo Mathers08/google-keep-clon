@@ -41,7 +41,6 @@
     height: 100%;
     border: $primaryBorder;
     border-radius: 8px;
-    cursor: pointer;
     transition: .2s linear;
     box-shadow: $boxShadow;
     padding: 16px 20px 30px;
@@ -84,6 +83,20 @@
   height: inherit;
   top: 0;
   left: 0;
+
+  .tools__icons-chosen {
+    position: absolute;
+    top: -11px;
+    left: -11px;
+    img {
+      padding: 0;
+    }
+    &:hover {
+      img {
+        background-color: initial;
+      }
+    }
+  }
 
   .tools__icons-pin {
     position: absolute;
