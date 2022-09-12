@@ -15,16 +15,6 @@
   display: flex;
   padding: 8px 9px;
 
-  :nth-child(2) {
-    .wrapper__block-item {
-      border: $primaryBorder;
-      box-shadow: none;
-
-      &:hover {
-        border: $whiteBorder;
-      }
-    }
-  }
 
   &__block {
     position: relative;
@@ -126,7 +116,6 @@
     height: 22px;
     padding: 0;
     position: absolute;
-    z-index: 1;
     bottom: 24px;
     left: 20px;
     &:hover {

@@ -36,7 +36,6 @@ export const slice = createSlice({
     resetForm: (state) => {
       state.headerText = '';
       state.isColorBlockVisible = false;
-      state.isTextareaVisible = false;
       state.isNotePined = false;
       state.formColor = ColorsEnum.DEFAULT;
       state.formImage = ImagesEnum.DEFAULT;

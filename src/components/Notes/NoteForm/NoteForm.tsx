@@ -56,6 +56,7 @@ const NoteForm: FC = () => {
       setNoteText('');
     }
     dispatch(setIsColorBlockVisible(false));
+    dispatch(setIsTextareaVisible(false));
   };
 
   useOnClickOutside(formRef, handleClickOutside);
