@@ -7,6 +7,7 @@ export { default as settings } from './header/settings.svg';
 export { default as checkedColor } from './header/checkedColor.svg';
 export { default as close } from './header/close.svg';
 export { default as logo } from './header/logo.png';
+export { default as pin } from './header/pin.svg';
 
 export { default as notifications } from './navbar/notifications.svg';
 export { default as reminders } from './navbar/reminders.svg';
@@ -25,6 +26,7 @@ export { default as drop } from './notes/drop.svg';
 export { default as no_image } from './notes/no_image.svg';
 export { default as note_trash } from './notes/note-trash.svg';
 export { default as select } from './notes/select.svg';
+export { default as copy } from './notes/copy.svg';
 
 export { default as transparent } from './form/mini/transparent.svg';
 export { default as products } from './form/mini/products.svg';

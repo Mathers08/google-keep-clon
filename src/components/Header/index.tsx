@@ -1,6 +1,19 @@
 import React, { FC, useRef } from 'react';
 import './Header.scss';
-import { archive, burger, close, grid1, grid2, grid3, logo, note_trash, palette, Pin, settings } from "../../assets";
+import {
+  archive,
+  burger,
+  close, copy,
+  grid1,
+  grid2,
+  grid3,
+  logo,
+  note_trash,
+  palette,
+  pin,
+  Pin,
+  settings
+} from "../../assets";
 import Search from "../Search";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
@@ -12,7 +25,8 @@ import { selectHeader } from "../../redux/header/selectors";
 import { SettingsEnum } from "../../redux/header/types";
 import { selectNotes } from "../../redux/notes/selectors";
 import { declination } from "../../utils";
-import { deleteNote, togglePinned } from "../../redux/notes/slice";
+import { copyNote, deleteNote, togglePinned } from "../../redux/notes/slice";
+import CustomAlert from "../../utils/alerts";
 
 type SettingsItem = {
   id: number;
@@ -59,10 +73,10 @@ const Header: FC = () => {
   const declNote = declination(totalLength, ['заметка', 'заметки', 'заметок']);
   const selectedNotesCountInfo = totalLength && <>{declSelect} {totalLength} {declNote}</>;
 
-  console.log(selectedNotes);
   const onCancelClick = () => 0;
   const onPinClick = () => dispatch(togglePinned(selectedNotes));
   const onDeleteClick = () => dispatch(deleteNote(selectedNotes));
+  const onCopyClick = () => dispatch(copyNote(selectedNotes));
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
   const onGridIconClick = () => dispatch(setIsNoteListRow(!isNoteListRow));
   const onSettingsPopupClick = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
@@ -82,10 +96,11 @@ const Header: FC = () => {
           </div>
           <div className="header__right">
             <div className="header__right-icons selected-notes-icons">
-              <Pin isPined={false} onPinClick={onPinClick}/>
+              <img src={pin} alt="" onClick={onPinClick}/>
               <img src={archive} alt=""/>
               <img src={palette} alt=""/>
               <img src={note_trash} alt="" onClick={onDeleteClick}/>
+              <img src={copy} alt="" onClick={onCopyClick}/>
             </div>
           </div>
         </>

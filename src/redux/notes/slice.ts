@@ -27,7 +27,6 @@ export const slice = createSlice({
             note.isPinned = !note.isPinned;
           }
         }
-        console.log(selectedNotes);
       }
     },
     toggleNoteColorBlock: (state, action: PayloadAction<number>) => {
@@ -64,6 +63,23 @@ export const slice = createSlice({
         }
       }
     },
+    copyNote: (state, action: PayloadAction<number | INote[]>) => {
+      if (typeof action.payload === 'number') {
+        const note = state.notes.find(n => n.id === action.payload);
+        if (note) {
+          const newNote = { ...note };
+          newNote.id = Math.random();
+          state.notes.unshift(newNote);
+        }
+      } else {
+        const selectedNotes = action.payload;
+        for (let i = 0; i < selectedNotes.length; i++) {
+          const newNotes = { ...selectedNotes[i] };
+          newNotes.id = Math.random();
+          state.notes.unshift(newNotes);
+        }
+      }
+    }
   }
 });
 
@@ -74,6 +90,7 @@ export const {
   toggleSelected,
   setNoteColor,
   setNoteImage,
-  deleteNote
+  deleteNote,
+  copyNote
 } = slice.actions;
 export default slice.reducer;
