@@ -1,17 +1,17 @@
 import React, { FC, useRef } from 'react';
 import './Header.scss';
 import {
+  services,
   archive,
   burger,
-  close, copy,
+  close,
+  copy,
   grid1,
   grid2,
-  grid3,
   logo,
   note_trash,
   palette,
   pin,
-  Pin,
   settings
 } from "../../assets";
 import Search from "../Search";
@@ -20,51 +20,20 @@ import { useAppDispatch } from "../../hooks";
 import { selectNavbar } from "../../redux/navbar/selectors";
 import { setIsNavbarHidden } from "../../redux/navbar/slice";
 import { useOnClickOutside } from "usehooks-ts";
-import { setIsNoteListRow, setIsSettingsPopupVisible } from "../../redux/header/slice";
+import { setIsNoteListRow, setIsServicesPopupVisible, setIsSettingsPopupVisible } from "../../redux/header/slice";
 import { selectHeader } from "../../redux/header/selectors";
-import { SettingsEnum } from "../../redux/header/types";
 import { selectNotes } from "../../redux/notes/selectors";
 import { declination } from "../../utils";
 import { copyNote, deleteNote, togglePinned } from "../../redux/notes/slice";
-import CustomAlert from "../../utils/alerts";
+import { servicesItems, settingsItems } from "../../redux/header/types";
 
-type SettingsItem = {
-  id: number;
-  item: SettingsEnum
-}
-
-export const settingsItems: SettingsItem[] = [
-  {
-    id: 0,
-    item: SettingsEnum.SETTINGS
-  },
-  {
-    id: 1,
-    item: SettingsEnum.DISABLE_DARK_THEME
-  },
-  {
-    id: 2,
-    item: SettingsEnum.POST_REVIEW
-  },
-  {
-    id: 3,
-    item: SettingsEnum.REFERENCE
-  },
-  {
-    id: 4,
-    item: SettingsEnum.DOWNLOAD_APP
-  },
-  {
-    id: 5,
-    item: SettingsEnum.SHORTCUTS
-  }
-];
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const settingsRef = useRef(null);
+  const servicesRef = useRef(null);
   const { notes } = useSelector(selectNotes);
-  const { isSettingsPopupVisible, isNoteListRow } = useSelector(selectHeader);
+  const { isSettingsPopupVisible, isServicesPopupVisible, isNoteListRow } = useSelector(selectHeader);
   const { isNavbarHidden } = useSelector(selectNavbar);
 
   const selectedNotes = notes.filter(n => n.isSelected);
@@ -73,14 +42,20 @@ const Header: FC = () => {
   const declNote = declination(totalLength, ['заметка', 'заметки', 'заметок']);
   const selectedNotesCountInfo = totalLength && <>{declSelect} {totalLength} {declNote}</>;
 
-  const onCancelClick = () => 0;
+  const onCancelClick = () => {
+    return selectedNotes.length = 0;
+  };
+  console.log(selectedNotes);
+
   const onPinClick = () => dispatch(togglePinned(selectedNotes));
   const onDeleteClick = () => dispatch(deleteNote(selectedNotes));
   const onCopyClick = () => dispatch(copyNote(selectedNotes));
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
   const onGridIconClick = () => dispatch(setIsNoteListRow(!isNoteListRow));
   const onSettingsPopupClick = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
+  const onServicesPopupClick = () => dispatch(setIsServicesPopupVisible(!isServicesPopupVisible));
   useOnClickOutside(settingsRef, () => dispatch(setIsSettingsPopupVisible(false)));
+  useOnClickOutside(servicesRef, () => dispatch(setIsServicesPopupVisible(false)));
 
   return (
     <header className={`header ${totalLength && 'selected-notes-header'}`}>
@@ -104,8 +79,7 @@ const Header: FC = () => {
             </div>
           </div>
         </>
-        :
-        <>
+        : <>
           <div className="header__left">
             <div className="header__left-burger" onClick={onBurgerClick}>
               <img src={burger} alt="burger"/>
@@ -123,6 +97,7 @@ const Header: FC = () => {
                 : <img onClick={onGridIconClick} src={grid1} alt=""/>
               }
               <img src={settings} alt="" ref={settingsRef} onClick={onSettingsPopupClick}/>
+              <img src={services} alt="" ref={servicesRef} onClick={onServicesPopupClick}/>
 
               {isSettingsPopupVisible && <div className="settings__popup">
                 <ul>
@@ -132,9 +107,15 @@ const Header: FC = () => {
                 </ul>
               </div>}
 
-              <img src={grid3} alt=""/>
+              {isServicesPopupVisible && <div className="services__popup">
+                {servicesItems && servicesItems.map((obj, index) => (
+                  <div className="services__popup-item" key={`${obj.id}_${index}`}>
+                    <a href={obj.href}><img src={obj.src} alt=""/></a>
+                    <p>{obj.title}</p>
+                  </div>
+                ))}
+              </div>}
             </div>
-            <div className="header__right-account"></div>
           </div>
         </>}
     </header>

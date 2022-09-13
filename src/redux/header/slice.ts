@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: HeaderState = {
   isSettingsPopupVisible: false,
+  isServicesPopupVisible: false,
   searchValue: '',
   isNoteListRow: false
 };
@@ -14,6 +15,9 @@ export const slice = createSlice({
     setIsSettingsPopupVisible: (state, action: PayloadAction<boolean>) => {
       state.isSettingsPopupVisible = action.payload;
     },
+    setIsServicesPopupVisible: (state, action: PayloadAction<boolean>) => {
+      state.isServicesPopupVisible = action.payload;
+    },
     setSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
     },
@@ -23,5 +27,10 @@ export const slice = createSlice({
   }
 });
 
-export const { setIsSettingsPopupVisible, setSearchValue, setIsNoteListRow } = slice.actions;
+export const {
+  setIsSettingsPopupVisible,
+  setIsServicesPopupVisible,
+  setSearchValue,
+  setIsNoteListRow
+} = slice.actions;
 export default slice.reducer;

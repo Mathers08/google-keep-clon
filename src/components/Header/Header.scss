@@ -48,10 +48,6 @@
     &-icons {
       display: flex;
     }
-
-    &-account {
-
-    }
   }
 }
 
@@ -63,6 +59,7 @@
 .settings__popup {
   position: absolute;
   right: 70px;
+  z-index: 1;
   margin-top: 55px;
   background: #202124;
   box-shadow: $boxShadow;
@@ -87,4 +84,48 @@
       }
     }
   }
+}
+
+.services__popup {
+  max-width: 345px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 55px;
+  justify-content: space-evenly;
+  position: absolute;
+  right: 15px;
+  z-index: 1;
+  background: rgb(45, 46, 48);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 60%), 0 2px 6px 2px rgb(0 0 0 / 30%);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 6px 0 25px;
+
+  &-item {
+    width: 100px;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+      background-color: rgb(40, 41, 45);
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    a {
+      img {
+        background-color: initial;
+        border-radius: 0;
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    p {
+      margin: -6px;
+    }
+  }
+
 }
