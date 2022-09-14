@@ -1,8 +1,9 @@
 import { ColorsEnum, FormState, ImagesEnum } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {v4 as uuidv4} from 'uuid';
 
 const initialState: FormState = {
-  id: Math.random(),
+  id: uuidv4(),
   headerText: '',
   isColorBlockVisible: false,
   formColor: ColorsEnum.DEFAULT,

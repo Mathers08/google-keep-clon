@@ -31,11 +31,15 @@
 }
 
 .note__list {
-  display: flex;
+  /*display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 30px;*/
+  column-count: 3;
+  column-gap: 0;
 
   &-item {
+    margin-bottom: 35px;
+    display: inline-block;
     position: relative;
     min-height: 145px;
     height: 100%;

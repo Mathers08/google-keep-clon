@@ -1,5 +1,5 @@
 export interface INote {
-  id: number;
+  id: string;
   header: string;
   note: string;
   color: string;

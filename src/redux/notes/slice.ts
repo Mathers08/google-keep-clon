@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INote, NotesState } from "./types";
 import { ColorsEnum, ImagesEnum } from "../form/types";
+import {v4 as uuidv4} from 'uuid';
 
 const initialState: NotesState = {
   notes: [],
@@ -13,8 +14,8 @@ export const slice = createSlice({
     addNote: (state, action: PayloadAction<INote>) => {
       state.notes.unshift(action.payload);
     },
-    togglePinned: (state, action: PayloadAction<number | INote[]>) => {
-      if (typeof action.payload === 'number') {
+    togglePinned: (state, action: PayloadAction<string | INote[]>) => {
+      if (typeof action.payload === 'string') {
         const note = state.notes.find(n => n.id === action.payload);
         if (note) {
           note.isPinned = !note.isPinned;
@@ -29,32 +30,32 @@ export const slice = createSlice({
         }
       }
     },
-    toggleNoteColorBlock: (state, action: PayloadAction<number>) => {
+    toggleNoteColorBlock: (state, action: PayloadAction<string>) => {
       const note = state.notes.find(n => n.id === action.payload);
       if (note) {
         note.isColorBlockVisible = !note.isColorBlockVisible;
       }
     },
-    toggleSelected: (state, action: PayloadAction<number>) => {
+    toggleSelected: (state, action: PayloadAction<string>) => {
       const note = state.notes.find(n => n.id === action.payload);
       if (note) {
         note.isSelected = !note.isSelected;
       }
     },
-    setNoteColor: (state, action: PayloadAction<{ id: number, color: ColorsEnum }>) => {
+    setNoteColor: (state, action: PayloadAction<{ id: string, color: ColorsEnum }>) => {
       const note = state.notes.find(n => n.id === action.payload.id);
       if (note) {
         note.color = action.payload.color;
       }
     },
-    setNoteImage: (state, action: PayloadAction<{ id: number, image: ImagesEnum }>) => {
+    setNoteImage: (state, action: PayloadAction<{ id: string, image: ImagesEnum }>) => {
       const note = state.notes.find(n => n.id === action.payload.id);
       if (note) {
         note.image = action.payload.image.toString();
       }
     },
-    deleteNote: (state, action: PayloadAction<number | INote[]>) => {
-      if (typeof action.payload === 'number') {
+    deleteNote: (state, action: PayloadAction<string | INote[]>) => {
+      if (typeof action.payload === 'string') {
         const deletedNote = state.notes.find(n => n.id === action.payload);
         if (deletedNote) {
           deletedNote.isDeleted = true;
@@ -69,25 +70,25 @@ export const slice = createSlice({
         }
       }
     },
-    copyNote: (state, action: PayloadAction<number | INote[]>) => {
-      if (typeof action.payload === 'number') {
+    copyNote: (state, action: PayloadAction<string | INote[]>) => {
+      if (typeof action.payload === 'string') {
         const note = state.notes.find(n => n.id === action.payload);
         if (note) {
           const newNote = { ...note };
-          newNote.id = Math.random();
+          newNote.id = uuidv4();
           state.notes.unshift(newNote);
         }
       } else {
         const selectedNotes = action.payload;
         for (let i = 0; i < selectedNotes.length; i++) {
           const newNotes = { ...selectedNotes[i] };
-          newNotes.id = Math.random();
+          newNotes.id = uuidv4();
           state.notes.unshift(newNotes);
         }
       }
     },
-    deleteFromTrash: (state, action: PayloadAction<number | INote[]>) => {
-      if (typeof action.payload === 'number') {
+    deleteFromTrash: (state, action: PayloadAction<string | INote[]>) => {
+      if (typeof action.payload === 'string') {
         state.notes = state.notes.filter(n => n.id !== action.payload);
       } else {
         const selectedNotes = action.payload;
@@ -96,8 +97,8 @@ export const slice = createSlice({
         }
       }
     },
-    restoreFromTrash: (state, action: PayloadAction<number | INote[]>) => {
-      if (typeof action.payload === 'number') {
+    restoreFromTrash: (state, action: PayloadAction<string | INote[]>) => {
+      if (typeof action.payload === 'string') {
         const note = state.notes.find(n => n.id === action.payload);
         if (note) {
           note.isDeleted = false;

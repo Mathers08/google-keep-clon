@@ -62,7 +62,7 @@ export enum ImagesEnum {
 }
 
 export interface FormState {
-  id: number;
+  id: string;
   headerText: string;
   isColorBlockVisible: boolean;
   formColor: ColorsEnum;

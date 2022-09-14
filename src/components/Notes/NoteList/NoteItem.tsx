@@ -19,12 +19,14 @@ import { useAppDispatch } from "../../../hooks";
 import {
   copyNote,
   deleteFromTrash,
-  deleteNote, restoreFromTrash,
+  deleteNote,
+  restoreFromTrash,
   toggleNoteColorBlock,
   togglePinned,
   toggleSelected
 } from "../../../redux/notes/slice";
 import Pickers from "../../Pickers";
+import { useLocation } from "react-router-dom";
 
 type NoteItemProps = INote & {
   isNoteListRow: boolean;
@@ -38,7 +40,6 @@ const NoteItem: FC<NoteItemProps> = ({
                                        image,
                                        isPinned,
                                        isSelected,
-                                       isDeleted,
                                        isColorBlockVisible,
                                        isNoteListRow
                                      }) => {
@@ -58,6 +59,7 @@ const NoteItem: FC<NoteItemProps> = ({
     }
   };
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const { searchValue } = useSelector(selectHeader);
 
   const onPinClick = () => dispatch(togglePinned(id));
@@ -76,7 +78,7 @@ const NoteItem: FC<NoteItemProps> = ({
       <p className="item-text">
         <Highlighted text={note} highlight={searchValue}/>
       </p>
-      {isDeleted ? <div className="note__item-tools" style={customStyles.tools}>
+      {location.pathname === '/trash' ? <div className="note__item-tools" style={customStyles.tools}>
         <div className="tools__icons-select">
           <img src={select} alt="" onClick={onSelectClick}/>
         </div>

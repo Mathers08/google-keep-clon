@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FC, useRef } from 'react';
 import './NoteForm.scss';
+import {v4 as uuidv4} from 'uuid';
 import { archive, ArrowLeft, ArrowRight, checked, image, palette, pencil, Pin, transparent } from "../../../assets";
 import { useAppDispatch, useUndoableState } from "../../../hooks";
 import { INote } from "../../../redux/notes/types";
@@ -41,7 +42,7 @@ const NoteForm: FC = () => {
 
   const handleClickOutside = () => {
     const newNote: INote = {
-      id: Math.random(),
+      id: uuidv4(),
       header: headerText,
       note: noteText,
       color: formColor,
@@ -116,7 +117,7 @@ const NoteForm: FC = () => {
           </div>
           <button className="note__form-btn" onClick={onResetClick}>Сбросить</button>
         </div>}
-      {isColorBlockVisible && isTextareaVisible && <Pickers id={0}/>}
+      {isColorBlockVisible && isTextareaVisible && <Pickers id={''}/>}
     </form>
   );
 };
