@@ -4,9 +4,26 @@ import { INote } from "../../../redux/notes/types";
 import { useSelector } from "react-redux";
 import { selectHeader } from "../../../redux/header/selectors";
 import { Highlighted } from "../../../utils";
-import { archive, copy, note_trash, palette, Pin, select, transparent } from "../../../assets";
+import {
+  archive,
+  copy,
+  delete_from_trash,
+  note_trash,
+  palette,
+  Pin,
+  restore_from_trash,
+  select,
+  transparent
+} from "../../../assets";
 import { useAppDispatch } from "../../../hooks";
-import { copyNote, deleteNote, toggleNoteColorBlock, togglePinned, toggleSelected } from "../../../redux/notes/slice";
+import {
+  copyNote,
+  deleteFromTrash,
+  deleteNote, restoreFromTrash,
+  toggleNoteColorBlock,
+  togglePinned,
+  toggleSelected
+} from "../../../redux/notes/slice";
 import Pickers from "../../Pickers";
 
 type NoteItemProps = INote & {
@@ -48,6 +65,8 @@ const NoteItem: FC<NoteItemProps> = ({
   const onSelectClick = () => dispatch(toggleSelected(id));
   const onDeleteClick = () => dispatch(deleteNote(id));
   const onCopyClick = () => dispatch(copyNote(id));
+  const onTrashDeleteClick = () => dispatch(deleteFromTrash(id));
+  const onTrashRestoreClick = () => dispatch(restoreFromTrash(id));
 
   return (
     <div className="note__list-item" style={customStyles.item}>
@@ -57,7 +76,15 @@ const NoteItem: FC<NoteItemProps> = ({
       <p className="item-text">
         <Highlighted text={note} highlight={searchValue}/>
       </p>
-      <div className="note__item-tools" style={customStyles.tools}>
+      {isDeleted ? <div className="note__item-tools" style={customStyles.tools}>
+        <div className="tools__icons-select">
+          <img src={select} alt="" onClick={onSelectClick}/>
+        </div>
+        <div className="tools__icons-less">
+          <img src={delete_from_trash} alt="" onClick={onTrashDeleteClick}/>
+          <img src={restore_from_trash} alt="" onClick={onTrashRestoreClick}/>
+        </div>
+      </div> : <div className="note__item-tools" style={customStyles.tools}>
         <div className="tools__icons-select">
           <img src={select} alt="" onClick={onSelectClick}/>
         </div>
@@ -70,7 +97,7 @@ const NoteItem: FC<NoteItemProps> = ({
           <img src={note_trash} alt="" onClick={onDeleteClick}/>
           <img src={copy} alt="" onClick={onCopyClick}/>
         </div>
-      </div>
+      </div>}
       {isColorBlockVisible && <Pickers id={id}/>}
     </div>
   );

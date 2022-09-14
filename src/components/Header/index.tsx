@@ -12,7 +12,7 @@ import {
   note_trash,
   palette,
   pin,
-  settings
+  settings, delete_from_trash, restore_from_trash
 } from "../../assets";
 import Search from "../Search";
 import { useSelector } from "react-redux";
@@ -24,12 +24,14 @@ import { setIsNoteListRow, setIsServicesPopupVisible, setIsSettingsPopupVisible 
 import { selectHeader } from "../../redux/header/selectors";
 import { selectNotes } from "../../redux/notes/selectors";
 import { declination } from "../../utils";
-import { copyNote, deleteNote, togglePinned } from "../../redux/notes/slice";
+import { copyNote, deleteFromTrash, deleteNote, restoreFromTrash, togglePinned } from "../../redux/notes/slice";
 import { servicesItems, settingsItems } from "../../redux/header/types";
+import { useLocation } from "react-router-dom";
 
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const settingsRef = useRef(null);
   const servicesRef = useRef(null);
   const { notes } = useSelector(selectNotes);
@@ -37,6 +39,7 @@ const Header: FC = () => {
   const { isNavbarHidden } = useSelector(selectNavbar);
 
   const selectedNotes = notes.filter(n => n.isSelected);
+  const deletedNotes = notes.filter(n => n.isDeleted);
   const totalLength = selectedNotes.length;
   const declSelect = declination(totalLength, ['Выбрана', 'Выбраны', 'Выбрано']);
   const declNote = declination(totalLength, ['заметка', 'заметки', 'заметок']);
@@ -49,10 +52,13 @@ const Header: FC = () => {
   const onPinClick = () => dispatch(togglePinned(selectedNotes));
   const onDeleteClick = () => dispatch(deleteNote(selectedNotes));
   const onCopyClick = () => dispatch(copyNote(selectedNotes));
+  const onTrashDeleteClick = () => dispatch(deleteFromTrash(selectedNotes));
+  const onTrashRestoreClick = () => dispatch(restoreFromTrash(selectedNotes));
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
   const onGridIconClick = () => dispatch(setIsNoteListRow(!isNoteListRow));
   const onSettingsPopupClick = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
   const onServicesPopupClick = () => dispatch(setIsServicesPopupVisible(!isServicesPopupVisible));
+
   useOnClickOutside(settingsRef, () => dispatch(setIsSettingsPopupVisible(false)));
   useOnClickOutside(servicesRef, () => dispatch(setIsServicesPopupVisible(false)));
 
@@ -69,13 +75,16 @@ const Header: FC = () => {
             </p>
           </div>
           <div className="header__right">
-            <div className="header__right-icons selected-notes-icons">
+            {location.pathname === '/trash' ? <div className="header__right-icons selected-notes-icons">
+              <img src={delete_from_trash} alt="" onClick={onTrashDeleteClick}/>
+              <img src={restore_from_trash} alt="" onClick={onTrashRestoreClick}/>
+            </div> : <div className="header__right-icons selected-notes-icons">
               <img src={pin} alt="" onClick={onPinClick}/>
               <img src={archive} alt=""/>
               <img src={palette} alt=""/>
               <img src={note_trash} alt="" onClick={onDeleteClick}/>
               <img src={copy} alt="" onClick={onCopyClick}/>
-            </div>
+            </div>}
           </div>
         </>
         : <>

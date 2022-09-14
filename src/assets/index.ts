@@ -33,6 +33,8 @@ export { default as no_image } from './notes/no_image.svg';
 export { default as note_trash } from './notes/note-trash.svg';
 export { default as select } from './notes/select.svg';
 export { default as copy } from './notes/copy.svg';
+export { default as delete_from_trash } from './notes/delete_from_trash.svg';
+export { default as restore_from_trash } from './notes/restore_from_trash.svg';
 
 export { default as transparent } from './form/mini/transparent.svg';
 export { default as products } from './form/mini/products.svg';
