@@ -11,7 +11,7 @@ const Notes: FC = () => {
   return (
     <section className="note">
       <div className="note__area">
-        {!searchValue && <NoteForm/>}
+        {!searchValue &&  <NoteForm/>}
       </div>
       <NoteList/>
     </section>

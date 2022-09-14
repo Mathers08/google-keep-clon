@@ -45,7 +45,6 @@ const Header: FC = () => {
   const onCancelClick = () => {
     return selectedNotes.length = 0;
   };
-  console.log(selectedNotes);
 
   const onPinClick = () => dispatch(togglePinned(selectedNotes));
   const onDeleteClick = () => dispatch(deleteNote(selectedNotes));
@@ -97,7 +96,7 @@ const Header: FC = () => {
                 : <img onClick={onGridIconClick} src={grid1} alt=""/>
               }
               <img src={settings} alt="" ref={settingsRef} onClick={onSettingsPopupClick}/>
-              <img src={services} alt="" ref={servicesRef} onClick={onServicesPopupClick}/>
+              <img src={services} alt="" onClick={onServicesPopupClick}/>
 
               {isSettingsPopupVisible && <div className="settings__popup">
                 <ul>
@@ -107,7 +106,7 @@ const Header: FC = () => {
                 </ul>
               </div>}
 
-              {isServicesPopupVisible && <div className="services__popup">
+              {isServicesPopupVisible && <div className="services__popup" ref={servicesRef}>
                 {servicesItems && servicesItems.map((obj, index) => (
                   <div className="services__popup-item" key={`${obj.id}_${index}`}>
                     <a href={obj.href}><img src={obj.src} alt=""/></a>

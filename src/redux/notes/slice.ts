@@ -55,11 +55,19 @@ export const slice = createSlice({
     },
     deleteNote: (state, action: PayloadAction<number | INote[]>) => {
       if (typeof action.payload === 'number') {
-        state.notes = state.notes.filter(n => n.id !== action.payload);
+        //state.notes = state.notes.filter(n => n.id !== action.payload);
+        const deletedNote = state.notes.find(n => n.id === action.payload);
+        if (deletedNote) {
+          deletedNote.isDeleted = true;
+        }
       } else {
         const selectedNotes = action.payload;
         for (let i = 0; i < selectedNotes.length; i++) {
           state.notes = state.notes.filter(n => n.id !== selectedNotes[i].id);
+          const deletedNote = state.notes.find(n => n.id === selectedNotes[i].id);
+          if (deletedNote) {
+            deletedNote.isDeleted = true;
+          }
         }
       }
     },

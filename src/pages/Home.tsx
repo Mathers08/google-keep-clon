@@ -1,11 +1,8 @@
 import React from 'react';
+import { Notes } from "../components";
 
 const Home = () => {
-  return (
-    <div>
-      
-    </div>
-  );
+  return <Notes/>;
 };
 
 export default Home;

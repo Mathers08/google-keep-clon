@@ -6,6 +6,7 @@ export interface INote {
   image: string;
   isPinned: boolean;
   isSelected: boolean;
+  isDeleted: boolean;
   isColorBlockVisible: boolean;
 }
 

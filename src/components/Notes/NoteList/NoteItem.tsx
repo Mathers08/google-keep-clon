@@ -3,7 +3,7 @@ import './NoteList.scss';
 import { INote } from "../../../redux/notes/types";
 import { useSelector } from "react-redux";
 import { selectHeader } from "../../../redux/header/selectors";
-import { CustomAlert, Highlighted } from "../../../utils";
+import { Highlighted } from "../../../utils";
 import { archive, copy, note_trash, palette, Pin, select, transparent } from "../../../assets";
 import { useAppDispatch } from "../../../hooks";
 import { copyNote, deleteNote, toggleNoteColorBlock, togglePinned, toggleSelected } from "../../../redux/notes/slice";
@@ -21,6 +21,7 @@ const NoteItem: FC<NoteItemProps> = ({
                                        image,
                                        isPinned,
                                        isSelected,
+                                       isDeleted,
                                        isColorBlockVisible,
                                        isNoteListRow
                                      }) => {

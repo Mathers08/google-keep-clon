@@ -65,7 +65,7 @@ export const servicesItems: ServicesItem[] = [
     id: 1,
     src: market,
     title: 'Play',
-    href: 'https://google.com/store/'
+    href: 'https://play.google.com'
   },
   {
     id: 2,

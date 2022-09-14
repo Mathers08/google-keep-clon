@@ -48,6 +48,7 @@ const NoteForm: FC = () => {
       image: formImage.toString(),
       isPinned: isNotePined,
       isSelected: false,
+      isDeleted: false,
       isColorBlockVisible: false
     };
     if (headerText && noteText) {

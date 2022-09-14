@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.scss';
-import { Header, Navbar, Notes } from "./components";
+import { Header, Navbar } from "./components";
 import "react-alert-confirm/dist/index.css";
+import { Route, Routes } from "react-router-dom";
+import { Archive, Home, Trash } from "./pages";
 
 const App = () => {
   return (
@@ -9,7 +11,13 @@ const App = () => {
       <Header/>
       <main className="main">
         <Navbar/>
-        <Notes/>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="archive" element={<Archive/>}/>
+          <Route path="trash" element={<Trash/>}/>
+        </Routes>
       </main>
     </div>
   );
