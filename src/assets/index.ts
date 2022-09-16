@@ -35,6 +35,7 @@ export { default as select } from './notes/select.svg';
 export { default as copy } from './notes/copy.svg';
 export { default as delete_from_trash } from './notes/delete_from_trash.svg';
 export { default as restore_from_trash } from './notes/restore_from_trash.svg';
+export { default as unzip } from './notes/unzip.svg';
 
 export { default as transparent } from './form/mini/transparent.svg';
 export { default as products } from './form/mini/products.svg';

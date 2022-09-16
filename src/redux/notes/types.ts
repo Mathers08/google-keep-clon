@@ -7,6 +7,7 @@ export interface INote {
   isPinned: boolean;
   isSelected: boolean;
   isDeleted: boolean;
+  isArchived: boolean;
   isColorBlockVisible: boolean;
 }
 

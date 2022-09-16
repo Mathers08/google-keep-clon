@@ -13,10 +13,11 @@ import {
   Pin,
   restore_from_trash,
   select,
-  transparent
+  transparent, unzip
 } from "../../../assets";
 import { useAppDispatch } from "../../../hooks";
 import {
+  archiveNote,
   copyNote,
   deleteFromTrash,
   deleteNote,
@@ -39,6 +40,7 @@ const NoteItem: FC<NoteItemProps> = ({
                                        color,
                                        image,
                                        isPinned,
+                                       isArchived,
                                        isSelected,
                                        isColorBlockVisible,
                                        isNoteListRow
@@ -66,6 +68,7 @@ const NoteItem: FC<NoteItemProps> = ({
   const onColorBlockClick = () => dispatch(toggleNoteColorBlock(id));
   const onSelectClick = () => dispatch(toggleSelected(id));
   const onDeleteClick = () => dispatch(deleteNote(id));
+  const onArchiveClick = () => dispatch(archiveNote(id));
   const onCopyClick = () => dispatch(copyNote(id));
   const onTrashDeleteClick = () => dispatch(deleteFromTrash(id));
   const onTrashRestoreClick = () => dispatch(restoreFromTrash(id));
@@ -94,7 +97,7 @@ const NoteItem: FC<NoteItemProps> = ({
           <Pin isPined={isPinned} onPinClick={onPinClick}/>
         </div>
         <div className="tools__icons-less">
-          <img src={archive} alt=""/>
+          <img src={isArchived ? unzip : archive} alt="" onClick={onArchiveClick}/>
           <img src={palette} alt="" onClick={onColorBlockClick}/>
           <img src={note_trash} alt="" onClick={onDeleteClick}/>
           <img src={copy} alt="" onClick={onCopyClick}/>

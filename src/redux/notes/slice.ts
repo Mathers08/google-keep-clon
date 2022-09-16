@@ -70,6 +70,22 @@ export const slice = createSlice({
         }
       }
     },
+    archiveNote: (state, action: PayloadAction<string | INote[]>) => {
+      if (typeof action.payload === 'string') {
+        const archivedNote = state.notes.find(n => n.id === action.payload);
+        if (archivedNote) {
+          archivedNote.isArchived = !archivedNote.isArchived;
+        }
+      } else {
+        const selectedNotes = action.payload;
+        for (let i = 0; i < selectedNotes.length; i++) {
+          const archivedNote = state.notes.find(n => n.id === selectedNotes[i].id);
+          if (archivedNote) {
+            archivedNote.isArchived = !archivedNote.isArchived;
+          }
+        }
+      }
+    },
     copyNote: (state, action: PayloadAction<string | INote[]>) => {
       if (typeof action.payload === 'string') {
         const note = state.notes.find(n => n.id === action.payload);
@@ -124,6 +140,7 @@ export const {
   setNoteColor,
   setNoteImage,
   deleteNote,
+  archiveNote,
   copyNote,
   deleteFromTrash,
   restoreFromTrash

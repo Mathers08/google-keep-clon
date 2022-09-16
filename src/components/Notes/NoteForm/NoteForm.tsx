@@ -50,6 +50,7 @@ const NoteForm: FC = () => {
       isPinned: isNotePined,
       isSelected: false,
       isDeleted: false,
+      isArchived: false,
       isColorBlockVisible: false
     };
     if (headerText && noteText) {

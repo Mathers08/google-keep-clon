@@ -12,7 +12,7 @@ import {
   note_trash,
   palette,
   pin,
-  settings, delete_from_trash, restore_from_trash
+  settings, delete_from_trash, restore_from_trash, unzip
 } from "../../assets";
 import Search from "../Search";
 import { useSelector } from "react-redux";
@@ -24,7 +24,14 @@ import { setIsNoteListRow, setIsServicesPopupVisible, setIsSettingsPopupVisible 
 import { selectHeader } from "../../redux/header/selectors";
 import { selectNotes } from "../../redux/notes/selectors";
 import { declination } from "../../utils";
-import { copyNote, deleteFromTrash, deleteNote, restoreFromTrash, togglePinned } from "../../redux/notes/slice";
+import {
+  archiveNote,
+  copyNote,
+  deleteFromTrash,
+  deleteNote,
+  restoreFromTrash,
+  togglePinned
+} from "../../redux/notes/slice";
 import { servicesItems, settingsItems } from "../../redux/header/types";
 import { useLocation } from "react-router-dom";
 
@@ -39,7 +46,7 @@ const Header: FC = () => {
   const { isNavbarHidden } = useSelector(selectNavbar);
 
   const selectedNotes = notes.filter(n => n.isSelected);
-  const deletedNotes = notes.filter(n => n.isDeleted);
+  const archivedNotes = notes.filter(n => n.isArchived);
   const totalLength = selectedNotes.length;
   const declSelect = declination(totalLength, ['Выбрана', 'Выбраны', 'Выбрано']);
   const declNote = declination(totalLength, ['заметка', 'заметки', 'заметок']);
@@ -50,6 +57,7 @@ const Header: FC = () => {
   };
 
   const onPinClick = () => dispatch(togglePinned(selectedNotes));
+  const onArchiveClick = () => dispatch(archiveNote(selectedNotes));
   const onDeleteClick = () => dispatch(deleteNote(selectedNotes));
   const onCopyClick = () => dispatch(copyNote(selectedNotes));
   const onTrashDeleteClick = () => dispatch(deleteFromTrash(selectedNotes));
@@ -80,7 +88,7 @@ const Header: FC = () => {
               <img src={restore_from_trash} alt="" onClick={onTrashRestoreClick}/>
             </div> : <div className="header__right-icons selected-notes-icons">
               <img src={pin} alt="" onClick={onPinClick}/>
-              <img src={archive} alt=""/>
+              <img src={archivedNotes.length ? unzip : archive} alt="" onClick={onArchiveClick}/>
               <img src={palette} alt=""/>
               <img src={note_trash} alt="" onClick={onDeleteClick}/>
               <img src={copy} alt="" onClick={onCopyClick}/>

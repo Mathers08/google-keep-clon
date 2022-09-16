@@ -16,8 +16,8 @@ const NoteList: FC = () => {
       note.note.toLowerCase().includes(searchValue.toLowerCase())
     ));
 
-  const pinnedNotes = filteredNotes.filter(n => n.isPinned && !n.isDeleted);
-  const unpinnedNotes = filteredNotes.filter(n => !n.isPinned && !n.isDeleted);
+  const pinnedNotes = filteredNotes.filter(n => n.isPinned && !n.isDeleted && !n.isArchived);
+  const unpinnedNotes = filteredNotes.filter(n => !n.isPinned && !n.isDeleted && !n.isArchived);
 
   const pinnedNoteItems = pinnedNotes.map(note => (
     <NoteItem
