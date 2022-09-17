@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import './NoteList.scss';
 import { INote } from "../../../redux/notes/types";
 import { useSelector } from "react-redux";
@@ -20,14 +20,16 @@ import {
   archiveNote,
   copyNote,
   deleteFromTrash,
+  selectNote,
   deleteNote,
   restoreFromTrash,
   toggleNoteColorBlock,
   togglePinned,
-  toggleSelected
 } from "../../../redux/notes/slice";
 import Pickers from "../../Pickers";
 import { useLocation } from "react-router-dom";
+import { useOnClickOutside } from "usehooks-ts";
+import { selectNotes } from "../../../redux/notes/selectors";
 
 type NoteItemProps = INote & {
   isNoteListRow: boolean;
@@ -66,7 +68,7 @@ const NoteItem: FC<NoteItemProps> = ({
 
   const onPinClick = () => dispatch(togglePinned(id));
   const onColorBlockClick = () => dispatch(toggleNoteColorBlock(id));
-  const onSelectClick = () => dispatch(toggleSelected(id));
+  const onSelectClick = () => dispatch(selectNote(id));
   const onDeleteClick = () => dispatch(deleteNote(id));
   const onArchiveClick = () => dispatch(archiveNote(id));
   const onCopyClick = () => dispatch(copyNote(id));
