@@ -1,0 +1,118 @@
+@import "../App";
+
+.form {
+  background-color: rgb(49, 50, 53);
+  width: 320px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 5px;
+
+  .label {
+    max-height: 440px;
+
+    &__header {
+      padding: 20px 20px 0;
+      color: #e8eaed;
+      letter-spacing: .00625em;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5rem;
+      height: 25px;
+    }
+
+    &__main {
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+
+
+      &-input {
+        border: none;
+        outline: none;
+        background-color: inherit;
+        border-bottom: 1px solid rgb(138, 140, 142);
+        width: 70%;
+        height: 18px;
+
+        &::placeholder {
+          color: rgb(190, 190, 191);
+        }
+
+        &:focus {
+          color: $white;
+        }
+      }
+    }
+
+    &__list {
+      margin: 25px 20px;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-top: 15px;
+
+        &-text {
+          margin: 0;
+        }
+
+        .right-icon {
+          margin-left: auto;
+        }
+      }
+
+      .delete-icon {
+        display: none;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: end;
+    border-top: 1px solid rgb(138, 140, 142);
+    padding: 0;
+
+    &-btn {
+      background-color: transparent;
+      border: none;
+      color: #dadce0;
+      padding: 8px 25px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 15px;
+
+      &:hover {
+        background-color: rgba(154, 160, 166, 0.039);
+      }
+    }
+  }
+}
+
+.label-icon {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: initial;
+    border-radius: 0;
+  }
+}
+
+.label__list-item {
+  &:hover {
+    .solid-icon {
+      display: none;
+    }
+
+    .delete-icon {
+      display: block;
+    }
+  }
+}

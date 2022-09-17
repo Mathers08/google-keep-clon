@@ -3,7 +3,7 @@ import './App.scss';
 import { Header, Navbar } from "./components";
 import "react-alert-confirm/dist/index.css";
 import { Route, Routes } from "react-router-dom";
-import { Archive, Home, Trash } from "./pages";
+import { Archive, Labels, Home, Trash } from "./pages";
 
 const App = () => {
   return (
@@ -13,8 +13,7 @@ const App = () => {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          {/*<Route path="/reminders" element={<Home/>}/>
-          <Route path="/" element={<Home/>}/>*/}
+          <Route path="labels" element={<Labels/>}/>
           <Route path="archive" element={<Archive/>}/>
           <Route path="trash" element={<Trash/>}/>
         </Routes>

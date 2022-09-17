@@ -35,7 +35,7 @@ const NoteForm: FC = () => {
   const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
   const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
   const onInputClick = () => dispatch(setIsTextareaVisible(true));
-  const onResetClick = () => {
+  const onCloseClick = () => {
     setNoteText('');
     dispatch(resetForm());
   };
@@ -116,7 +116,7 @@ const NoteForm: FC = () => {
             <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
             <img onClick={onColorBlockClick} src={palette} alt=""/>
           </div>
-          <button className="note__form-btn" onClick={onResetClick}>Сбросить</button>
+          <button className="note__form-btn" onClick={onCloseClick}>Сбросить</button>
         </div>}
       {isColorBlockVisible && isTextareaVisible && <Pickers id={''}/>}
     </form>

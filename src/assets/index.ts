@@ -16,10 +16,15 @@ export { default as drive } from './header/drive.png';
 export { default as mail } from './header/mail.png';
 
 export { default as notifications } from './navbar/notifications.svg';
-export { default as reminders } from './navbar/reminders.svg';
 export { default as pen } from './navbar/pen.svg';
 export { default as archive } from './navbar/archive.svg';
 export { default as trash } from './navbar/trash.svg';
+
+export { default as labelOutline } from './label/labelOutline.svg';
+export { default as labelSolid } from './label/labelSolid.svg';
+export { default as labelDelete } from './label/labelDelete.svg';
+export { default as ok } from './label/ok.svg';
+export { default as edit } from './label/edit.svg';
 
 export { default as checked } from './notes/checked.svg';
 export { default as pencil } from './notes/pencil.svg';

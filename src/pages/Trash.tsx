@@ -13,7 +13,6 @@ const Trash = () => {
     margin: '0 0 0 60px',
     color: '#cecece',
     fontWeight: 800,
-    lineHeight: '1rem'
   };
 
   return (
