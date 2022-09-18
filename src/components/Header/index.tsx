@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect } from 'react';
 import './Header.scss';
 import {
   archive,
@@ -22,7 +22,6 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { selectNavbar } from "../../redux/navbar/selectors";
 import { setIsNavbarHidden } from "../../redux/navbar/slice";
-import { useOnClickOutside } from "usehooks-ts";
 import { setIsNoteListRow, setIsServicesPopupVisible, setIsSettingsPopupVisible } from "../../redux/header/slice";
 import { selectHeader } from "../../redux/header/selectors";
 import { selectNotes } from "../../redux/notes/selectors";
@@ -36,14 +35,12 @@ import {
   selectNote,
   togglePinned
 } from "../../redux/notes/slice";
-import { servicesItems, settingsItems } from "../../redux/header/types";
 import { useLocation } from "react-router-dom";
+import { ServicesPopup, SettingsPopup } from "../Popups";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const settingsRef = useRef(null);
-  const servicesRef = useRef(null);
   const { notes } = useSelector(selectNotes);
   const { isSettingsPopupVisible, isServicesPopupVisible, isNoteListRow } = useSelector(selectHeader);
   const { isNavbarHidden } = useSelector(selectNavbar);
@@ -66,8 +63,6 @@ const Header: FC = () => {
   const onSettingsPopupClick = () => dispatch(setIsSettingsPopupVisible(!isSettingsPopupVisible));
   const onServicesPopupClick = () => dispatch(setIsServicesPopupVisible(!isServicesPopupVisible));
 
-  useOnClickOutside(settingsRef, () => dispatch(setIsSettingsPopupVisible(false)));
-  useOnClickOutside(servicesRef, () => dispatch(setIsServicesPopupVisible(false)));
   useEffect(() => {
     onCancelClick();
   }, [location]);
@@ -114,25 +109,11 @@ const Header: FC = () => {
                 ? <img onClick={onGridIconClick} src={grid2} alt=""/>
                 : <img onClick={onGridIconClick} src={grid1} alt=""/>
               }
-              <img src={settings} alt="" ref={settingsRef} onClick={onSettingsPopupClick}/>
+              <img src={settings} alt="" onClick={onSettingsPopupClick}/>
               <img src={services} alt="" onClick={onServicesPopupClick}/>
 
-              {isSettingsPopupVisible && <div className="settings__popup">
-                <ul>
-                  {settingsItems && settingsItems.map((obj, index) => (
-                    <li key={`${obj.id}_${index}`}>{obj.item}</li>
-                  ))}
-                </ul>
-              </div>}
-
-              {isServicesPopupVisible && <div className="services__popup" ref={servicesRef}>
-                {servicesItems && servicesItems.map((obj, index) => (
-                  <div className="services__popup-item" key={`${obj.id}_${index}`}>
-                    <a href={obj.href}><img src={obj.src} alt=""/></a>
-                    <p>{obj.title}</p>
-                  </div>
-                ))}
-              </div>}
+              {isSettingsPopupVisible && <SettingsPopup/>}
+              {isServicesPopupVisible && <ServicesPopup/>}
             </div>
           </div>
         </>}

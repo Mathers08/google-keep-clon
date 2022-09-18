@@ -5,7 +5,7 @@ const initialState: NavbarState = {
   selectedId: 1,
   isNavbarHidden: false,
   labels: [],
-  isLabelBlockVisible: true,
+  isLabelBlockVisible: false,
 };
 
 export const slice = createSlice({

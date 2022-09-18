@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC } from 'react';
 import './NoteList.scss';
 import { INote } from "../../../redux/notes/types";
 import { useSelector } from "react-redux";
@@ -7,29 +7,30 @@ import { Highlighted } from "../../../utils";
 import {
   archive,
   copy,
-  delete_from_trash, labelOutline,
+  delete_from_trash,
+  labelOutline,
   note_trash,
   palette,
   Pin,
   restore_from_trash,
   select,
-  transparent, unzip
+  transparent,
+  unzip
 } from "../../../assets";
 import { useAppDispatch } from "../../../hooks";
 import {
   archiveNote,
   copyNote,
   deleteFromTrash,
-  selectNote,
   deleteNote,
   restoreFromTrash,
+  selectNote, setIsLabelPopupVisible,
   toggleNoteColorBlock,
   togglePinned,
 } from "../../../redux/notes/slice";
 import Pickers from "../../Pickers";
 import { useLocation } from "react-router-dom";
-import { useOnClickOutside } from "usehooks-ts";
-import { selectNotes } from "../../../redux/notes/selectors";
+import { LabelPopup } from "../../Popups";
 
 type NoteItemProps = INote & {
   isNoteListRow: boolean;
@@ -45,6 +46,7 @@ const NoteItem: FC<NoteItemProps> = ({
                                        isArchived,
                                        isSelected,
                                        isColorBlockVisible,
+                                       isLabelPopupVisible,
                                        isNoteListRow
                                      }) => {
   const customStyles = {
@@ -68,6 +70,7 @@ const NoteItem: FC<NoteItemProps> = ({
 
   const onPinClick = () => dispatch(togglePinned(id));
   const onColorBlockClick = () => dispatch(toggleNoteColorBlock(id));
+  const onLabelPopupClick = () => dispatch(setIsLabelPopupVisible(id));
   const onSelectClick = () => dispatch(selectNote(id));
   const onDeleteClick = () => dispatch(deleteNote(id));
   const onArchiveClick = () => dispatch(archiveNote(id));
@@ -103,10 +106,11 @@ const NoteItem: FC<NoteItemProps> = ({
           <img src={palette} alt="" onClick={onColorBlockClick}/>
           <img src={note_trash} alt="" onClick={onDeleteClick}/>
           <img src={copy} alt="" onClick={onCopyClick}/>
-          <img src={labelOutline} alt="" />
+          <img src={labelOutline} alt="" onClick={onLabelPopupClick}/>
         </div>
       </div>}
       {isColorBlockVisible && <Pickers id={id}/>}
+      {isLabelPopupVisible && <LabelPopup id={id}/>}
     </div>
   );
 };

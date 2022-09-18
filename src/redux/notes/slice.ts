@@ -36,6 +36,12 @@ export const slice = createSlice({
           note.isColorBlockVisible = !note.isColorBlockVisible;
         }
       },
+      setIsLabelPopupVisible: (state, action: PayloadAction<string>) => {
+        const note = state.notes.find(n => n.id === action.payload);
+        if (note) {
+          note.isLabelPopupVisible = !note.isLabelPopupVisible;
+        }
+      },
       setNoteColor: (state, action: PayloadAction<{ id: string, color: ColorsEnum }>) => {
         const note = state.notes.find(n => n.id === action.payload.id);
         if (note) {
@@ -157,6 +163,7 @@ export const {
   addNote,
   togglePinned,
   toggleNoteColorBlock,
+  setIsLabelPopupVisible,
   setNoteColor,
   setNoteImage,
   selectNote,

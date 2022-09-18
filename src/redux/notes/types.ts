@@ -9,6 +9,7 @@ export interface INote {
   isDeleted: boolean;
   isArchived: boolean;
   isColorBlockVisible: boolean;
+  isLabelPopupVisible: boolean;
 }
 
 export interface NotesState {

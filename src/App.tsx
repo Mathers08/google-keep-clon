@@ -17,6 +17,7 @@ const App = () => {
           <Route path="archive" element={<Archive/>}/>
           <Route path="trash" element={<Trash/>}/>
         </Routes>
+        <Labels/>
       </main>
     </div>
   );
