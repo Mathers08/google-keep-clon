@@ -4,19 +4,19 @@ import './Labels.scss';
 import { close, edit, labelDelete, labelSolid, ok } from "../assets";
 import { ILabel } from "../redux/navbar/types";
 import { useAppDispatch } from "../hooks";
-import { addLabel, deleteLabel } from "../redux/navbar/slice";
+import { addLabel, deleteLabel, setIsLabelBlockVisible } from "../redux/navbar/slice";
 import { useSelector } from "react-redux";
 import { selectNavbar } from "../redux/navbar/selectors";
 
 const Labels = () => {
-  const [active, setActive] = useState(true);
   const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
-  const { labels } = useSelector(selectNavbar);
+  const { labels, isLabelBlockVisible } = useSelector(selectNavbar);
 
-  const onActiveClick = () => setActive(!active);
+  const onActiveClick = () => dispatch(setIsLabelBlockVisible(!isLabelBlockVisible));
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onResetClick = () => setValue('');
+  const handleSubmit = (e: FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault();
     const newLabel: ILabel = {
       id: Math.random(),
@@ -24,17 +24,18 @@ const Labels = () => {
     };
     if (value) {
       dispatch(addLabel(newLabel));
+      dispatch(setIsLabelBlockVisible(true));
       setValue('');
     }
   };
 
   return (
-    <Modal active={active} setActive={onActiveClick}>
+    <Modal active={isLabelBlockVisible} setActive={onActiveClick}>
       <form className="form" onSubmit={handleSubmit}>
         <div className="label">
           <div className="label__header">Изменение ярлыков</div>
           <div className="label__main">
-            <img src={close} alt="" className="label-icon"/>
+            <img onClick={onResetClick} src={close} alt="" className="label-icon"/>
             <input
               autoFocus
               type="text"
@@ -43,7 +44,9 @@ const Labels = () => {
               value={value}
               onChange={onInputChange}
             />
-            <img src={ok} alt="" className="label-icon"/>
+            <button onSubmit={handleSubmit} className="label__main-button">
+              <img src={ok} alt="" className="label-icon"/>
+            </button>
           </div>
           <div className="label__list">
             {labels && labels.map(label => (
@@ -58,7 +61,7 @@ const Labels = () => {
           </div>
         </div>
         <div className="form__footer">
-          <button className="form__footer-btn">Готово</button>
+          <button className="form__footer-btn" onClick={onActiveClick}>Готово</button>
         </div>
       </form>
     </Modal>

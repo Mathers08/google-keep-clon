@@ -4,7 +4,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState: NavbarState = {
   selectedId: 1,
   isNavbarHidden: false,
-  labels: []
+  labels: [],
+  isLabelBlockVisible: true,
 };
 
 export const slice = createSlice({
@@ -17,6 +18,9 @@ export const slice = createSlice({
     deleteLabel: (state, action: PayloadAction<number>) => {
       state.labels = state.labels.filter(l => l.id !== action.payload);
     },
+    setIsLabelBlockVisible: (state, action: PayloadAction<boolean>) => {
+      state.isLabelBlockVisible = action.payload;
+    },
     setSelectedId: (state, action: PayloadAction<number>) => {
       state.selectedId = action.payload;
     },
@@ -26,5 +30,11 @@ export const slice = createSlice({
   }
 });
 
-export const { addLabel, deleteLabel, setSelectedId, setIsNavbarHidden } = slice.actions;
+export const {
+  addLabel,
+  deleteLabel,
+  setIsLabelBlockVisible,
+  setSelectedId,
+  setIsNavbarHidden
+} = slice.actions;
 export default slice.reducer;

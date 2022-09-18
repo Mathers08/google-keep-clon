@@ -7,7 +7,7 @@ import { Highlighted } from "../../../utils";
 import {
   archive,
   copy,
-  delete_from_trash,
+  delete_from_trash, labelOutline,
   note_trash,
   palette,
   Pin,
@@ -103,6 +103,7 @@ const NoteItem: FC<NoteItemProps> = ({
           <img src={palette} alt="" onClick={onColorBlockClick}/>
           <img src={note_trash} alt="" onClick={onDeleteClick}/>
           <img src={copy} alt="" onClick={onCopyClick}/>
+          <img src={labelOutline} alt="" />
         </div>
       </div>}
       {isColorBlockVisible && <Pickers id={id}/>}

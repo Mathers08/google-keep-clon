@@ -6,5 +6,6 @@ export interface ILabel {
 export interface NavbarState {
   selectedId: number;
   isNavbarHidden: boolean;
-  labels: ILabel[]
+  labels: ILabel[];
+  isLabelBlockVisible: boolean;
 }

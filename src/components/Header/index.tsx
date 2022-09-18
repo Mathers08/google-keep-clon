@@ -73,7 +73,7 @@ const Header: FC = () => {
   }, [location]);
 
   return (
-    <header className={`header ${totalLength && 'selected-notes-header'}`}>
+    <header className={`header ${totalLength ? 'selected-notes-header' : ''}`}>
       {totalLength
         ? <>
           <div className="header__left">
