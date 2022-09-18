@@ -52,7 +52,8 @@ const NoteForm: FC = () => {
       isDeleted: false,
       isArchived: false,
       isColorBlockVisible: false,
-      isLabelPopupVisible: false
+      isLabelPopupVisible: false,
+      labels: []
     };
     if (headerText && noteText) {
       dispatch(addNote(newNote));

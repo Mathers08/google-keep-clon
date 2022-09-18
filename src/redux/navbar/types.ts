@@ -1,11 +1,12 @@
 export interface ILabel {
-  id: number;
+  id: string;
   title: string;
+  isLabelChecked: boolean;
 }
 
 export interface NavbarState {
-  selectedId: number;
+  selectedId: string;
   isNavbarHidden: boolean;
-  labels: ILabel[];
   isLabelBlockVisible: boolean;
+  labels: ILabel[]
 }

@@ -2,11 +2,12 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Modal from "../components/Modal";
 import './Labels.scss';
 import { close, edit, labelDelete, labelSolid, ok } from "../assets";
-import { ILabel } from "../redux/navbar/types";
 import { useAppDispatch } from "../hooks";
 import { addLabel, deleteLabel, setIsLabelBlockVisible } from "../redux/navbar/slice";
 import { useSelector } from "react-redux";
 import { selectNavbar } from "../redux/navbar/selectors";
+import { v4 as uuidv4 } from 'uuid';
+import { ILabel } from "../redux/navbar/types";
 
 const Labels = () => {
   const [value, setValue] = useState('');
@@ -19,8 +20,9 @@ const Labels = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault();
     const newLabel: ILabel = {
-      id: Math.random(),
-      title: value
+      id: uuidv4(),
+      title: value,
+      isLabelChecked: false
     };
     if (value) {
       dispatch(addLabel(newLabel));
@@ -49,7 +51,7 @@ const Labels = () => {
             </button>
           </div>
           <div className="label__list">
-            {labels && labels.map(label => (
+            {labels && labels.map((label) => (
               <div key={label.id} className="label__list-item">
                 <img src={labelSolid} alt="" className="label-icon solid-icon"/>
                 <img src={labelDelete} alt="" className="label-icon delete-icon"

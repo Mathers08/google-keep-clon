@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { INote, NotesState } from "./types";
 import { ColorsEnum, ImagesEnum } from "../form/types";
 import { v4 as uuidv4 } from 'uuid';

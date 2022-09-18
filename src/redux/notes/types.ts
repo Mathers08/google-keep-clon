@@ -1,3 +1,5 @@
+import { ILabel } from "../navbar/types";
+
 export interface INote {
   id: string;
   header: string;
@@ -10,6 +12,7 @@ export interface INote {
   isArchived: boolean;
   isColorBlockVisible: boolean;
   isLabelPopupVisible: boolean;
+  labels?: ILabel[]
 }
 
 export interface NotesState {

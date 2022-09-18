@@ -24,13 +24,15 @@ import {
   deleteFromTrash,
   deleteNote,
   restoreFromTrash,
-  selectNote, setIsLabelPopupVisible,
+  selectNote,
+  setIsLabelPopupVisible,
   toggleNoteColorBlock,
   togglePinned,
 } from "../../../redux/notes/slice";
 import Pickers from "../../Pickers";
 import { useLocation } from "react-router-dom";
 import { LabelPopup } from "../../Popups";
+import { selectNavbar } from "../../../redux/navbar/selectors";
 
 type NoteItemProps = INote & {
   isNoteListRow: boolean;
@@ -67,7 +69,9 @@ const NoteItem: FC<NoteItemProps> = ({
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { searchValue } = useSelector(selectHeader);
+  const { labels } = useSelector(selectNavbar);
 
+  const checkedLabels = labels.filter(l => l.isLabelChecked);
   const onPinClick = () => dispatch(togglePinned(id));
   const onColorBlockClick = () => dispatch(toggleNoteColorBlock(id));
   const onLabelPopupClick = () => dispatch(setIsLabelPopupVisible(id));
@@ -86,6 +90,11 @@ const NoteItem: FC<NoteItemProps> = ({
       <p className="item-text">
         <Highlighted text={note} highlight={searchValue}/>
       </p>
+      <div className="labels__block">
+        {checkedLabels.map(label => (
+          <div key={label.id} className="labels__block-item">{label.title}</div>
+        ))}
+      </div>
       {location.pathname === '/trash' ? <div className="note__item-tools" style={customStyles.tools}>
         <div className="tools__icons-select">
           <img src={select} alt="" onClick={onSelectClick}/>
