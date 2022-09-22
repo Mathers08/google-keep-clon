@@ -8,5 +8,4 @@ export interface NavbarState {
   selectedId: string;
   isNavbarHidden: boolean;
   isLabelBlockVisible: boolean;
-  labels: ILabel[]
 }

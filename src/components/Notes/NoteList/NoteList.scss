@@ -63,12 +63,16 @@
 
     .labels__block {
       margin-bottom: 50px;
+      position: relative;
+      z-index: 1;
       &-item {
         margin: 10px 15px 0 0;
         background-color: inherit;
         border: 1px solid grey;
         border-radius: 20px;
         font-size: 12px;
+        cursor: pointer;
+        color: $white;
         display: inline-block;
         padding: 5px 20px;
       }

@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 import { selectNavbar } from "../../redux/navbar/selectors";
 import { setIsLabelBlockVisible, setSelectedId } from "../../redux/navbar/slice";
 import { useAppDispatch } from "../../hooks";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import { selectNotes } from "../../redux/notes/selectors";
 
 const Navbar = () => {
   const items = [
@@ -24,8 +25,9 @@ const Navbar = () => {
     },
   ];
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const { selectedId, isNavbarHidden, isLabelBlockVisible } = useSelector(selectNavbar);
-  const { labels } = useSelector(selectNavbar);
+  const { labels } = useSelector(selectNotes);
 
   const onItemClick = (id: string) => dispatch(setSelectedId(id));
   const onLabelClick = () => dispatch(setIsLabelBlockVisible(!isLabelBlockVisible));
@@ -53,7 +55,7 @@ const Navbar = () => {
         </div>
         {items.map((item) => (
           <Link to={item.link} key={item.name} onClick={() => onItemClick(item.id)}
-                className={`nav__list-item ${item.id === selectedId ? 'active' : ''}`}
+                className={`nav__list-item ${item.link === location.pathname ? 'active' : ''}`}
           >
             <img src={item.imgUrl} alt=""/>
             <span className="item-text">{item.name}</span>

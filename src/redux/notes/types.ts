@@ -12,9 +12,10 @@ export interface INote {
   isArchived: boolean;
   isColorBlockVisible: boolean;
   isLabelPopupVisible: boolean;
-  labels?: ILabel[]
+  noteLabels: ILabel[]
 }
 
 export interface NotesState {
   notes: INote[];
+  labels: ILabel[]
 }
