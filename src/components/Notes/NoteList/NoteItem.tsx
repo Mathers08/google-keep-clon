@@ -32,7 +32,6 @@ import {
 import Pickers from "../../Pickers";
 import { Link, useLocation } from "react-router-dom";
 import { LabelPopup } from "../../Popups";
-import { selectNotes } from "../../../redux/notes/selectors";
 
 type NoteItemProps = INote & {
   isNoteListRow: boolean;
@@ -119,7 +118,7 @@ const NoteItem: FC<NoteItemProps> = ({
           <img src={labelOutline} alt="" onClick={onLabelPopupClick}/>
         </div>
       </div>}
-      {isColorBlockVisible && <Pickers id={id}/>}
+      {isColorBlockVisible && <Pickers id={id} position={{ top: '90%', left: '-20%' }}/>}
       {isLabelPopupVisible && <LabelPopup id={id} noteLabels={noteLabels}/>}
     </div>
   );

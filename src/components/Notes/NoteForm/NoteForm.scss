@@ -7,6 +7,8 @@
   border: $primaryBorder;
 
   &-label {
+    border-radius: inherit;
+
     .title-input {
       display: flex;
       align-items: center;

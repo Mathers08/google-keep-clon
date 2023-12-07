@@ -36,14 +36,17 @@ const Navbar = () => {
     <nav className="nav">
       <div className={`nav__list ${isNavbarHidden ? 'hide_nav' : ''}`}>
         <Link to="/" onClick={() => onItemClick('1')}
-              className={`nav__list-item ${selectedId === '1' ? 'active' : ''}`}
+              className={`nav__list-item ${selectedId === '1' && location.pathname === `/` ? 'active' : ''}`}
         >
           <img src={notifications} alt=""/>
           <span className="item-text">Заметки</span>
         </Link>
         {labels && labels.map(label => (
           <Link to={`/label/${label.title}`} key={label.id} onClick={() => onItemClick(label.id)}
-                className={`nav__list-item ${label.id === selectedId ? 'active' : ''}`}
+                className={
+                  `nav__list-item 
+                  ${label.id === selectedId || location.pathname === `/label/${label.title}` ? 'active' : ''}`
+                }
           >
             <img src={labelOutline} alt=""/>
             <span className="item-text">{label.title}</span>

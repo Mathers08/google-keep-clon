@@ -1,10 +1,8 @@
-import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INote, NotesState } from "./types";
 import { ColorsEnum, ImagesEnum } from "../form/types";
 import { v4 as uuidv4 } from 'uuid';
 import { ILabel } from "../navbar/types";
-import { notesB } from "../../assets";
-import labels from "../../pages/Labels";
 
 const initialState: NotesState = {
   notes: [],
@@ -34,10 +32,20 @@ export const slice = createSlice({
         }
       }
     },
-    toggleNoteColorBlock: (state, action: PayloadAction<string>) => {
-      const note = state.notes.find(n => n.id === action.payload);
-      if (note) {
-        note.isColorBlockVisible = !note.isColorBlockVisible;
+    toggleNoteColorBlock: (state, action: PayloadAction<string | INote[]>) => {
+      if (typeof action.payload === 'string') {
+        const note = state.notes.find(n => n.id === action.payload);
+        if (note) {
+          note.isColorBlockVisible = !note.isColorBlockVisible;
+        }
+      } else {
+        const selectedNotes = action.payload;
+        for (let i = 0; i < selectedNotes.length; i++) {
+          const note = state.notes.find(n => n.id === selectedNotes[i].id);
+          if (note) {
+            note.isColorBlockVisible = !note.isColorBlockVisible;
+          }
+        }
       }
     },
     setIsLabelPopupVisible: (state, action: PayloadAction<string>) => {
@@ -47,10 +55,20 @@ export const slice = createSlice({
       }
     },
     setNoteColor: (state, action: PayloadAction<{ id: string, color: ColorsEnum }>) => {
-      const note = state.notes.find(n => n.id === action.payload.id);
-      if (note) {
-        note.color = action.payload.color;
-      }
+      if (typeof action.payload === 'object') {
+        const note = state.notes.find(n => n.id === action.payload.id);
+        if (note) {
+          note.color = action.payload.color;
+        }
+      } /*else {
+        const selectedNotes = action.payload;
+        for (let i = 0; i < selectedNotes.length; i++) {
+          const note = state.notes.find(n => n.id === selectedNotes[i].id);
+          if (note) {
+            note.color = action.payload.color;
+          }
+        }
+      }*/
     },
     setNoteImage: (state, action: PayloadAction<{ id: string, image: ImagesEnum }>) => {
       const note = state.notes.find(n => n.id === action.payload.id);

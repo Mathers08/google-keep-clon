@@ -33,15 +33,20 @@ import {
   deleteNote,
   restoreFromTrash,
   selectNote,
+  toggleNoteColorBlock,
   togglePinned
 } from "../../redux/notes/slice";
 import { useLocation } from "react-router-dom";
 import { ServicesPopup, SettingsPopup } from "../Popups";
+import Pickers from "../Pickers";
+import { selectForm } from "../../redux/form/selectors";
+import { setIsColorBlockVisible } from "../../redux/form/slice";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { notes } = useSelector(selectNotes);
+  const { isColorBlockVisible } = useSelector(selectForm);
   const { isSettingsPopupVisible, isServicesPopupVisible, isNoteListRow } = useSelector(selectHeader);
   const { isNavbarHidden } = useSelector(selectNavbar);
 
@@ -56,6 +61,7 @@ const Header: FC = () => {
   const onArchiveClick = () => dispatch(archiveNote(selectedNotes));
   const onDeleteClick = () => dispatch(deleteNote(selectedNotes));
   const onCopyClick = () => dispatch(copyNote(selectedNotes));
+  const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
   const onTrashRestoreClick = () => dispatch(restoreFromTrash(selectedNotes));
   const onTrashDeleteClick = () => dispatch(deleteFromTrash(selectedNotes));
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
@@ -75,9 +81,7 @@ const Header: FC = () => {
             <div className="header__left-close">
               <img src={close} alt="close" onClick={onCancelClick}/>
             </div>
-            <p className="header__left-text">
-              {selectedNotesCountInfo}
-            </p>
+            <p className="header__left-text">{selectedNotesCountInfo}</p>
           </div>
           <div className="header__right">
             {location.pathname === '/trash' ? <div className="header__right-icons selected-notes-icons">
@@ -86,9 +90,10 @@ const Header: FC = () => {
             </div> : <div className="header__right-icons selected-notes-icons">
               <img src={pin} alt="" onClick={onPinClick}/>
               <img src={location.pathname === '/archive' ? unzip : archive} alt="" onClick={onArchiveClick}/>
-              <img src={palette} alt=""/>
+              <img src={palette} alt="" onClick={onColorBlockClick}/>
               <img src={note_trash} alt="" onClick={onDeleteClick}/>
               <img src={copy} alt="" onClick={onCopyClick}/>
+              {isColorBlockVisible && <Pickers id={''} position={{ top: '7%', left: '60%' }}/>}
             </div>}
           </div>
         </>

@@ -10,15 +10,22 @@ import { selectForm } from "../../redux/form/selectors";
 import { INote } from "../../redux/notes/types";
 import { toggleNoteColorBlock } from "../../redux/notes/slice";
 
-type PickersProps = Pick<INote, 'id'>;
+interface IPosition {
+  top: string,
+  left: string
+}
 
-const Pickers: FC<PickersProps> = ({ id }) => {
+type PickersProps = Pick<INote, 'id'> & {
+  position: IPosition
+};
+
+const Pickers: FC<PickersProps> = ({ id, position }) => {
   const dispatch = useAppDispatch();
   const pickersRef = useRef(null);
   const { isColorBlockVisible } = useSelector(selectForm);
   const customStyles = {
-    top: isColorBlockVisible ? '155px' : '170px',
-    left: isColorBlockVisible ? '70px' : '-95px',
+    top: position.top,
+    left: position.left
   };
 
   const handleClickOutside = () => {

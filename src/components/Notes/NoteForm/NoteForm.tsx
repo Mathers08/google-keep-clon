@@ -120,7 +120,7 @@ const NoteForm: FC = () => {
           </div>
           <button className="note__form-btn" onClick={onCloseClick}>Сбросить</button>
         </div>}
-      {isColorBlockVisible && isTextareaVisible && <Pickers id={''}/>}
+      {isColorBlockVisible && isTextareaVisible && <Pickers id={''} position={{ top: '90%', left: '10%' }}/>}
     </form>
   );
 };
