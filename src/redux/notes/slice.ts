@@ -182,6 +182,10 @@ export const slice = createSlice({
     },
     deleteLabel: (state, action: PayloadAction<string>) => {
       state.labels = state.labels.filter(l => l.id !== action.payload);
+      state.notes = state.notes.map(n => {
+        n.noteLabels = n.noteLabels.filter(l => l.id !== action.payload);
+        return n;
+      })
     },
     setIsChecked: (state, action: PayloadAction<{ noteId: string, labelId: string }>) => {
       const note = state.notes.find(n => n.id === action.payload.noteId);

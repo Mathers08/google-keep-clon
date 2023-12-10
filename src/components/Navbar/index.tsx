@@ -38,7 +38,7 @@ const Navbar = () => {
         <Link to="/" onClick={() => onItemClick('1')}
               className={`nav__list-item ${selectedId === '1' && location.pathname === `/` ? 'active' : ''}`}
         >
-          <img src={notifications} alt=""/>
+          <img src={notifications} alt="" />
           <span className="item-text">Заметки</span>
         </Link>
         {labels && labels.map(label => (
@@ -48,19 +48,19 @@ const Navbar = () => {
                   ${label.id === selectedId || location.pathname === `/label/${label.title}` ? 'active' : ''}`
                 }
           >
-            <img src={labelOutline} alt=""/>
+            <img src={labelOutline} alt="" />
             <span className="item-text">{label.title}</span>
           </Link>
         ))}
         <div onClick={onLabelClick} className="nav__list-item">
-          <img src={pen} alt=""/>
+          <img src={pen} alt="" />
           <span className="item-text">Изменение ярлыков</span>
         </div>
         {items.map((item) => (
           <Link to={item.link} key={item.name} onClick={() => onItemClick(item.id)}
                 className={`nav__list-item ${item.link === location.pathname ? 'active' : ''}`}
           >
-            <img src={item.imgUrl} alt=""/>
+            <img src={item.imgUrl} alt="" />
             <span className="item-text">{item.name}</span>
           </Link>
         ))}

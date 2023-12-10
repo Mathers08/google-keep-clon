@@ -87,14 +87,9 @@ const NoteForm: FC = () => {
             placeholder={isTextareaVisible ? "Введите заголовок" : "Заметка..."}
             className="note-input"
           />
-          {isTextareaVisible ?
+          {isTextareaVisible &&
             <div className="note-icons">
               <Pin isPined={isNotePined} onPinClick={onPinClick}/>
-            </div> :
-            <div className="note-icons">
-              <img src={checked} alt=""/>
-              <img src={pencil} alt=""/>
-              <img src={image} alt=""/>
             </div>
           }
         </div>

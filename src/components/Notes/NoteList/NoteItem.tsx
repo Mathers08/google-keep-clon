@@ -45,6 +45,7 @@ const NoteItem: FC<NoteItemProps> = ({
                                        image,
                                        isPinned,
                                        isArchived,
+                                       isDeleted,
                                        isSelected,
                                        isColorBlockVisible,
                                        isLabelPopupVisible,
@@ -83,43 +84,43 @@ const NoteItem: FC<NoteItemProps> = ({
   return (
     <div className="note__list-item" style={customStyles.item}>
       <h3 className="item-header">
-        <Highlighted text={header} highlight={searchValue}/>
+        <Highlighted text={header} highlight={searchValue} />
       </h3>
       <p className="item-text">
-        <Highlighted text={note} highlight={searchValue}/>
+        <Highlighted text={note} highlight={searchValue} />
       </p>
       <div className="labels__block">
-        {noteLabels && noteLabels.map(label => (
+        {!location.pathname.startsWith('/label') && noteLabels && noteLabels.map(label => (
           <Link to={`/label/${label.title}`} key={label.id} className="labels__block-item">
             {label.title}
           </Link>
         ))}
       </div>
-      {location.pathname === '/trash' ? <div className="note__item-tools" style={customStyles.tools}>
+      {isDeleted ? <div className="note__item-tools" style={customStyles.tools}>
         <div className="tools__icons-select">
-          <img src={select} alt="" onClick={onSelectClick}/>
+          <img src={select} alt="" onClick={onSelectClick} />
         </div>
         <div className="tools__icons-less">
-          <img src={delete_from_trash} alt="" onClick={onTrashDeleteClick}/>
-          <img src={restore_from_trash} alt="" onClick={onTrashRestoreClick}/>
+          <img src={delete_from_trash} alt="" onClick={onTrashDeleteClick} />
+          <img src={restore_from_trash} alt="" onClick={onTrashRestoreClick} />
         </div>
       </div> : <div className="note__item-tools" style={customStyles.tools}>
         <div className="tools__icons-select">
-          <img src={select} alt="" onClick={onSelectClick}/>
+          <img src={select} alt="" onClick={onSelectClick} />
         </div>
         <div className="tools__icons-pin">
-          <Pin isPined={isPinned} onPinClick={onPinClick}/>
+          <Pin isPined={isPinned} onPinClick={onPinClick} />
         </div>
         <div className="tools__icons-less">
-          <img src={isArchived ? unzip : archive} alt="" onClick={onArchiveClick}/>
-          <img src={palette} alt="" onClick={onColorBlockClick}/>
-          <img src={note_trash} alt="" onClick={onDeleteClick}/>
-          <img src={copy} alt="" onClick={onCopyClick}/>
-          <img src={labelOutline} alt="" onClick={onLabelPopupClick}/>
+          <img src={isArchived ? unzip : archive} alt="" onClick={onArchiveClick} />
+          <img src={palette} alt="" onClick={onColorBlockClick} />
+          <img src={note_trash} alt="" onClick={onDeleteClick} />
+          <img src={copy} alt="" onClick={onCopyClick} />
+          <img src={labelOutline} alt="" onClick={onLabelPopupClick} />
         </div>
       </div>}
-      {isColorBlockVisible && <Pickers id={id} position={{ top: '90%', left: '-20%' }}/>}
-      {isLabelPopupVisible && <LabelPopup id={id} noteLabels={noteLabels}/>}
+      {isColorBlockVisible && <Pickers id={id} position={{ top: '90%', left: '-20%' }} />}
+      {isLabelPopupVisible && <LabelPopup id={id} noteLabels={noteLabels} />}
     </div>
   );
 };

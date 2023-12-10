@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectHeader } from "../../../redux/header/selectors";
 import { declination } from "../../../utils";
 import { selectNotes } from "../../../redux/notes/selectors";
+import { notifications } from "../../../assets";
 
 const NoteList: FC = () => {
   const { notes } = useSelector(selectNotes);
@@ -49,18 +50,25 @@ const NoteList: FC = () => {
 
   return (
     <div className="note__block">
-      {searchValue && foundNotesCountInfo}
-      {pinnedNoteItems.length > 0 &&
+      {totalLength > 0 ? <>
+        {searchValue && foundNotesCountInfo}
+        {pinnedNoteItems.length > 0 &&
+          <div className={`${isNoteListRow ? 'note__columnBlock-item' : 'note__block-item'}`}>
+            <div className="note__block-title">Закрепленные</div>
+            <div className="note__list">{pinnedNoteItems}</div>
+          </div>}
         <div className={`${isNoteListRow ? 'note__columnBlock-item' : 'note__block-item'}`}>
-          <div className="note__block-title">Закрепленные</div>
-          <div className="note__list">{pinnedNoteItems}</div>
-        </div>}
-      <div className={`${isNoteListRow ? 'note__columnBlock-item' : 'note__block-item'}`}>
-        {pinnedNoteItems.length > 0 && unpinnedNoteItems.length > 0 &&
-          <div className="note__block-title">Другие заметки</div>
-        }
-        <div className="note__list">{unpinnedNoteItems}</div>
-      </div>
+          {pinnedNoteItems.length > 0 && unpinnedNoteItems.length > 0 &&
+            <div className="note__block-title">Другие заметки</div>
+          }
+          <div className="note__list">{unpinnedNoteItems}</div>
+        </div>
+      </> : <div className='note__block-item'>
+        <div className="emptyList">
+          <img className="emptyList-img" src={notifications} alt="" />
+          <h2 className="emptyList-text">Добавьте свою первую заметку!</h2>
+        </div>
+      </div>}
     </div>
   );
 };
