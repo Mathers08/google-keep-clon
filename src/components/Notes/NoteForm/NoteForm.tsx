@@ -31,16 +31,7 @@ const NoteForm: FC = () => {
   } = useSelector(selectForm);
   const { noteText, setNoteText, docStateIndex, docStateLastIndex, undoText, redoText } = useUndoableState(textarea);
 
-  const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setHeaderText(e.target.value));
-  const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
-  const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
-  const onInputClick = () => dispatch(setIsTextareaVisible(true));
-  const onCloseClick = () => {
-    setNoteText('');
-    dispatch(resetForm());
-  };
-
-  const handleClickOutside = () => {
+  const handleFormSubmit = (archivedClick: boolean) => {
     const newNote: INote = {
       id: uuidv4(),
       header: headerText,
@@ -50,7 +41,7 @@ const NoteForm: FC = () => {
       isPinned: isNotePined,
       isSelected: false,
       isDeleted: false,
-      isArchived: false,
+      isArchived: archivedClick,
       isColorBlockVisible: false,
       isLabelPopupVisible: false,
       noteLabels: []
@@ -64,7 +55,18 @@ const NoteForm: FC = () => {
     dispatch(setIsTextareaVisible(false));
   };
 
-  useOnClickOutside(formRef, handleClickOutside);
+  const onHeaderTextChange = (e: ChangeEvent<HTMLInputElement>) => dispatch(setHeaderText(e.target.value));
+  const onPinClick = () => dispatch(setIsNotePined(!isNotePined));
+  const onArchivedClick = () => handleFormSubmit(true);
+  const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
+  const onInputClick = () => dispatch(setIsTextareaVisible(true));
+  const onCloseClick = () => {
+    setNoteText('');
+    dispatch(resetForm());
+  };
+
+
+  useOnClickOutside(formRef, () => handleFormSubmit(false));
 
   const customStyles = {
     background: `url(${formImage}) right bottom / cover`,
@@ -108,7 +110,7 @@ const NoteForm: FC = () => {
       {isTextareaVisible &&
         <div className="note__form-tools">
           <div className="tools-icons">
-            <img src={archive} alt=""/>
+            <img onClick={onArchivedClick} src={archive} alt=""/>
             <ArrowLeft undoText={undoText} canUndo={docStateIndex > 0}/>
             <ArrowRight redoText={redoText} canRedo={docStateIndex < docStateLastIndex}/>
             <img onClick={onColorBlockClick} src={palette} alt=""/>

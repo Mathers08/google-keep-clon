@@ -31,7 +31,6 @@ const LabelPopup: FC<LabelPopupProps> = ({ id, noteLabels}) => {
               type="checkbox"
               checked={obj.id === (noteLabels.find(l => l.id === obj.id)?.id)}
               className="list__item-checkbox"
-              onChange={() => {}}
             />
             <span className="list__item-checkmark"/>
           </label>
