@@ -61,7 +61,6 @@ const Header: FC = () => {
   const onArchiveClick = () => dispatch(archiveNote(selectedNotes));
   const onDeleteClick = () => dispatch(deleteNote(selectedNotes));
   const onCopyClick = () => dispatch(copyNote(selectedNotes));
-  const onColorBlockClick = () => dispatch(setIsColorBlockVisible(!isColorBlockVisible));
   const onTrashRestoreClick = () => dispatch(restoreFromTrash(selectedNotes));
   const onTrashDeleteClick = () => dispatch(deleteFromTrash(selectedNotes));
   const onBurgerClick = () => dispatch(setIsNavbarHidden(!isNavbarHidden));
@@ -90,7 +89,6 @@ const Header: FC = () => {
             </div> : <div className="header__right-icons selected-notes-icons">
               <img src={pin} alt="" onClick={onPinClick}/>
               <img src={location.pathname === '/archive' ? unzip : archive} alt="" onClick={onArchiveClick}/>
-              <img src={palette} alt="" onClick={onColorBlockClick}/>
               <img src={note_trash} alt="" onClick={onDeleteClick}/>
               <img src={copy} alt="" onClick={onCopyClick}/>
               {isColorBlockVisible && <Pickers id={''} position={{ top: '7%', left: '60%' }}/>}
