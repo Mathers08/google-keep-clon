@@ -18,6 +18,10 @@ body {
   height: 100vh;
 }
 
+body:has(.modal.active) {
+  overflow: hidden;
+}
+
 html, .label {
   scroll-behavior: smooth;
   scroll-padding-top: 8rem;
